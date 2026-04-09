@@ -199,7 +199,7 @@ export default function Home() {
           </header>
 
           <section className="grid gap-8 py-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10 lg:py-10">
-            <div className="space-y-6">
+            <div className="min-w-0 space-y-6">
               <div className="space-y-4">
                 <h1 className="max-w-2xl text-[30px] font-bold leading-[36px] tracking-[-0.02em] text-[var(--text)] sm:text-[32px] sm:leading-[38px]">
                   {dealerProfile.heroTitle}
@@ -209,14 +209,14 @@ export default function Home() {
                 </p>
               </div>
 
-              <ul className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <ul className="grid min-w-0 grid-cols-1 gap-3 md:grid-cols-2">
                 {trustPoints.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-3 rounded-[16px] border border-[var(--border)] bg-white p-3"
+                    className="flex min-w-0 items-center gap-3 rounded-[16px] border border-[var(--border)] bg-white px-4 py-4"
                   >
                     <CheckIcon />
-                    <span className="text-[14px] font-semibold leading-5 text-[var(--text)]">
+                    <span className="min-w-0 text-[14px] font-semibold leading-5 text-[var(--text)]">
                       {item}
                     </span>
                   </li>
