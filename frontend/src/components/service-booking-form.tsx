@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import type { FormEvent } from "react";
-import { useMemo, useState } from "react";
+import type { ChangeEvent, FormEvent, KeyboardEvent } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import {
   contactWindowOptions,
@@ -28,8 +28,11 @@ type FieldErrors = {
 
 type SubmitState = "idle" | "submitting" | "success" | "integration-missing" | "error";
 
+const PHONE_PREFIX = "+7";
+const LOCAL_PHONE_LENGTH = 10;
+
 const initialValues: FormValues = {
-  phone: "+7",
+  phone: "",
   serviceType: "",
   contactWindow: "",
   vehicle: "",
@@ -37,52 +40,105 @@ const initialValues: FormValues = {
 };
 
 const normalizePhone = (value: string) => {
+  if (value.length === 0) {
+    return "";
+  }
+
+  return `7${value}`;
+};
+
+const extractPhoneDigits = (value: string) => {
   const digits = value.replace(/\D/g, "");
 
   if (digits.length === 0) {
     return "";
   }
 
-  if (digits.startsWith("8")) {
-    return `7${digits.slice(1, 11)}`;
+  if (value.trim().startsWith(PHONE_PREFIX)) {
+    return digits.slice(1, LOCAL_PHONE_LENGTH + 1);
   }
 
-  if (digits.startsWith("7")) {
-    return digits.slice(0, 11);
+  if (
+    digits.length > LOCAL_PHONE_LENGTH &&
+    (digits.startsWith("7") || digits.startsWith("8"))
+  ) {
+    return digits.slice(1, LOCAL_PHONE_LENGTH + 1);
   }
 
-  return `7${digits.slice(0, 10)}`;
+  return digits.slice(0, LOCAL_PHONE_LENGTH);
 };
 
 const formatPhone = (value: string) => {
-  const normalized = normalizePhone(value);
-  const localDigits = normalized.startsWith("7")
-    ? normalized.slice(1, 11)
-    : normalized.slice(0, 10);
-
-  let formatted = "+7";
-
-  if (localDigits.length > 0) {
-    formatted += ` (${localDigits.slice(0, 3)}`;
+  if (value.length === 0) {
+    return "";
   }
 
-  if (localDigits.length >= 3) {
-    formatted += ")";
+  if (value.length <= 3) {
+    return `${PHONE_PREFIX} (${value}`;
   }
 
-  if (localDigits.length > 3) {
-    formatted += ` ${localDigits.slice(3, 6)}`;
+  if (value.length <= 6) {
+    return `${PHONE_PREFIX} (${value.slice(0, 3)}) ${value.slice(3)}`;
   }
 
-  if (localDigits.length > 6) {
-    formatted += `-${localDigits.slice(6, 8)}`;
+  if (value.length <= 8) {
+    return `${PHONE_PREFIX} (${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
   }
 
-  if (localDigits.length > 8) {
-    formatted += `-${localDigits.slice(8, 10)}`;
+  return `${PHONE_PREFIX} (${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(
+    6,
+    8,
+  )}-${value.slice(8, 10)}`;
+};
+
+const getPhoneDigitIndex = (value: string, caretPosition: number) => {
+  const digitsBeforeCaret = value.slice(0, caretPosition).replace(/\D/g, "");
+
+  if (digitsBeforeCaret.length === 0) {
+    return 0;
   }
 
-  return formatted;
+  const prefixOffset = value.trim().startsWith(PHONE_PREFIX) ? 1 : 0;
+
+  return Math.max(
+    0,
+    Math.min(LOCAL_PHONE_LENGTH, digitsBeforeCaret.length - prefixOffset),
+  );
+};
+
+const getCaretPosition = (value: string, digitIndex: number) => {
+  if (value.length === 0) {
+    return 0;
+  }
+
+  if (digitIndex <= 0) {
+    return value.startsWith(PHONE_PREFIX) ? PHONE_PREFIX.length : 0;
+  }
+
+  const hasPrefix = value.startsWith(PHONE_PREFIX);
+  let localDigitsSeen = 0;
+  let prefixSkipped = !hasPrefix;
+
+  for (let index = 0; index < value.length; index += 1) {
+    const char = value[index];
+
+    if (!/\d/.test(char)) {
+      continue;
+    }
+
+    if (!prefixSkipped) {
+      prefixSkipped = true;
+      continue;
+    }
+
+    localDigitsSeen += 1;
+
+    if (localDigitsSeen === digitIndex) {
+      return index + 1;
+    }
+  }
+
+  return value.length;
 };
 
 const validate = (values: FormValues): FieldErrors => {
@@ -113,8 +169,11 @@ export function ServiceBookingForm() {
     contactWindow: false,
   });
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const pendingPhoneCaretRef = useRef<number | null>(null);
 
   const errors = useMemo(() => validate(values), [values]);
+  const phoneValue = useMemo(() => formatPhone(values.phone), [values.phone]);
 
   const phoneError = (touched.phone || submitAttempted) ? errors.phone : undefined;
   const serviceError =
@@ -122,12 +181,95 @@ export function ServiceBookingForm() {
   const contactWindowError =
     (touched.contactWindow || submitAttempted) ? errors.contactWindow : undefined;
 
-  const handlePhoneChange = (value: string) => {
+  useLayoutEffect(() => {
+    if (pendingPhoneCaretRef.current === null || !phoneInputRef.current) {
+      return;
+    }
+
+    phoneInputRef.current.setSelectionRange(
+      pendingPhoneCaretRef.current,
+      pendingPhoneCaretRef.current,
+    );
+    pendingPhoneCaretRef.current = null;
+  }, [phoneValue]);
+
+  const applyPhoneDigits = (nextValue: string, nextDigitIndex?: number) => {
+    const nextDigits = extractPhoneDigits(nextValue);
+
+    if (typeof nextDigitIndex === "number") {
+      pendingPhoneCaretRef.current = getCaretPosition(
+        formatPhone(nextDigits),
+        Math.min(nextDigitIndex, nextDigits.length),
+      );
+    }
+
     setValues((current) => ({
       ...current,
-      phone: formatPhone(value),
+      phone: nextDigits,
     }));
     setSubmitState("idle");
+  };
+
+  const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, selectionStart } = event.target;
+    const nextDigits = extractPhoneDigits(value);
+    const nextDigitIndex = Math.min(
+      getPhoneDigitIndex(value, selectionStart ?? value.length),
+      nextDigits.length,
+    );
+
+    applyPhoneDigits(nextDigits, nextDigitIndex);
+  };
+
+  const handlePhoneKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== "Backspace" && event.key !== "Delete") {
+      return;
+    }
+
+    const { selectionStart, selectionEnd, value } = event.currentTarget;
+    const start = selectionStart ?? value.length;
+    const end = selectionEnd ?? value.length;
+    const startDigitIndex = getPhoneDigitIndex(value, start);
+    const endDigitIndex = getPhoneDigitIndex(value, end);
+
+    if (start !== end) {
+      event.preventDefault();
+
+      if (startDigitIndex === endDigitIndex) {
+        return;
+      }
+
+      applyPhoneDigits(
+        `${values.phone.slice(0, startDigitIndex)}${values.phone.slice(endDigitIndex)}`,
+        startDigitIndex,
+      );
+      return;
+    }
+
+    if (event.key === "Backspace") {
+      event.preventDefault();
+
+      if (startDigitIndex === 0) {
+        return;
+      }
+
+      applyPhoneDigits(
+        `${values.phone.slice(0, startDigitIndex - 1)}${values.phone.slice(startDigitIndex)}`,
+        startDigitIndex - 1,
+      );
+      return;
+    }
+
+    event.preventDefault();
+
+    if (startDigitIndex >= values.phone.length) {
+      return;
+    }
+
+    applyPhoneDigits(
+      `${values.phone.slice(0, startDigitIndex)}${values.phone.slice(startDigitIndex + 1)}`,
+      startDigitIndex,
+    );
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -200,13 +342,15 @@ export function ServiceBookingForm() {
             Телефон *
           </label>
           <input
+            ref={phoneInputRef}
             id="phone"
             name="phone"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            value={values.phone}
-            onChange={(event) => handlePhoneChange(event.target.value)}
+            value={phoneValue}
+            onChange={handlePhoneChange}
+            onKeyDown={handlePhoneKeyDown}
             onBlur={() =>
               setTouched((current) => ({
                 ...current,
