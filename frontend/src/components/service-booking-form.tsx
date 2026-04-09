@@ -1,0 +1,435 @@
+"use client";
+
+import Link from "next/link";
+import type { FormEvent } from "react";
+import { useMemo, useState } from "react";
+
+import {
+  contactWindowOptions,
+  dealerProfile,
+  serviceOptions,
+  type ContactWindow,
+  type ServiceKind,
+} from "@/app/site-content";
+
+type FormValues = {
+  phone: string;
+  serviceType: ServiceKind | "";
+  contactWindow: ContactWindow | "";
+  vehicle: string;
+  comment: string;
+};
+
+type FieldErrors = {
+  phone?: string;
+  serviceType?: string;
+  contactWindow?: string;
+};
+
+type SubmitState = "idle" | "submitting" | "success" | "integration-missing" | "error";
+
+const initialValues: FormValues = {
+  phone: "+7",
+  serviceType: "",
+  contactWindow: "",
+  vehicle: "",
+  comment: "",
+};
+
+const normalizePhone = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+
+  if (digits.length === 0) {
+    return "";
+  }
+
+  if (digits.startsWith("8")) {
+    return `7${digits.slice(1, 11)}`;
+  }
+
+  if (digits.startsWith("7")) {
+    return digits.slice(0, 11);
+  }
+
+  return `7${digits.slice(0, 10)}`;
+};
+
+const formatPhone = (value: string) => {
+  const normalized = normalizePhone(value);
+  const localDigits = normalized.startsWith("7")
+    ? normalized.slice(1, 11)
+    : normalized.slice(0, 10);
+
+  let formatted = "+7";
+
+  if (localDigits.length > 0) {
+    formatted += ` (${localDigits.slice(0, 3)}`;
+  }
+
+  if (localDigits.length >= 3) {
+    formatted += ")";
+  }
+
+  if (localDigits.length > 3) {
+    formatted += ` ${localDigits.slice(3, 6)}`;
+  }
+
+  if (localDigits.length > 6) {
+    formatted += `-${localDigits.slice(6, 8)}`;
+  }
+
+  if (localDigits.length > 8) {
+    formatted += `-${localDigits.slice(8, 10)}`;
+  }
+
+  return formatted;
+};
+
+const validate = (values: FormValues): FieldErrors => {
+  const errors: FieldErrors = {};
+
+  if (normalizePhone(values.phone).length !== 11) {
+    errors.phone = "Введите номер целиком — мы перезвоним для подтверждения.";
+  }
+
+  if (!values.serviceType) {
+    errors.serviceType = "Выберите услугу, чтобы мы подготовили запись.";
+  }
+
+  if (!values.contactWindow) {
+    errors.contactWindow = "Подскажите, когда вам удобно принять звонок.";
+  }
+
+  return errors;
+};
+
+export function ServiceBookingForm() {
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [expanded, setExpanded] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [touched, setTouched] = useState({
+    phone: false,
+    serviceType: false,
+    contactWindow: false,
+  });
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+
+  const errors = useMemo(() => validate(values), [values]);
+
+  const phoneError = (touched.phone || submitAttempted) ? errors.phone : undefined;
+  const serviceError =
+    (touched.serviceType || submitAttempted) ? errors.serviceType : undefined;
+  const contactWindowError =
+    (touched.contactWindow || submitAttempted) ? errors.contactWindow : undefined;
+
+  const handlePhoneChange = (value: string) => {
+    setValues((current) => ({
+      ...current,
+      phone: formatPhone(value),
+    }));
+    setSubmitState("idle");
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitAttempted(true);
+    setTouched({
+      phone: true,
+      serviceType: true,
+      contactWindow: true,
+    });
+    setSubmitState("idle");
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    if (!dealerProfile.formEndpoint) {
+      setSubmitState("integration-missing");
+      return;
+    }
+
+    setSubmitState("submitting");
+
+    try {
+      const response = await fetch(dealerProfile.formEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: normalizePhone(values.phone),
+          serviceType: values.serviceType,
+          contactWindow: values.contactWindow,
+          vehicle: values.vehicle.trim(),
+          comment: values.comment.trim(),
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      setSubmitState("success");
+    } catch {
+      setSubmitState("error");
+    }
+  };
+
+  return (
+    <div
+      id="service-form"
+      className="scroll-mt-6 rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 shadow-[0_18px_40px_rgba(11,15,20,0.08)] sm:p-6"
+    >
+      <div className="mb-5 space-y-2">
+        <h2 className="text-[20px] font-semibold leading-[28px] text-[var(--text)]">
+          Оставьте заявку
+        </h2>
+        <p className="text-[14px] leading-5 text-[var(--text-2)]">
+          Уточним детали по телефону и подтвердим удобное время обслуживания.
+        </p>
+      </div>
+
+      <form className="space-y-4" noValidate onSubmit={handleSubmit}>
+        <div className="space-y-2">
+          <label
+            className="block text-[14px] font-semibold leading-5 text-[var(--text)]"
+            htmlFor="phone"
+          >
+            Телефон *
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            value={values.phone}
+            onChange={(event) => handlePhoneChange(event.target.value)}
+            onBlur={() =>
+              setTouched((current) => ({
+                ...current,
+                phone: true,
+              }))
+            }
+            placeholder="+7 (900) 123-45-67"
+            aria-invalid={Boolean(phoneError)}
+            aria-describedby={phoneError ? "phone-error" : undefined}
+            className="min-h-14 w-full rounded-[12px] border border-[var(--border)] bg-white px-4 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)]"
+          />
+          {phoneError ? (
+            <p
+              id="phone-error"
+              className="text-[13px] font-medium leading-5 text-[var(--danger)]"
+            >
+              {phoneError}
+            </p>
+          ) : null}
+        </div>
+
+        <fieldset className="space-y-2">
+          <legend className="text-[14px] font-semibold leading-5 text-[var(--text)]">
+            Тип услуги *
+          </legend>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {serviceOptions.map((option) => {
+              const isChecked = values.serviceType === option.value;
+
+              return (
+                <label
+                  key={option.value}
+                  className={`flex min-h-12 cursor-pointer items-center justify-center rounded-[10px] border px-3 text-center text-[14px] font-semibold leading-5 transition ${
+                    isChecked
+                      ? "border-[var(--primary)] bg-white text-[var(--primary)] ring-4 ring-[rgba(10,91,211,0.12)]"
+                      : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)]"
+                  }`}
+                >
+                  <input
+                    className="sr-only"
+                    type="radio"
+                    name="serviceType"
+                    value={option.value}
+                    checked={isChecked}
+                    onChange={() => {
+                      setValues((current) => ({
+                        ...current,
+                        serviceType: option.value,
+                      }));
+                      setTouched((current) => ({
+                        ...current,
+                        serviceType: true,
+                      }));
+                      setSubmitState("idle");
+                    }}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              );
+            })}
+          </div>
+          {serviceError ? (
+            <p className="text-[13px] font-medium leading-5 text-[var(--danger)]">
+              {serviceError}
+            </p>
+          ) : null}
+        </fieldset>
+
+        <fieldset className="space-y-2">
+          <legend className="text-[14px] font-semibold leading-5 text-[var(--text)]">
+            Когда связаться *
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {contactWindowOptions.map((option) => {
+              const isChecked = values.contactWindow === option.value;
+
+              return (
+                <label
+                  key={option.value}
+                  className={`flex min-h-12 cursor-pointer items-center rounded-full border px-4 text-[14px] font-semibold leading-5 transition ${
+                    isChecked
+                      ? "border-[var(--primary)] bg-white text-[var(--primary)] ring-4 ring-[rgba(10,91,211,0.12)]"
+                      : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)]"
+                  }`}
+                >
+                  <input
+                    className="sr-only"
+                    type="radio"
+                    name="contactWindow"
+                    value={option.value}
+                    checked={isChecked}
+                    onChange={() => {
+                      setValues((current) => ({
+                        ...current,
+                        contactWindow: option.value,
+                      }));
+                      setTouched((current) => ({
+                        ...current,
+                        contactWindow: true,
+                      }));
+                      setSubmitState("idle");
+                    }}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              );
+            })}
+          </div>
+          {contactWindowError ? (
+            <p className="text-[13px] font-medium leading-5 text-[var(--danger)]">
+              {contactWindowError}
+            </p>
+          ) : null}
+        </fieldset>
+
+        <div className="space-y-3 border-t border-[var(--border)] pt-4">
+          <button
+            type="button"
+            onClick={() => setExpanded((current) => !current)}
+            aria-expanded={expanded}
+            aria-controls="booking-extra-fields"
+            className="inline-flex min-h-11 items-center text-[14px] font-semibold leading-5 text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
+          >
+            {expanded ? "Скрыть детали" : "Добавить детали"}
+          </button>
+
+          {expanded ? (
+            <div id="booking-extra-fields" className="space-y-4">
+              <div className="space-y-2">
+                <label
+                  className="block text-[14px] font-semibold leading-5 text-[var(--text)]"
+                  htmlFor="vehicle"
+                >
+                  Модель, VIN или госномер
+                </label>
+                <input
+                  id="vehicle"
+                  name="vehicle"
+                  type="text"
+                  value={values.vehicle}
+                  onChange={(event) => {
+                    setValues((current) => ({
+                      ...current,
+                      vehicle: event.target.value,
+                    }));
+                    setSubmitState("idle");
+                  }}
+                  placeholder="Например: LADA Vesta"
+                  className="min-h-14 w-full rounded-[12px] border border-[var(--border)] bg-white px-4 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  className="block text-[14px] font-semibold leading-5 text-[var(--text)]"
+                  htmlFor="comment"
+                >
+                  Комментарий
+                </label>
+                <textarea
+                  id="comment"
+                  name="comment"
+                  rows={4}
+                  value={values.comment}
+                  onChange={(event) => {
+                    setValues((current) => ({
+                      ...current,
+                      comment: event.target.value,
+                    }));
+                    setSubmitState("idle");
+                  }}
+                  placeholder="Коротко опишите задачу или симптом"
+                  className="w-full rounded-[12px] border border-[var(--border)] bg-white px-4 py-3 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)]"
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="space-y-3 pt-2">
+          <button
+            type="submit"
+            disabled={submitState === "submitting"}
+            className="inline-flex min-h-14 w-full items-center justify-center rounded-[12px] bg-[var(--primary)] px-5 text-base font-semibold text-white transition hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {submitState === "submitting" ? "Отправляем..." : "Записаться на сервис"}
+          </button>
+          <p className="text-center text-[13px] font-medium leading-5 text-[var(--text-2)]">
+            Подтвердим запись по телефону. Без спама.
+          </p>
+          <p className="text-[13px] leading-5 text-[var(--text-2)]">
+            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
+            <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
+              по политике ПД
+            </Link>
+            .
+          </p>
+        </div>
+
+        <div aria-live="polite" className="pt-1">
+          {submitState === "success" ? (
+            <p className="rounded-[12px] border border-[rgba(17,122,55,0.18)] bg-[rgba(17,122,55,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
+              Спасибо. Заявка отправлена, мы свяжемся с вами для подтверждения записи.
+            </p>
+          ) : null}
+
+          {submitState === "integration-missing" ? (
+            <p className="rounded-[12px] border border-[rgba(180,83,9,0.18)] bg-[rgba(180,83,9,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--warning)]">
+              Форма готова, но отправка пока не подключена. Добавьте endpoint в{" "}
+              <code className="rounded bg-white px-1 py-0.5 text-[13px]">
+                dealerProfile.formEndpoint
+              </code>
+              .
+            </p>
+          ) : null}
+
+          {submitState === "error" ? (
+            <p className="rounded-[12px] border border-[rgba(198,40,40,0.18)] bg-[rgba(198,40,40,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--danger)]">
+              Не удалось отправить заявку. Проверьте подключение формы и попробуйте ещё раз.
+            </p>
+          ) : null}
+        </div>
+      </form>
+    </div>
+  );
+}
