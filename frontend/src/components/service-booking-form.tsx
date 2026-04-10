@@ -301,19 +301,19 @@ export function ServiceBookingForm() {
   return (
     <div
       id="service-form"
-      className="scroll-mt-6 rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 shadow-[0_18px_40px_rgba(11,15,20,0.08)] sm:p-6"
+      className="scroll-mt-5 rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 shadow-[0_14px_30px_rgba(11,15,20,0.08)] sm:p-6"
     >
-      <div className="mb-5 space-y-2">
+      <div className="mb-4 space-y-1.5 sm:mb-5 sm:space-y-2">
         <h2 className="text-[20px] font-semibold leading-[28px] text-[var(--text)]">
           Заявка на сервис
         </h2>
-        <p className="text-[14px] leading-5 text-[var(--text-2)]">
+        <p className="text-[13px] leading-[19px] text-[var(--text-2)] sm:text-[14px] sm:leading-5">
           Оставьте телефон. Сотрудник сервиса свяжется с вами в рабочее время и согласует удобный визит.
         </p>
       </div>
 
-      <form className="space-y-4" noValidate onSubmit={handleSubmit}>
-        <div className="space-y-2">
+      <form className="space-y-3.5 sm:space-y-4" noValidate onSubmit={handleSubmit}>
+        <div className="space-y-1.5 sm:space-y-2">
           <label
             className="block text-[14px] font-semibold leading-5 text-[var(--text)]"
             htmlFor="phone"
@@ -339,19 +339,19 @@ export function ServiceBookingForm() {
             placeholder="+7 (900) 123-45-67"
             aria-invalid={Boolean(phoneError)}
             aria-describedby={phoneError ? "phone-error" : undefined}
-            className="min-h-14 w-full rounded-[12px] border border-[var(--border)] bg-white px-4 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)]"
+            className="min-h-[52px] w-full rounded-[12px] border border-[var(--border)] bg-white px-4 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)] sm:min-h-14"
           />
           {phoneError ? (
             <p
               id="phone-error"
-              className="text-[13px] font-medium leading-5 text-[var(--danger)]"
+              className="pt-0.5 text-[12px] font-medium leading-[18px] text-[var(--danger)] sm:text-[13px] sm:leading-5"
             >
               {phoneError}
             </p>
           ) : null}
         </div>
 
-        <fieldset className="space-y-2">
+        <fieldset className="space-y-1.5 sm:space-y-2">
           <legend className="text-[14px] font-semibold leading-5 text-[var(--text)]">
             Что нужно (необязательно)
           </legend>
@@ -371,7 +371,7 @@ export function ServiceBookingForm() {
                     }));
                     setSubmitState("idle");
                   }}
-                  className={`flex min-h-12 cursor-pointer items-center justify-center rounded-[10px] border px-3 text-center text-[14px] font-semibold leading-5 transition ${
+                  className={`flex min-h-[46px] cursor-pointer items-center justify-center rounded-[10px] border px-3 text-center text-[13px] font-semibold leading-5 transition sm:min-h-12 sm:text-[14px] ${
                     isChecked
                       ? "border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_10px_22px_rgba(10,91,211,0.18)]"
                       : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)]"
@@ -384,7 +384,7 @@ export function ServiceBookingForm() {
           </div>
         </fieldset>
 
-        <fieldset className="space-y-2">
+        <fieldset className="space-y-1.5 sm:space-y-2">
           <legend className="text-[14px] font-semibold leading-5 text-[var(--text)]">
             Когда удобно связаться (необязательно)
           </legend>
@@ -405,7 +405,7 @@ export function ServiceBookingForm() {
                     }));
                     setSubmitState("idle");
                   }}
-                  className={`flex min-h-12 cursor-pointer items-center rounded-full border px-4 text-[14px] font-semibold leading-5 transition ${
+                  className={`flex min-h-[46px] cursor-pointer items-center rounded-full border px-3.5 text-[13px] font-semibold leading-5 transition sm:min-h-12 sm:px-4 sm:text-[14px] ${
                     isChecked
                       ? "border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_10px_22px_rgba(10,91,211,0.18)]"
                       : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)]"
@@ -418,13 +418,13 @@ export function ServiceBookingForm() {
           </div>
         </fieldset>
 
-        <div className="space-y-3 border-t border-[var(--border)] pt-4">
+        <div className="space-y-2.5 border-t border-[var(--border)] pt-3 sm:space-y-3 sm:pt-4">
           <button
             type="button"
             onClick={() => setExpanded((current) => !current)}
             aria-expanded={expanded}
             aria-controls="booking-comment"
-            className={`flex min-h-12 w-full items-center justify-between rounded-[12px] border px-4 text-left text-[14px] font-semibold leading-5 transition ${
+            className={`flex min-h-[46px] w-full items-center justify-between rounded-[12px] border px-4 text-left text-[14px] font-semibold leading-5 transition sm:min-h-12 ${
               expanded
                 ? "border-[var(--primary)] bg-white text-[var(--primary)]"
                 : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)]"
@@ -440,8 +440,8 @@ export function ServiceBookingForm() {
           </button>
 
           {expanded ? (
-            <div id="booking-comment" className="space-y-3">
-              <div className="space-y-2">
+            <div id="booking-comment" className="space-y-2.5 sm:space-y-3">
+              <div className="space-y-1.5 sm:space-y-2">
                 <label
                   className="block text-[14px] font-semibold leading-5 text-[var(--text)]"
                   htmlFor="comment"
@@ -451,7 +451,7 @@ export function ServiceBookingForm() {
                 <textarea
                   id="comment"
                   name="comment"
-                  rows={4}
+                  rows={3}
                   value={values.comment}
                   onChange={(event) => {
                     setValues((current) => ({
@@ -464,29 +464,29 @@ export function ServiceBookingForm() {
                   className="w-full rounded-[12px] border border-[var(--border)] bg-white px-4 py-3 text-base leading-6 text-[var(--text)] outline-none transition focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(10,91,211,0.12)]"
                 />
               </div>
-              <p className="text-[13px] leading-5 text-[var(--text-2)]">
+              <p className="text-[12px] leading-[18px] text-[var(--text-2)] sm:text-[13px] sm:leading-5">
                 Можно без точного описания неисправности.
               </p>
             </div>
           ) : (
-            <p className="text-[13px] leading-5 text-[var(--text-2)]">
+            <p className="text-[12px] leading-[18px] text-[var(--text-2)] sm:text-[13px] sm:leading-5">
               Можно без точного описания неисправности.
             </p>
           )}
         </div>
 
-        <div className="space-y-3 pt-2">
+        <div className="space-y-2.5 pt-1.5 sm:space-y-3 sm:pt-2">
           <button
             type="submit"
             disabled={submitState === "submitting"}
-            className="inline-flex min-h-14 w-full items-center justify-center rounded-[12px] bg-[var(--primary)] px-5 text-base font-semibold text-white transition hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[var(--primary)] px-5 text-base font-semibold text-white transition hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
           >
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
           </button>
-          <p className="text-center text-[13px] font-medium leading-5 text-[var(--text-2)]">
+          <p className="text-center text-[12px] font-medium leading-[18px] text-[var(--text-2)] sm:text-[13px] sm:leading-5">
             Свяжемся в рабочее время и согласуем удобный визит.
           </p>
-          <p className="text-[13px] leading-5 text-[var(--text-2)]">
+          <p className="text-[12px] leading-[18px] text-[var(--text-2)] sm:text-[13px] sm:leading-5">
             Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
             <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
               по политике ПД
@@ -495,7 +495,7 @@ export function ServiceBookingForm() {
           </p>
         </div>
 
-        <div aria-live="polite" className="pt-1">
+        <div aria-live="polite" className="pt-0.5 sm:pt-1">
           {submitState === "success" ? (
             <p className="rounded-[12px] border border-[rgba(17,122,55,0.18)] bg-[rgba(17,122,55,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
               Спасибо. Заявка отправлена, мы свяжемся с вами для согласования визита.
