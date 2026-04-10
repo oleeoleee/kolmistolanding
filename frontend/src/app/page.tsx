@@ -155,10 +155,19 @@ function CompactClockIcon() {
 
 function CompactMapPinIcon() {
   return (
-    <CompactIconShell>
+    <svg
+      aria-hidden="true"
+      className="h-[18px] w-[18px]"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      viewBox="0 0 24 24"
+    >
       <path d="M12 20c3.3-4 5-7 5-9.5a5 5 0 1 0-10 0c0 2.5 1.7 5.5 5 9.5Z" />
       <circle cx="12" cy="10.5" r="1.8" />
-    </CompactIconShell>
+    </svg>
   );
 }
 
@@ -238,45 +247,6 @@ function HeaderQuickFact({
   );
 }
 
-function HeroProofItem({
-  icon,
-  label,
-  value,
-  href,
-  className,
-}: Readonly<{
-  icon: ReactNode;
-  label: string;
-  value: string;
-  href?: string;
-  className?: string;
-}>) {
-  const contentClassName =
-    href !== undefined
-      ? "mt-1 inline-flex text-[15px] font-semibold leading-6 text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
-      : "mt-1 text-[15px] font-semibold leading-6 text-[var(--text)]";
-
-  return (
-    <li
-      className={`flex min-w-0 items-start gap-3 rounded-[16px] border border-[var(--border)] bg-white px-4 py-3 ${className ?? ""}`}
-    >
-      {icon}
-      <div className="min-w-0">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)]">
-          {label}
-        </p>
-        {href ? (
-          <a className={contentClassName} href={href}>
-            {value}
-          </a>
-        ) : (
-          <p className={contentClassName}>{value}</p>
-        )}
-      </div>
-    </li>
-  );
-}
-
 export default function Home() {
   const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
 
@@ -336,11 +306,11 @@ export default function Home() {
             </div>
           </header>
 
-          <section className="mt-4 rounded-[24px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(320px,0.98fr)] lg:items-start lg:gap-8">
-              <div className="min-w-0 space-y-5">
-                <div className="space-y-3">
-                  <p className="inline-flex min-h-8 items-center rounded-full border border-[rgba(10,91,211,0.16)] bg-white px-3 text-[13px] font-semibold leading-5 text-[var(--primary)]">
+          <section className="mt-4 rounded-[24px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6">
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.02fr)_minmax(320px,0.98fr)] lg:items-start lg:gap-8">
+              <div className="min-w-0 space-y-3">
+                <div className="space-y-2">
+                  <p className="inline-flex min-h-7 items-center rounded-full border border-[rgba(10,91,211,0.16)] bg-white px-3 text-[13px] font-semibold leading-5 text-[var(--primary)]">
                     Сервисный прием официального дилера
                   </p>
                   <h1 className="max-w-2xl text-[30px] font-bold leading-[36px] tracking-[-0.02em] text-[var(--text)] sm:text-[32px] sm:leading-[38px]">
@@ -351,25 +321,15 @@ export default function Home() {
                   </p>
                 </div>
 
-                <ul className="grid min-w-0 gap-3 sm:grid-cols-2">
-                  <HeroProofItem
-                    icon={<CompactPhoneIcon />}
-                    label="Телефон"
-                    value={dealerProfile.phoneDisplay}
-                    href={dealerProfile.phoneHref}
-                  />
-                  <HeroProofItem
-                    icon={<CompactClockIcon />}
-                    label="Часы работы"
-                    value={primaryWorkHours}
-                  />
-                  <HeroProofItem
-                    className="sm:col-span-2"
-                    icon={<CompactMapPinIcon />}
-                    label={dealerProfile.city}
-                    value={dealerProfile.address}
-                  />
-                </ul>
+                <div className="flex max-w-xl min-w-0 items-start gap-2.5 text-[var(--text-2)]">
+                  <span className="mt-0.5 shrink-0 text-[var(--primary)]">
+                    <CompactMapPinIcon />
+                  </span>
+                  <p className="min-w-0 text-[14px] leading-5">
+                    <span className="font-semibold text-[var(--text)]">{dealerProfile.city}.</span>{" "}
+                    {dealerProfile.address}
+                  </p>
+                </div>
               </div>
 
               <div className="min-w-0">
@@ -380,7 +340,7 @@ export default function Home() {
 
           <section className={sectionClassName}>
             <SectionHeading
-              title="Почему нам доверяют обслуживание"
+              title="Почему выбирают сервис КОЛМИ"
               description="Один компактный блок о том, что важно перед записью в официальный сервис."
             />
             <div className="grid gap-3 md:grid-cols-2">
