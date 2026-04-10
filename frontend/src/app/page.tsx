@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -6,8 +7,6 @@ import {
   advantages,
   dealerProfile,
   processSteps,
-  serviceCards,
-  trustPoints,
 } from "@/app/site-content";
 import { ServiceBookingForm } from "@/components/service-booking-form";
 
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
   description: dealerProfile.heroDescription,
 };
 
-const sectionClassName = "border-t border-[var(--border)] py-8 sm:py-10";
+const sectionClassName = "border-t border-[var(--border)] py-7 sm:py-8";
 
 function IconShell({
   children,
@@ -45,14 +44,6 @@ function PhoneIcon() {
   return (
     <IconShell>
       <path d="M4.5 6.8c0-1 .8-1.8 1.8-1.8h2.4l1.3 3.7-1.9 1.9a15.8 15.8 0 0 0 5.3 5.3l1.9-1.9 3.7 1.3v2.4c0 1-.8 1.8-1.8 1.8h-.7C10.4 19.5 4.5 13.6 4.5 6.8Z" />
-    </IconShell>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <IconShell>
-      <path d="m5 12 4.2 4.2L19 6.5" />
     </IconShell>
   );
 }
@@ -122,21 +113,52 @@ function ClockIcon() {
   );
 }
 
-function ArrowUpRightIcon() {
+function CompactIconShell({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
-    <svg
-      aria-hidden="true"
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M7 17 17 7" />
-      <path d="M9 7h8v8" />
-    </svg>
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[var(--border)] bg-white text-[var(--primary)]">
+      <svg
+        aria-hidden="true"
+        className="h-[18px] w-[18px]"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+      >
+        {children}
+      </svg>
+    </span>
+  );
+}
+
+function CompactPhoneIcon() {
+  return (
+    <CompactIconShell>
+      <path d="M4.5 6.8c0-1 .8-1.8 1.8-1.8h2.4l1.3 3.7-1.9 1.9a15.8 15.8 0 0 0 5.3 5.3l1.9-1.9 3.7 1.3v2.4c0 1-.8 1.8-1.8 1.8h-.7C10.4 19.5 4.5 13.6 4.5 6.8Z" />
+    </CompactIconShell>
+  );
+}
+
+function CompactClockIcon() {
+  return (
+    <CompactIconShell>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5v5l3.3 2" />
+    </CompactIconShell>
+  );
+}
+
+function CompactMapPinIcon() {
+  return (
+    <CompactIconShell>
+      <path d="M12 20c3.3-4 5-7 5-9.5a5 5 0 1 0-10 0c0 2.5 1.7 5.5 5 9.5Z" />
+      <circle cx="12" cy="10.5" r="1.8" />
+    </CompactIconShell>
   );
 }
 
@@ -163,12 +185,19 @@ function SectionHeading({
 
 function CallButton({
   className,
+  tone = "default",
 }: Readonly<{
   className?: string;
+  tone?: "default" | "primary";
 }>) {
+  const toneClassName =
+    tone === "primary"
+      ? "border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_12px_24px_rgba(10,91,211,0.16)] hover:bg-[var(--primary-pressed)] hover:border-[var(--primary-pressed)] hover:text-white"
+      : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)]";
+
   return (
     <a
-      className={`inline-flex min-h-12 items-center justify-center rounded-[12px] border border-[var(--border)] bg-white px-4 text-[14px] font-semibold text-[var(--text)] transition hover:border-[var(--primary)] hover:text-[var(--primary)] ${className ?? ""}`}
+      className={`inline-flex min-h-12 items-center justify-center rounded-[12px] border px-4 text-[14px] font-semibold transition ${toneClassName} ${className ?? ""}`}
       href={dealerProfile.phoneHref}
     >
       Позвонить
@@ -176,94 +205,185 @@ function CallButton({
   );
 }
 
+function HeaderQuickFact({
+  icon,
+  label,
+  value,
+  href,
+}: Readonly<{
+  icon: ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+}>) {
+  const contentClassName =
+    "mt-0.5 block text-[14px] font-semibold leading-5 text-[var(--text)]";
+
+  return (
+    <div className="flex min-w-0 items-center gap-3 rounded-[14px] border border-[var(--border)] bg-white px-4 py-3">
+      {icon}
+      <div className="min-w-0">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)]">
+          {label}
+        </p>
+        {href ? (
+          <a className={contentClassName} href={href}>
+            {value}
+          </a>
+        ) : (
+          <p className={contentClassName}>{value}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function HeroProofItem({
+  icon,
+  label,
+  value,
+  href,
+  className,
+}: Readonly<{
+  icon: ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+  className?: string;
+}>) {
+  const contentClassName =
+    href !== undefined
+      ? "mt-1 inline-flex text-[15px] font-semibold leading-6 text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
+      : "mt-1 text-[15px] font-semibold leading-6 text-[var(--text)]";
+
+  return (
+    <li
+      className={`flex min-w-0 items-start gap-3 rounded-[16px] border border-[var(--border)] bg-white px-4 py-3 ${className ?? ""}`}
+    >
+      {icon}
+      <div className="min-w-0">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)]">
+          {label}
+        </p>
+        {href ? (
+          <a className={contentClassName} href={href}>
+            {value}
+          </a>
+        ) : (
+          <p className={contentClassName}>{value}</p>
+        )}
+      </div>
+    </li>
+  );
+}
+
 export default function Home() {
+  const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
+
   return (
     <>
       <main className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
         <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pb-28 pt-4 sm:px-6 lg:px-8 lg:pb-12">
-          <header className="flex items-center justify-between gap-4 py-2 sm:py-4">
-            <div className="flex min-w-0 items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] border border-[var(--border)] bg-[var(--bg-soft)] text-[11px] font-bold tracking-[0.18em] text-[var(--text)]">
-                LADA
+          <header className="rounded-[20px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-4 sm:px-5 sm:py-5">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="min-w-0 space-y-3">
+                <div className="inline-flex max-w-full items-center gap-3 rounded-[16px] border border-[var(--border)] bg-white px-3 py-3 sm:gap-4 sm:px-4">
+                  <Image
+                    src="/images/logos/lada-logo.png"
+                    alt="LADA"
+                    width={2100}
+                    height={893}
+                    priority
+                    className="h-7 w-auto shrink-0 object-contain sm:h-8"
+                  />
+                  <span className="h-8 w-px shrink-0 bg-[var(--border)]" />
+                  <Image
+                    src="/images/logos/kolmi-logo.png"
+                    alt="КОЛМИ"
+                    width={690}
+                    height={475}
+                    priority
+                    className="h-10 w-auto shrink-0 object-contain sm:h-11"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)]">
+                    {dealerProfile.serviceStatus}
+                  </p>
+                  <p className="mt-1 text-[18px] font-semibold leading-6 text-[var(--text)]">
+                    {dealerProfile.dealerName}, {dealerProfile.city}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-5 text-[var(--text-2)]">
+                    {dealerProfile.serviceCenterLabel}
+                  </p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <p className="truncate text-[14px] font-semibold leading-5 text-[var(--text)]">
-                  {dealerProfile.brandLine}
-                </p>
-                <p className="truncate text-[13px] leading-5 text-[var(--text-2)]">
-                  {dealerProfile.dealerName}
-                </p>
+
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
+                <HeaderQuickFact
+                  icon={<CompactPhoneIcon />}
+                  label="Телефон"
+                  value={dealerProfile.phoneDisplay}
+                  href={dealerProfile.phoneHref}
+                />
+                <HeaderQuickFact
+                  icon={<CompactClockIcon />}
+                  label="Часы работы"
+                  value={primaryWorkHours}
+                />
+                <CallButton className="w-full lg:w-auto" tone="primary" />
               </div>
             </div>
-            <CallButton className="shrink-0" />
           </header>
 
-          <section className="grid gap-8 py-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-10 lg:py-10">
-            <div className="min-w-0 space-y-6">
-              <div className="space-y-4">
-                <h1 className="max-w-2xl text-[30px] font-bold leading-[36px] tracking-[-0.02em] text-[var(--text)] sm:text-[32px] sm:leading-[38px]">
-                  {dealerProfile.heroTitle}
-                </h1>
-                <p className="max-w-2xl text-base leading-6 text-[var(--text-2)]">
-                  {dealerProfile.heroDescription}
-                </p>
+          <section className="mt-4 rounded-[24px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(320px,0.98fr)] lg:items-start lg:gap-8">
+              <div className="min-w-0 space-y-5">
+                <div className="space-y-3">
+                  <p className="inline-flex min-h-8 items-center rounded-full border border-[rgba(10,91,211,0.16)] bg-white px-3 text-[13px] font-semibold leading-5 text-[var(--primary)]">
+                    Сервисный прием официального дилера
+                  </p>
+                  <h1 className="max-w-2xl text-[30px] font-bold leading-[36px] tracking-[-0.02em] text-[var(--text)] sm:text-[32px] sm:leading-[38px]">
+                    {dealerProfile.heroTitle}
+                  </h1>
+                  <p className="max-w-2xl text-base leading-6 text-[var(--text-2)]">
+                    {dealerProfile.heroDescription}
+                  </p>
+                </div>
+
+                <ul className="grid min-w-0 gap-3 sm:grid-cols-2">
+                  <HeroProofItem
+                    icon={<CompactPhoneIcon />}
+                    label="Телефон"
+                    value={dealerProfile.phoneDisplay}
+                    href={dealerProfile.phoneHref}
+                  />
+                  <HeroProofItem
+                    icon={<CompactClockIcon />}
+                    label="Часы работы"
+                    value={primaryWorkHours}
+                  />
+                  <HeroProofItem
+                    className="sm:col-span-2"
+                    icon={<CompactMapPinIcon />}
+                    label={dealerProfile.city}
+                    value={dealerProfile.address}
+                  />
+                </ul>
               </div>
 
-              <ul className="grid min-w-0 grid-cols-1 gap-3 md:grid-cols-2">
-                {trustPoints.map((item) => (
-                  <li
-                    key={item}
-                    className="flex min-w-0 items-center gap-3 rounded-[16px] border border-[var(--border)] bg-white px-4 py-4"
-                  >
-                    <CheckIcon />
-                    <span className="min-w-0 text-[14px] font-semibold leading-5 text-[var(--text)]">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <ServiceBookingForm />
-          </section>
-
-          <section className={sectionClassName}>
-            <SectionHeading
-              title="Что делаем"
-              description="Короткий набор услуг без перегруза: вы выбираете направление, мы подтверждаем запись и готовим приёмку."
-            />
-            <div className="grid gap-4 md:grid-cols-3">
-              {serviceCards.map((service) => (
-                <article
-                  key={service.title}
-                  className="flex flex-col gap-4 rounded-[16px] border border-[var(--border)] bg-white p-5"
-                >
-                  <div className="space-y-2">
-                    <h3 className="text-[18px] font-semibold leading-6 text-[var(--text)]">
-                      {service.title}
-                    </h3>
-                    <p className="text-[15px] leading-6 text-[var(--text-2)]">
-                      {service.description}
-                    </p>
-                  </div>
-                  <a
-                    className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
-                    href="#service-form"
-                  >
-                    Записаться
-                    <ArrowUpRightIcon />
-                  </a>
-                </article>
-              ))}
+              <div className="min-w-0">
+                <ServiceBookingForm />
+              </div>
             </div>
           </section>
 
           <section className={sectionClassName}>
             <SectionHeading
-              title="Почему у нас"
-              description="Строгий сервисный сценарий без обещаний, которые нельзя подтвердить."
+              title="Почему нам доверяют обслуживание"
+              description="Один компактный блок о том, что важно перед записью в официальный сервис."
             />
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-3 md:grid-cols-2">
               {advantages.map((item, index) => {
                 const Icon =
                   index === 0
@@ -277,14 +397,14 @@ export default function Home() {
                 return (
                   <article
                     key={item.title}
-                    className="flex gap-4 rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-5"
+                    className="flex gap-3 rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-4"
                   >
                     <Icon />
-                    <div className="space-y-2">
-                      <h3 className="text-[17px] font-semibold leading-6 text-[var(--text)]">
+                    <div className="space-y-1">
+                      <h3 className="text-[16px] font-semibold leading-5 text-[var(--text)]">
                         {item.title}
                       </h3>
-                      <p className="text-[15px] leading-6 text-[var(--text-2)]">
+                      <p className="text-[14px] leading-5 text-[var(--text-2)]">
                         {item.description}
                       </p>
                     </div>
@@ -295,24 +415,24 @@ export default function Home() {
           </section>
 
           <section className={sectionClassName}>
-            <div className="rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-5 sm:p-6">
+            <div className="rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 sm:p-5">
               <SectionHeading
                 title="Как проходит запись"
-                description="Показываем понятный процесс заранее, чтобы снять лишнюю тревогу и ожидания."
+                description="Короткий и понятный сценарий без лишних шагов."
               />
-              <ol className="grid gap-4 lg:grid-cols-3">
+              <ol className="grid gap-3 lg:grid-cols-3">
                 {processSteps.map((step, index) => (
                   <li
                     key={step.title}
-                    className="rounded-[16px] border border-[var(--border)] bg-white p-5"
+                    className="rounded-[16px] border border-[var(--border)] bg-white p-4"
                   >
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--text)] text-[15px] font-semibold text-white">
+                    <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-[var(--text)] text-[14px] font-semibold text-white">
                       {index + 1}
                     </div>
-                    <h3 className="text-[17px] font-semibold leading-6 text-[var(--text)]">
+                    <h3 className="text-[16px] font-semibold leading-5 text-[var(--text)]">
                       {step.title}
                     </h3>
-                    <p className="mt-2 text-[15px] leading-6 text-[var(--text-2)]">
+                    <p className="mt-2 text-[14px] leading-5 text-[var(--text-2)]">
                       {step.description}
                     </p>
                   </li>
