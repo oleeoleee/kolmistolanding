@@ -9,18 +9,18 @@ export const dealerProfile = {
   heroDescription:
     "ТО, ремонт и диагностика у официального дилера. Перезвоним и подтвердим удобное время в рабочие часы.",
   // TODO: replace with the actual dealership phone number before publishing.
-  phoneDisplay: "+7 (000) 000-00-00",
+  phoneDisplay: "+7 (4112) 40-08-88",
   // TODO: replace with the actual dealership phone number before publishing.
-  phoneHref: "tel:+70000000000",
+  phoneHref: "tel:+74112400888",
   // TODO: replace with the actual dealership address before publishing.
-  address: "TODO: укажите адрес дилерского центра",
+  address: "Покровское шоссе, 6 километр, 1а, с. Пригородный, г. Якутск",
   // TODO: replace with the actual work schedule before publishing.
-  workHours: ["TODO: укажите часы работы дилера"],
+  workHours: ["Пн–Пт 09:00–19:00, Сб–Вс 10:00–19:00"],
   // TODO: replace with the actual route link before publishing.
-  routeHref: "https://yandex.ru/maps/",
+  routeHref: "https://2gis.ru/yakutsk/firm/70000001018554877",
   policyHref: "/privacy",
   // TODO: connect a real form endpoint or CRM/n8n webhook before publishing.
-  formEndpoint: "",
+  formEndpoint: "https://bot.shukland.xyz/webhook/kolmi-service-booking",
   requisites: null as string | null,
 };
 
