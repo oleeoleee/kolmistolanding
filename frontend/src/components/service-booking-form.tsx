@@ -41,6 +41,8 @@ const fieldLabelClassName =
   "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:tracking-[0.14em]";
 const fieldMetaClassName =
   "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:px-1.5 max-[430px]:py-[3px] max-[430px]:text-[9px] max-[430px]:tracking-[0.08em]";
+const optionalMetaClassName =
+  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.06em]";
 const compactChipBaseClassName =
   "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-full border px-3 py-2 text-[12px] font-semibold leading-4 tracking-[-0.01em] transition max-[430px]:min-h-9 max-[430px]:px-2.5 max-[430px]:py-1.5 max-[430px]:text-[11px] sm:min-h-10 sm:px-3.5 sm:text-[13px]";
 const antiAnxietyCopy =
@@ -369,7 +371,7 @@ export function ServiceBookingForm() {
           <legend className="sr-only">Что нужно</legend>
           <div className={fieldHeaderClassName}>
             <p className={fieldLabelClassName}>Услуга</p>
-            <span className={fieldMetaClassName}>Необязательно</span>
+            <span className={optionalMetaClassName}>Необязательно</span>
           </div>
           <div className="flex flex-wrap gap-2 max-[430px]:gap-1.5">
             {serviceOptions.map((option) => {
@@ -404,7 +406,7 @@ export function ServiceBookingForm() {
           <legend className="sr-only">Когда удобно связаться</legend>
           <div className={fieldHeaderClassName}>
             <p className={fieldLabelClassName}>Когда удобно связаться</p>
-            <span className={fieldMetaClassName}>Необязательно</span>
+            <span className={optionalMetaClassName}>Необязательно</span>
           </div>
           <div className="flex flex-wrap gap-2 max-[430px]:gap-1.5">
             {contactWindowOptions.map((option) => {
@@ -442,15 +444,22 @@ export function ServiceBookingForm() {
             onClick={() => setExpanded((current) => !current)}
             aria-expanded={expanded}
             aria-controls="booking-comment"
-            className={`flex min-h-[44px] w-full items-center justify-between rounded-[10px] border px-4 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:px-3.5 max-[430px]:text-[12px] sm:min-h-[46px] sm:text-[14px] ${
+            className={`flex min-h-[44px] w-full items-center justify-between rounded-[10px] border px-4 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:min-h-[46px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-[46px] sm:text-[14px] ${
               expanded
                 ? "border-[var(--primary)] bg-[rgba(11,76,168,0.08)] text-[var(--primary)]"
                 : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)]"
             }`}
           >
-            <span className="flex min-w-0 items-center gap-2">
-              <span className="truncate">Комментарий к заявке</span>
-              <span className={fieldMetaClassName}>Необязательно</span>
+            <span className="flex min-w-0 flex-1 items-center gap-2">
+              <span className="min-w-0">
+                <span className="block truncate">Комментарий к заявке</span>
+                <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.04em] text-[rgba(107,116,130,0.92)] max-[430px]:block">
+                  Необязательно
+                </span>
+              </span>
+              <span className={`max-[430px]:hidden ${optionalMetaClassName}`}>
+                Необязательно
+              </span>
             </span>
             <span
               aria-hidden="true"
@@ -498,12 +507,17 @@ export function ServiceBookingForm() {
           >
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
           </button>
-          <div className="grid gap-1.5 border-b border-[var(--border)] pb-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] max-[430px]:gap-1 max-[430px]:pb-2.5 max-[430px]:text-[10px] max-[430px]:tracking-[0.1em] sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
-            <p>Запись предварительная</p>
-            <p>Подтверждаем визит</p>
-            <p>Свяжемся в рабочее время</p>
+          <div className="border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
+            <p className="text-[10px] leading-4 text-[var(--text-2)] max-[430px]:tracking-[0.02em] sm:hidden">
+              Запись предварительная • Подтверждаем визит • Свяжемся в рабочее время
+            </p>
+            <div className="hidden gap-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] sm:grid sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
+              <p>Запись предварительная</p>
+              <p>Подтверждаем визит</p>
+              <p>Свяжемся в рабочее время</p>
+            </div>
           </div>
-          <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
+          <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
             Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
             <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
               по политике ПД
