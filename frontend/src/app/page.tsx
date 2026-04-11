@@ -211,7 +211,7 @@ export default function Home() {
   const mobileWorkHours = "Пн–Пт 09:00–19:00";
   const shortAddress = "Покровское шоссе, 6 км";
   const mobileHeroDescription =
-    "ТО, диагностика и ремонт по стандартам LADA. Оставьте телефон — согласуем визит.";
+    "Официальный сервис LADA. Оставьте телефон — согласуем визит.";
 
   return (
     <>
@@ -517,16 +517,16 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.965)] px-4 py-2 shadow-[0_-10px_24px_rgba(15,23,42,0.04)] backdrop-blur-[10px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-6px_16px_rgba(15,23,42,0.035)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.94)] px-4 py-2 shadow-[0_-8px_20px_rgba(15,23,42,0.032)] backdrop-blur-[8px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-5px_12px_rgba(15,23,42,0.025)] md:hidden">
         <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
-            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
-            Записаться
+            К заявке
           </a>
           <a
-            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
             href={dealerProfile.phoneHref}
           >
             Позвонить

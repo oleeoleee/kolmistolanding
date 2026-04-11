@@ -36,17 +36,19 @@ const initialValues: FormValues = {
 };
 
 const fieldHeaderClassName =
-  "mb-2 flex items-center justify-between gap-3 max-[430px]:mb-1.5 max-[430px]:gap-2";
+  "mb-2 flex items-center justify-between gap-3 max-[430px]:mb-1.5 max-[430px]:items-end max-[430px]:gap-2";
 const fieldLabelClassName =
   "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:tracking-[0.14em]";
 const fieldMetaClassName =
-  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:px-1.5 max-[430px]:py-[3px] max-[430px]:text-[9px] max-[430px]:tracking-[0.08em]";
+  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.06em] max-[430px]:text-[rgba(82,92,104,0.9)]";
 const optionalMetaClassName =
-  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.06em]";
+  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.05em] max-[430px]:text-[rgba(107,116,130,0.82)]";
 const compactChipBaseClassName =
   "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-full border px-3 py-2 text-[12px] font-semibold leading-4 tracking-[-0.01em] transition max-[430px]:min-h-9 max-[430px]:px-2.5 max-[430px]:py-1.5 max-[430px]:text-[11px] sm:min-h-10 sm:px-3.5 sm:text-[13px]";
 const antiAnxietyCopy =
   "Если не уверены в причине обращения — опишите своими словами, мы уточним.";
+const mobileCtaMicrocopy =
+  "Достаточно телефона • Подтвердим запись в рабочее время";
 
 const normalizePhone = (value: string) => {
   if (value.length === 0) {
@@ -328,7 +330,11 @@ export function ServiceBookingForm() {
         </p>
       </div>
 
-      <form className="space-y-3 max-[430px]:space-y-2.5 sm:space-y-4" noValidate onSubmit={handleSubmit}>
+      <form
+        className="space-y-3 max-[430px]:space-y-2.5 max-[390px]:space-y-[9px] sm:space-y-4"
+        noValidate
+        onSubmit={handleSubmit}
+      >
         <div className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
           <div className={fieldHeaderClassName}>
             <label className={fieldLabelClassName} htmlFor="phone">
@@ -444,16 +450,16 @@ export function ServiceBookingForm() {
             onClick={() => setExpanded((current) => !current)}
             aria-expanded={expanded}
             aria-controls="booking-comment"
-            className={`flex min-h-[44px] w-full items-center justify-between rounded-[10px] border px-4 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:min-h-[46px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-[46px] sm:text-[14px] ${
+            className={`flex min-h-[44px] w-full items-center justify-between rounded-[10px] border px-4 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:min-h-[46px] max-[430px]:gap-2.5 max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-[46px] sm:text-[14px] ${
               expanded
                 ? "border-[var(--primary)] bg-[rgba(11,76,168,0.08)] text-[var(--primary)]"
                 : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)]"
             }`}
           >
-            <span className="flex min-w-0 flex-1 items-center gap-2">
+            <span className="flex min-w-0 flex-1 items-center gap-2 max-[430px]:items-start">
               <span className="min-w-0">
-                <span className="block truncate">Комментарий к заявке</span>
-                <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.04em] text-[rgba(107,116,130,0.92)] max-[430px]:block">
+                <span className="block truncate max-[430px]:leading-4">Комментарий к заявке</span>
+                <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(107,116,130,0.82)] max-[430px]:block">
                   Необязательно
                 </span>
               </span>
@@ -463,7 +469,7 @@ export function ServiceBookingForm() {
             </span>
             <span
               aria-hidden="true"
-              className={`text-[18px] leading-none transition ${expanded ? "rotate-45" : ""}`}
+              className={`shrink-0 text-[18px] leading-none transition max-[430px]:text-[16px] ${expanded ? "rotate-45" : ""}`}
             >
               +
             </span>
@@ -488,18 +494,18 @@ export function ServiceBookingForm() {
                   className="w-full rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)]"
                 />
               </div>
-              <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
+              <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
                 {antiAnxietyCopy}
               </p>
             </div>
           ) : (
-            <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
+            <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
               {antiAnxietyCopy}
             </p>
           )}
         </div>
 
-        <div className="space-y-2.5 pt-1 max-[430px]:space-y-2 max-[430px]:pt-0.5 sm:space-y-3 sm:pt-1.5">
+        <div className="space-y-2.5 pt-1 max-[430px]:space-y-1.5 max-[430px]:pt-0.5 sm:space-y-3 sm:pt-1.5">
           <button
             type="submit"
             disabled={submitState === "submitting"}
@@ -508,8 +514,8 @@ export function ServiceBookingForm() {
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
           </button>
           <div className="border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
-            <p className="text-[10px] leading-4 text-[var(--text-2)] max-[430px]:tracking-[0.02em] sm:hidden">
-              Запись предварительная • Подтверждаем визит • Свяжемся в рабочее время
+            <p className="text-[10px] leading-4 text-[var(--text-2)] max-[430px]:tracking-[0.01em] sm:hidden">
+              {mobileCtaMicrocopy}
             </p>
             <div className="hidden gap-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] sm:grid sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
               <p>Запись предварительная</p>
@@ -517,7 +523,7 @@ export function ServiceBookingForm() {
               <p>Свяжемся в рабочее время</p>
             </div>
           </div>
-          <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
+          <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
             Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
             <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
               по политике ПД
