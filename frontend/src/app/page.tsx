@@ -218,7 +218,7 @@ export default function Home() {
       <main className="min-h-screen bg-transparent text-[var(--text)]">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-3 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] max-[390px]:pt-2.5 sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
           <header className="border-b border-[var(--border-strong)] pb-2.5 sm:pb-5">
-            <div className="grid grid-cols-[minmax(0,1fr)_104px] items-center gap-x-2.5 gap-y-2 sm:hidden">
+            <div className="grid grid-cols-[minmax(0,1fr)_100px] items-center gap-x-2 gap-y-1.5 max-[360px]:grid-cols-[minmax(0,1fr)_96px] sm:hidden">
               <div
                 className={`inline-flex max-w-full items-center gap-2 px-2 py-1.5 ${surfaceSubtleClassName}`}
               >
@@ -242,22 +242,18 @@ export default function Home() {
               </div>
 
               <CallButton
-                className="min-h-[42px] px-3.5 text-[13px] font-semibold"
+                className="min-h-[42px] px-3 text-[13px] font-semibold max-[360px]:px-2.5"
                 tone="default"
               />
 
-              <div className="col-span-full flex items-end justify-between gap-3">
+              <div className="col-span-full flex items-center justify-between gap-2">
                 <a
-                  className="min-w-0 text-[14px] font-semibold leading-[18px] tracking-[-0.03em] text-[var(--text)] transition hover:text-[var(--primary)]"
+                  className="min-w-0 flex-1 whitespace-nowrap text-[13px] font-semibold leading-4 tracking-[-0.02em] text-[var(--text)] transition hover:text-[var(--primary)] max-[360px]:text-[12px]"
                   href={dealerProfile.phoneHref}
                 >
-                  <span className="max-[360px]:hidden">{dealerProfile.phoneDisplay}</span>
-                  <span className="hidden max-[360px]:grid">
-                    <span className="whitespace-nowrap">+7 (4112)</span>
-                    <span className="whitespace-nowrap">40-08-88</span>
-                  </span>
+                  {dealerProfile.phoneDisplay}
                 </a>
-                <p className="shrink-0 text-right text-[10px] leading-[13px] text-[var(--text-2)]">
+                <p className="shrink-0 text-right text-[9px] leading-[12px] tracking-[-0.01em] text-[var(--text-2)]">
                   <span className="font-semibold text-[var(--text)]">{mobileWorkHours}</span>
                   <br />
                   <span>{shortAddress}</span>
