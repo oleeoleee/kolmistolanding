@@ -19,6 +19,11 @@ const sectionClassName = "page-section";
 const surfacePanelClassName = "surface-panel";
 const surfaceMutedClassName = "surface-muted";
 const surfaceSubtleClassName = "surface-subtle";
+const heroTrustPoints = [
+  "Дилерские регламенты LADA",
+  "Оригинальные детали и расходные материалы",
+  "Согласование работ до начала обслуживания",
+];
 
 function IconShell({
   children,
@@ -260,111 +265,90 @@ function HeaderQuickFact({
 
 export default function Home() {
   const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
-  const mobileHeroAddress = "Покровское шоссе, 6 км";
+  const shortAddress = "Покровское шоссе, 6 км";
 
   return (
     <>
       <main className="min-h-screen bg-transparent text-[var(--text)]">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-4 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
-          <header
-            className={`${surfaceMutedClassName} px-4 py-4 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-5`}
-          >
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="min-w-0 space-y-3">
-                <div
-                  className={`inline-flex max-w-full items-center gap-2.5 px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
-                >
-                  <Image
-                    src="/images/logos/lada-logo.png"
-                    alt="LADA"
-                    width={2100}
-                    height={893}
-                    priority
-                    className="h-6 w-auto shrink-0 object-contain max-[430px]:h-[22px] sm:h-8"
-                  />
-                  <span className="h-7 w-px shrink-0 bg-[var(--border)] max-[430px]:h-6 sm:h-8" />
-                  <Image
-                    src="/images/logos/kolmi-logo.png"
-                    alt="КОЛМИ"
-                    width={690}
-                    height={475}
-                    priority
-                    className="h-[34px] w-auto shrink-0 object-contain max-[430px]:h-[30px] sm:h-[42px]"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:text-[10px] sm:text-[12px]">
-                    {dealerProfile.serviceStatus}
-                  </p>
-                  <p className="mt-1 text-[16px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[15px] sm:text-[20px] sm:leading-6">
-                    {dealerProfile.dealerName}, {dealerProfile.city}
-                  </p>
-                  <p className="mt-1 text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
-                    {dealerProfile.serviceCenterLabel}
-                  </p>
-                </div>
+          <header className="border-b border-[var(--border-strong)] pb-4 sm:pb-5">
+            <div className="grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-6">
+              <div
+                className={`inline-flex max-w-full items-center gap-2.5 px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
+              >
+                <Image
+                  src="/images/logos/lada-logo.png"
+                  alt="LADA"
+                  width={2100}
+                  height={893}
+                  priority
+                  className="h-6 w-auto shrink-0 object-contain max-[430px]:h-[22px] sm:h-8"
+                />
+                <span className="h-7 w-px shrink-0 bg-[var(--border-strong)] max-[430px]:h-6 sm:h-8" />
+                <Image
+                  src="/images/logos/kolmi-logo.png"
+                  alt="КОЛМИ"
+                  width={690}
+                  height={475}
+                  priority
+                  className="h-[34px] w-auto shrink-0 object-contain max-[430px]:h-[30px] sm:h-[42px]"
+                />
               </div>
 
-              <div className="grid gap-2.5 max-[430px]:grid-cols-[minmax(0,1fr)_auto] max-[430px]:gap-2 max-[360px]:grid-cols-[minmax(0,1fr)_112px] max-[360px]:gap-1.5 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
-                <HeaderQuickFact
-                  icon={<CompactPhoneIcon />}
-                  label="Телефон"
-                  value={
-                    <>
-                      <span className="max-[360px]:hidden">{dealerProfile.phoneDisplay}</span>
-                      <span className="hidden max-[360px]:grid">
-                        <span className="whitespace-nowrap">+7 (4112)</span>
-                        <span className="whitespace-nowrap">40-08-88</span>
-                      </span>
-                    </>
-                  }
+              <p className="min-w-0 text-[12px] leading-5 text-[var(--text-2)] sm:text-[13px] sm:leading-6 lg:px-2">
+                <span className="font-semibold text-[var(--text)]">{primaryWorkHours}</span>
+                {" • "}
+                <span>{shortAddress}</span>
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 lg:justify-self-end">
+                <a
+                  className="inline-flex text-[14px] font-semibold tracking-[-0.02em] text-[var(--text)] transition hover:text-[var(--primary)] sm:text-[15px]"
                   href={dealerProfile.phoneHref}
-                  ariaLabel={dealerProfile.phoneDisplay}
-                />
-                <div className="max-[430px]:hidden">
-                  <HeaderQuickFact
-                    icon={<CompactClockIcon />}
-                    label="Часы работы"
-                    value={primaryWorkHours}
-                  />
-                </div>
-                <CallButton className="w-full max-[430px]:min-w-[124px] max-[360px]:min-w-[112px] lg:w-auto" tone="primary" />
+                >
+                  {dealerProfile.phoneDisplay}
+                </a>
+                <CallButton className="min-w-[118px]" tone="default" />
               </div>
             </div>
           </header>
 
-          <section
-            className={`mt-4 px-4 py-5 max-[430px]:mt-3 max-[430px]:px-3.5 max-[430px]:py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 ${surfaceMutedClassName}`}
-          >
-            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.96fr)] lg:items-start lg:gap-10">
-              <div className="min-w-0 space-y-4 sm:space-y-5">
-                <div className="space-y-2 sm:space-y-3">
-                  <p className="section-kicker">
-                    <span className="max-[430px]:hidden">Сервисный прием официального дилера</span>
-                    <span className="hidden max-[430px]:inline">Официальный сервис LADA</span>
+          <section className="py-8 sm:py-10 lg:py-14">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:items-start lg:gap-12">
+              <div className="min-w-0 lg:max-w-[44rem] lg:pt-2">
+                <div className="space-y-4 sm:space-y-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] sm:text-[12px]">
+                    LADA • КОЛМИ • ЯКУТСК
                   </p>
-                  <h1 className="max-w-2xl text-[32px] font-semibold leading-[1.02] tracking-[-0.055em] text-[var(--text)] max-[360px]:text-[29px] sm:text-[44px] sm:leading-[1.02]">
+                  <h1 className="max-w-[12ch] text-[38px] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)] max-[360px]:text-[34px] sm:text-[56px] sm:leading-[0.96]">
                     {dealerProfile.heroTitle}
                   </h1>
-                  <p className="max-w-2xl text-[15px] leading-[24px] text-[var(--text-2)] max-[430px]:text-[14px] max-[430px]:leading-[22px] sm:text-[16px] sm:leading-[26px]">
+                  <p className="max-w-[38rem] text-[15px] leading-[24px] text-[var(--text-2)] max-[430px]:text-[14px] max-[430px]:leading-[22px] sm:text-[17px] sm:leading-[28px]">
                     {dealerProfile.heroDescription}
                   </p>
                 </div>
 
-                <div className="flex max-w-xl min-w-0 items-start gap-2.5 border-t border-[var(--border)] pt-4 text-[var(--text-2)] max-[430px]:gap-2 sm:pt-5">
-                  <span className="mt-0.5 shrink-0 text-[var(--primary)]">
-                    <CompactMapPinIcon />
-                  </span>
-                  <p className="min-w-0 text-[13px] leading-5 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
-                    <span className="font-semibold text-[var(--text)]">{dealerProfile.city}.</span>{" "}
-                    <span className="max-[430px]:hidden">{dealerProfile.address}</span>
-                    <span className="hidden max-[430px]:inline">{mobileHeroAddress}</span>
-                  </p>
-                </div>
+                <ol className="mt-8 max-w-[40rem] divide-y divide-[var(--border)] border-y border-[var(--border)]">
+                  {heroTrustPoints.map((item, index) => (
+                    <li
+                      key={item}
+                      className="grid grid-cols-[42px_minmax(0,1fr)] items-start gap-3 py-4 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-4 sm:py-5"
+                    >
+                      <span className="pt-0.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-[15px] font-semibold leading-6 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
+                        {item}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
-              <div className="min-w-0">
-                <ServiceBookingForm />
+              <div className="min-w-0 lg:border-l lg:border-[var(--border)] lg:pl-10">
+                <div className="max-w-[430px] lg:ml-auto">
+                  <ServiceBookingForm />
+                </div>
               </div>
             </div>
           </section>
