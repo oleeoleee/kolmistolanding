@@ -60,48 +60,88 @@ function PhoneIcon() {
 
 function ShieldIcon() {
   return (
-    <IconShell>
+    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
+      <svg
+        aria-hidden="true"
+        className="h-5 w-5 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+        viewBox="0 0 24 24"
+      >
       <path d="M12 3.5 5.5 6v5.5c0 4 2.7 7 6.5 8.5 3.8-1.5 6.5-4.5 6.5-8.5V6L12 3.5Z" />
       <path d="m9.3 11.8 1.8 1.8 3.6-3.8" />
-    </IconShell>
+      </svg>
+    </span>
   );
 }
 
 function PartsIcon() {
   return (
-    <IconShell>
+    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
+      <svg
+        aria-hidden="true"
+        className="h-5 w-5 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+        viewBox="0 0 24 24"
+      >
       <path d="M12 3.5v4" />
       <path d="M12 16.5v4" />
       <path d="M3.5 12h4" />
       <path d="M16.5 12h4" />
       <circle cx="12" cy="12" r="4.5" />
-    </IconShell>
+      </svg>
+    </span>
   );
 }
 
 function ToolsIcon() {
   return (
-    <IconShell>
+    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
+      <svg
+        aria-hidden="true"
+        className="h-5 w-5 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+        viewBox="0 0 24 24"
+      >
       <path d="m14.2 5.3 4.5 4.5" />
       <path d="m12.3 7.2 4.5 4.5" />
       <path d="M4.8 19.2 11 13" />
       <path d="m4.8 14.8 4.4 4.4" />
       <path d="M17.8 3.9a3.3 3.3 0 0 0-4.6 4.6L9 12.7l2.3 2.3 4.2-4.2a3.3 3.3 0 0 0 4.6-4.6l-1.4 1.4-1.9-1.9 1-1.8Z" />
-    </IconShell>
+      </svg>
+    </span>
   );
 }
 
 function ScanIcon() {
   return (
-    <IconShell>
-      <path d="M7 4.5H5a1.5 1.5 0 0 0-1.5 1.5v2" />
-      <path d="M17 4.5h2A1.5 1.5 0 0 1 20.5 6v2" />
-      <path d="M7 19.5H5A1.5 1.5 0 0 1 3.5 18v-2" />
-      <path d="M17 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-2" />
-      <path d="M8 12h8" />
-      <path d="M10 9.5h4" />
-      <path d="M10 14.5h4" />
-    </IconShell>
+    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
+      <svg
+        aria-hidden="true"
+        className="h-5 w-5 sm:h-6 sm:w-6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+        viewBox="0 0 24 24"
+      >
+        <path d="M7.5 4.5h7l3 3v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2Z" />
+        <path d="M14.5 4.5v3h3" />
+        <path d="m9.2 13 1.7 1.8 3.9-4.3" />
+      </svg>
+    </span>
   );
 }
 
@@ -354,38 +394,45 @@ export default function Home() {
           </section>
 
           <section className={sectionClassName}>
-            <SectionHeading
-              title="Почему выбирают сервис КОЛМИ"
-              description="Один компактный блок о том, что важно перед записью в официальный сервис."
-            />
-            <div className="grid gap-x-10 gap-y-0 md:grid-cols-2">
-              {advantages.map((item, index) => {
-                const Icon =
-                  index === 0
-                    ? ShieldIcon
-                    : index === 1
-                      ? PartsIcon
-                      : index === 2
-                        ? ToolsIcon
-                        : ScanIcon;
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
+              <div className="lg:pt-1">
+                <SectionHeading
+                  title="Почему выбирают сервис КОЛМИ"
+                  description="Ключевые принципы официального дилерского сервиса LADA."
+                />
+              </div>
 
-                return (
-                  <article
-                    key={item.title}
-                    className="flex gap-3 border-t border-[var(--border)] pt-5 sm:gap-4 sm:pt-6"
-                  >
-                    <Icon />
-                    <div className="space-y-1">
-                      <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
-                        {item.title}
-                      </h3>
-                      <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
-                        {item.description}
-                      </p>
-                    </div>
-                  </article>
-                );
-              })}
+              <div className="border-y border-[var(--border)]">
+                {advantages.map((item, index) => {
+                  const Icon =
+                    index === 0
+                      ? PartsIcon
+                      : index === 1
+                        ? ToolsIcon
+                        : index === 2
+                          ? ShieldIcon
+                          : ScanIcon;
+
+                  return (
+                    <article
+                      key={item.title}
+                      className={`grid grid-cols-[22px_minmax(0,1fr)] gap-3 py-4 sm:grid-cols-[24px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
+                        index > 0 ? "border-t border-[var(--border)]" : ""
+                      }`}
+                    >
+                      <Icon />
+                      <div className="space-y-1 md:grid md:grid-cols-[minmax(220px,0.88fr)_minmax(0,1.12fr)] md:items-start md:gap-6 md:space-y-0">
+                        <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[16px]">
+                          {item.title}
+                        </h3>
+                        <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
+                          {item.description}
+                        </p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
             </div>
           </section>
 
