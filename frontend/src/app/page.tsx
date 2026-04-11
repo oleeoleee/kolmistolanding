@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: dealerProfile.heroDescription,
 };
 
-const sectionClassName = "page-section max-[430px]:pt-8 max-[390px]:pt-7";
+const sectionClassName = "page-section max-[430px]:pt-7 max-[390px]:pt-6";
 const surfacePanelClassName = "surface-panel";
 const surfaceMutedClassName = "surface-muted";
 const surfaceSubtleClassName = "surface-subtle";
@@ -417,28 +417,28 @@ export default function Home() {
 
           <section className={sectionClassName} id="contacts">
             <SectionHeading title="Контакты" />
-            <div className="grid gap-3.5 max-[430px]:gap-3 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
-              <article className={`${surfacePanelClassName} px-5 py-5 max-[430px]:px-4 max-[430px]:py-4 sm:px-6 sm:py-6`}>
+            <div className="grid gap-3.5 max-[430px]:gap-2.5 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
+              <article className={`${surfacePanelClassName} px-5 py-5 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-6`}>
                 <div className="divide-y divide-[var(--border)]">
-                  <div className="flex gap-4 py-4 first:pt-0 max-[430px]:gap-3 max-[430px]:py-3">
+                  <div className="flex gap-4 py-4 first:pt-0 max-[430px]:gap-2.5 max-[430px]:py-2.5">
                     <MapPinIcon />
                     <div>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Адрес
                       </p>
-                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5">
+                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5">
                         {dealerProfile.address}
                       </address>
                     </div>
                   </div>
 
-                  <div className="flex gap-4 py-4 max-[430px]:gap-3 max-[430px]:py-3">
+                  <div className="flex gap-4 py-4 max-[430px]:gap-2.5 max-[430px]:py-2.5">
                     <ClockIcon />
                     <div>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Часы работы
                       </p>
-                      <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5">
+                      <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5">
                         {dealerProfile.workHours.map((item) => (
                           <p key={item}>{item}</p>
                         ))}
@@ -446,14 +446,14 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 pb-0 pt-4 max-[430px]:gap-3 max-[430px]:pt-3">
+                  <div className="flex gap-4 pb-0 pt-4 max-[430px]:gap-2.5 max-[430px]:pt-2.5">
                     <PhoneIcon />
                     <div>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Телефон
                       </p>
                       <a
-                        className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5"
+                        className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5"
                         href={dealerProfile.phoneHref}
                       >
                         {dealerProfile.phoneDisplay}
@@ -463,18 +463,18 @@ export default function Home() {
                 </div>
               </article>
 
-              <aside className={`${surfaceMutedClassName} px-5 py-5 max-[430px]:px-4 max-[430px]:py-4 sm:px-6 sm:py-6`}>
-                <div className="space-y-4 max-[430px]:space-y-3 sm:space-y-5">
-                  <div className="space-y-2 max-[430px]:space-y-1.5 sm:space-y-3">
-                    <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] max-[430px]:text-[18px] sm:text-[24px]">
+              <aside className={`${surfaceMutedClassName} px-5 py-5 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-6`}>
+                <div className="space-y-4 max-[430px]:space-y-2.5 sm:space-y-5">
+                  <div className="space-y-2 max-[430px]:space-y-1 sm:space-y-3">
+                    <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] max-[430px]:text-[17px] sm:text-[24px]">
                       Быстрая связь с сервисом
                     </p>
-                    <p className="text-[14px] leading-6 text-[var(--text-2)] max-[430px]:text-[13px] max-[430px]:leading-5 sm:text-[15px]">
+                    <p className="text-[14px] leading-6 text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[15px]">
                       Позвоните или постройте маршрут до дилерского центра. Если удобнее,
                       оставьте заявку выше и мы свяжемся в рабочее время.
                     </p>
                   </div>
-                  <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-2 max-[430px]:pt-3 sm:gap-3 sm:pt-5">
+                  <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-1.5 max-[430px]:pt-2.5 sm:gap-3 sm:pt-5">
                     <CallButton className="w-full max-[430px]:min-h-11" tone="primary" />
                     <a
                       className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:text-[13px] sm:min-h-12 sm:text-[15px]"
@@ -490,8 +490,8 @@ export default function Home() {
             </div>
           </section>
 
-          <footer className="mt-10 border-t border-[var(--border)] py-6 text-[13px] leading-6 text-[var(--text-2)] max-[430px]:mt-8 max-[430px]:py-5 max-[430px]:text-[12px] max-[430px]:leading-5 sm:mt-12 sm:py-7">
-            <div className="flex flex-col gap-4 max-[430px]:gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <footer className="mt-10 border-t border-[var(--border)] py-6 text-[13px] leading-6 text-[var(--text-2)] max-[430px]:mt-7 max-[430px]:py-4 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:mt-12 sm:py-7">
+            <div className="flex flex-col gap-4 max-[430px]:gap-2.5 sm:flex-row sm:items-start sm:justify-between">
               <div className="space-y-1 max-[430px]:space-y-0.5">
                 <p className="font-semibold tracking-[-0.01em] text-[var(--text)] max-[430px]:leading-[18px]">
                   Официальный дилер LADA • КОЛМИ • Якутск
@@ -517,7 +517,7 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.96)] px-4 py-2 shadow-[0_-10px_24px_rgba(15,23,42,0.04)] backdrop-blur-[10px] max-[430px]:py-1.5 md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.965)] px-4 py-2 shadow-[0_-10px_24px_rgba(15,23,42,0.04)] backdrop-blur-[10px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-6px_16px_rgba(15,23,42,0.035)] md:hidden">
         <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
             className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
