@@ -47,8 +47,9 @@ const compactChipBaseClassName =
   "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-full border px-3 py-2 text-[12px] font-semibold leading-4 tracking-[-0.01em] transition max-[430px]:min-h-9 max-[430px]:px-2.5 max-[430px]:py-1.5 max-[430px]:text-[11px] sm:min-h-10 sm:px-3.5 sm:text-[13px]";
 const antiAnxietyCopy =
   "Если не уверены в причине обращения — опишите своими словами, мы уточним.";
+const phoneHelperText = "Нужен для подтверждения записи.";
 const mobileCtaMicrocopy =
-  "Достаточно телефона • Подтвердим запись в рабочее время";
+  "Предварительная запись • Перезвоним в рабочее время";
 
 const normalizePhone = (value: string) => {
   if (value.length === 0) {
@@ -156,7 +157,7 @@ const validate = (values: FormValues): FieldErrors => {
   const errors: FieldErrors = {};
 
   if (normalizePhone(values.phone).length !== 11) {
-    errors.phone = "Введите номер целиком — мы перезвоним для подтверждения.";
+    errors.phone = "Укажите телефон полностью.";
   }
 
   return errors;
@@ -175,8 +176,9 @@ export function ServiceBookingForm() {
 
   const errors = useMemo(() => validate(values), [values]);
   const phoneValue = useMemo(() => formatPhone(values.phone), [values.phone]);
-
-  const phoneError = (touched.phone || submitAttempted) ? errors.phone : undefined;
+  const phoneHasValue = values.phone.length > 0;
+  const phoneError =
+    phoneHasValue && (touched.phone || submitAttempted) ? errors.phone : undefined;
 
   useLayoutEffect(() => {
     if (pendingPhoneCaretRef.current === null || !phoneInputRef.current) {
@@ -326,7 +328,7 @@ export function ServiceBookingForm() {
           Заявка на сервис
         </h2>
         <p className="text-[13px] leading-[19px] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
-          Достаточно телефона. Остальное можно указать по желанию.
+          Оставьте телефон. Остальное — по желанию.
         </p>
       </div>
 
@@ -360,17 +362,19 @@ export function ServiceBookingForm() {
             }
             placeholder="+7 (900) 123-45-67"
             aria-invalid={Boolean(phoneError)}
-            aria-describedby={phoneError ? "phone-error" : undefined}
+            aria-describedby="phone-feedback"
             className="min-h-[54px] w-full rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface)] px-4 text-[17px] leading-6 tracking-[-0.02em] text-[var(--text)] outline-none transition max-[430px]:min-h-[52px] max-[430px]:px-3.5 max-[430px]:text-[16px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)] sm:min-h-[56px] sm:text-[18px]"
           />
-          {phoneError ? (
-            <p
-              id="phone-error"
-              className="pt-0.5 text-[12px] font-medium leading-[18px] text-[var(--danger)] sm:text-[13px] sm:leading-5"
-            >
-              {phoneError}
-            </p>
-          ) : null}
+          <p
+            id="phone-feedback"
+            className={`pt-0.5 text-[12px] leading-[18px] sm:text-[13px] sm:leading-5 ${
+              phoneError
+                ? "font-medium text-[rgba(161,58,58,0.9)]"
+                : "text-[var(--text-2)]"
+            }`}
+          >
+            {phoneError ?? phoneHelperText}
+          </p>
         </div>
 
         <fieldset className="space-y-2 max-[430px]:space-y-1.5">
