@@ -15,7 +15,10 @@ export const metadata: Metadata = {
   description: dealerProfile.heroDescription,
 };
 
-const sectionClassName = "pt-6 sm:pt-8";
+const sectionClassName = "page-section";
+const surfacePanelClassName = "surface-panel";
+const surfaceMutedClassName = "surface-muted";
+const surfaceSubtleClassName = "surface-subtle";
 
 function IconShell({
   children,
@@ -23,7 +26,9 @@ function IconShell({
   children: ReactNode;
 }>) {
   return (
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[var(--border)] bg-white text-[var(--primary)] sm:h-10 sm:w-10 sm:rounded-[12px]">
+    <span
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--primary)] sm:h-10 sm:w-10"
+    >
       <svg
         aria-hidden="true"
         className="h-[18px] w-[18px] sm:h-5 sm:w-5"
@@ -119,7 +124,9 @@ function CompactIconShell({
   children: ReactNode;
 }>) {
   return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] border border-[var(--border)] bg-white text-[var(--primary)] sm:h-9 sm:w-9 sm:rounded-[10px]">
+    <span
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--primary)] sm:h-9 sm:w-9"
+    >
       <svg
         aria-hidden="true"
         className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
@@ -179,12 +186,12 @@ function SectionHeading({
   description?: string;
 }>) {
   return (
-    <div className="mb-5 space-y-1.5 sm:mb-6 sm:space-y-2">
-      <h2 className="text-[20px] font-semibold leading-[26px] text-[var(--text)] sm:text-[22px] sm:leading-[28px]">
+    <div className="mb-6 space-y-2 sm:mb-7 sm:space-y-2.5">
+      <h2 className="text-[22px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[28px]">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-[15px] leading-[23px] text-[var(--text-2)] sm:text-base sm:leading-6">
+        <p className="max-w-[42rem] text-[14px] leading-[22px] text-[var(--text-2)] sm:text-[15px] sm:leading-6">
           {description}
         </p>
       ) : null}
@@ -201,12 +208,12 @@ function CallButton({
 }>) {
   const toneClassName =
     tone === "primary"
-      ? "border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_12px_24px_rgba(10,91,211,0.16)] hover:bg-[var(--primary-pressed)] hover:border-[var(--primary-pressed)] hover:text-white"
-      : "border-[var(--border)] bg-white text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)]";
+      ? "border-[var(--primary)] bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] hover:border-[var(--primary-pressed)] hover:text-white"
+      : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)] hover:text-[var(--text)]";
 
   return (
     <a
-      className={`inline-flex min-h-[46px] items-center justify-center rounded-[12px] border px-4 text-[14px] font-semibold transition sm:min-h-12 ${toneClassName} ${className ?? ""}`}
+      className={`inline-flex min-h-[46px] items-center justify-center rounded-[10px] border px-4 text-[14px] font-semibold tracking-[-0.01em] transition sm:min-h-12 ${toneClassName} ${className ?? ""}`}
       href={dealerProfile.phoneHref}
     >
       Позвонить
@@ -228,13 +235,15 @@ function HeaderQuickFact({
   ariaLabel?: string;
 }>) {
   const contentClassName =
-    "mt-0.5 block text-[13px] font-semibold leading-5 text-[var(--text)] max-[360px]:text-[12px] max-[360px]:leading-[18px] sm:text-[14px]";
+    "mt-0.5 block text-[13px] font-semibold leading-5 tracking-[-0.01em] text-[var(--text)] max-[360px]:text-[12px] max-[360px]:leading-[18px] sm:text-[14px]";
 
   return (
-    <div className="flex min-w-0 items-center gap-2.5 rounded-[12px] border border-[var(--border)] bg-white px-3.5 py-2.5 max-[360px]:gap-2 max-[360px]:px-3 max-[360px]:py-2 sm:gap-3 sm:rounded-[14px] sm:px-4 sm:py-3">
+    <div
+      className={`flex min-w-0 items-center gap-2.5 px-3.5 py-2.5 max-[360px]:gap-2 max-[360px]:px-3 max-[360px]:py-2 sm:gap-3 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
+    >
       {icon}
       <div className="min-w-0">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)] sm:text-[11px]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] sm:text-[11px]">
           {label}
         </p>
         {href ? (
@@ -255,12 +264,16 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-        <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-3 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] max-[430px]:pt-2.5 sm:px-6 sm:pt-4 lg:px-8 lg:pb-12">
-          <header className="rounded-[20px] border border-[var(--border)] bg-[var(--bg-soft)] px-3.5 py-3.5 max-[430px]:px-3 max-[430px]:py-3 sm:px-5 sm:py-5">
-            <div className="flex flex-col gap-3.5 max-[430px]:gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="min-w-0 space-y-2.5 max-[430px]:space-y-2 sm:space-y-3">
-                <div className="inline-flex max-w-full items-center gap-2.5 rounded-[14px] border border-[var(--border)] bg-white px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:rounded-[12px] max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:rounded-[16px] sm:px-4 sm:py-3">
+      <main className="min-h-screen bg-transparent text-[var(--text)]">
+        <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-4 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
+          <header
+            className={`${surfaceMutedClassName} px-4 py-4 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-5`}
+          >
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="min-w-0 space-y-3">
+                <div
+                  className={`inline-flex max-w-full items-center gap-2.5 px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
+                >
                   <Image
                     src="/images/logos/lada-logo.png"
                     alt="LADA"
@@ -280,10 +293,10 @@ export default function Home() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-2)] max-[430px]:text-[10px] sm:text-[12px]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:text-[10px] sm:text-[12px]">
                     {dealerProfile.serviceStatus}
                   </p>
-                  <p className="mt-1 text-[16px] font-semibold leading-5 text-[var(--text)] max-[430px]:text-[15px] sm:text-[18px] sm:leading-6">
+                  <p className="mt-1 text-[16px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[15px] sm:text-[20px] sm:leading-6">
                     {dealerProfile.dealerName}, {dealerProfile.city}
                   </p>
                   <p className="mt-1 text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 sm:text-[13px] sm:leading-5">
@@ -320,27 +333,29 @@ export default function Home() {
             </div>
           </header>
 
-          <section className="mt-3 rounded-[24px] border border-[var(--border)] bg-[var(--bg-soft)] px-4 py-3.5 max-[430px]:mt-2 max-[430px]:px-3.5 max-[430px]:py-3 sm:px-6 sm:py-5 lg:px-8 lg:py-6">
-            <div className="grid gap-3.5 max-[430px]:gap-3 lg:grid-cols-[minmax(0,1.02fr)_minmax(320px,0.98fr)] lg:items-start lg:gap-8">
-              <div className="min-w-0 space-y-2.5 max-[430px]:space-y-2 sm:space-y-3">
-                <div className="space-y-1.5 max-[430px]:space-y-1 sm:space-y-2">
-                  <p className="inline-flex min-h-[26px] items-center rounded-full border border-[rgba(10,91,211,0.16)] bg-white px-3 text-[12px] font-semibold leading-5 text-[var(--primary)] sm:min-h-7 sm:text-[13px]">
+          <section
+            className={`mt-4 px-4 py-5 max-[430px]:mt-3 max-[430px]:px-3.5 max-[430px]:py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 ${surfaceMutedClassName}`}
+          >
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.96fr)] lg:items-start lg:gap-10">
+              <div className="min-w-0 space-y-4 sm:space-y-5">
+                <div className="space-y-2 sm:space-y-3">
+                  <p className="section-kicker">
                     <span className="max-[430px]:hidden">Сервисный прием официального дилера</span>
                     <span className="hidden max-[430px]:inline">Официальный сервис LADA</span>
                   </p>
-                  <h1 className="max-w-2xl text-[28px] font-bold leading-[34px] tracking-[-0.02em] text-[var(--text)] max-[360px]:text-[26px] max-[360px]:leading-[31px] sm:text-[32px] sm:leading-[38px]">
+                  <h1 className="max-w-2xl text-[32px] font-semibold leading-[1.02] tracking-[-0.055em] text-[var(--text)] max-[360px]:text-[29px] sm:text-[44px] sm:leading-[1.02]">
                     {dealerProfile.heroTitle}
                   </h1>
-                  <p className="max-w-2xl text-[15px] leading-[23px] text-[var(--text-2)] max-[430px]:text-[14px] max-[430px]:leading-[21px] sm:text-base sm:leading-6">
+                  <p className="max-w-2xl text-[15px] leading-[24px] text-[var(--text-2)] max-[430px]:text-[14px] max-[430px]:leading-[22px] sm:text-[16px] sm:leading-[26px]">
                     {dealerProfile.heroDescription}
                   </p>
                 </div>
 
-                <div className="flex max-w-xl min-w-0 items-start gap-2 text-[var(--text-2)] max-[430px]:gap-1.5">
+                <div className="flex max-w-xl min-w-0 items-start gap-2.5 border-t border-[var(--border)] pt-4 text-[var(--text-2)] max-[430px]:gap-2 sm:pt-5">
                   <span className="mt-0.5 shrink-0 text-[var(--primary)]">
                     <CompactMapPinIcon />
                   </span>
-                  <p className="min-w-0 text-[13px] leading-5 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px]">
+                  <p className="min-w-0 text-[13px] leading-5 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
                     <span className="font-semibold text-[var(--text)]">{dealerProfile.city}.</span>{" "}
                     <span className="max-[430px]:hidden">{dealerProfile.address}</span>
                     <span className="hidden max-[430px]:inline">{mobileHeroAddress}</span>
@@ -354,12 +369,12 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="pt-7 sm:pt-8">
+          <section className={sectionClassName}>
             <SectionHeading
               title="Почему выбирают сервис КОЛМИ"
               description="Один компактный блок о том, что важно перед записью в официальный сервис."
             />
-            <div className="grid gap-2.5 md:grid-cols-2 sm:gap-3">
+            <div className="grid gap-x-10 gap-y-0 md:grid-cols-2">
               {advantages.map((item, index) => {
                 const Icon =
                   index === 0
@@ -373,14 +388,14 @@ export default function Home() {
                 return (
                   <article
                     key={item.title}
-                    className="flex gap-2.5 rounded-[14px] border border-[var(--border)] bg-[var(--bg-soft)] px-3.5 py-3.5 sm:gap-3 sm:rounded-[16px] sm:px-4 sm:py-4"
+                    className="flex gap-3 border-t border-[var(--border)] pt-5 sm:gap-4 sm:pt-6"
                   >
                     <Icon />
-                    <div className="space-y-0.5 sm:space-y-1">
-                      <h3 className="text-[15px] font-semibold leading-5 text-[var(--text)] sm:text-[16px]">
+                    <div className="space-y-1">
+                      <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
                         {item.title}
                       </h3>
-                      <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px]">
+                      <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
                         {item.description}
                       </p>
                     </div>
@@ -391,56 +406,56 @@ export default function Home() {
           </section>
 
           <section className={sectionClassName}>
-            <div className="rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 sm:p-5">
-              <SectionHeading
-                title="Как проходит запись"
-                description="Короткий и понятный сценарий без лишних шагов."
-              />
-              <ol className="grid gap-2.5 sm:gap-3 lg:grid-cols-3">
-                {processSteps.map((step, index) => (
-                  <li
-                    key={step.title}
-                    className="rounded-[14px] border border-[var(--border)] bg-white p-3.5 sm:rounded-[16px] sm:p-4"
-                  >
-                    <div className="mb-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--text)] text-[13px] font-semibold text-white sm:mb-3 sm:h-9 sm:w-9 sm:text-[14px]">
+            <SectionHeading
+              title="Как проходит запись"
+              description="Короткий и понятный сценарий без лишних шагов."
+            />
+            <ol className="grid gap-x-8 gap-y-0 lg:grid-cols-3">
+              {processSteps.map((step, index) => (
+                <li key={step.title} className="border-t border-[var(--border)] pt-5 sm:pt-6">
+                  <div className="mb-3 flex items-center gap-3 sm:mb-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[var(--text)] text-[13px] font-semibold tracking-[-0.01em] text-white sm:h-9 sm:w-9 sm:text-[14px]">
                       {index + 1}
                     </div>
-                    <h3 className="text-[15px] font-semibold leading-5 text-[var(--text)] sm:text-[16px]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-1.5 text-[13px] leading-5 text-[var(--text-2)] sm:mt-2 sm:text-[14px]">
-                      {step.description}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </div>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)]">
+                      Шаг {index + 1}
+                    </span>
+                  </div>
+                  <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
+                    {step.description}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </section>
 
           <section className={sectionClassName} id="contacts">
             <SectionHeading title="Контакты" />
-            <div className="grid gap-3 sm:gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-              <article className="rounded-[16px] border border-[var(--border)] bg-white p-4 sm:p-6">
-                <div className="flex flex-col gap-4 sm:gap-5">
-                  <div className="flex gap-4">
+            <div className="grid gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
+              <article className={`${surfacePanelClassName} px-5 py-5 sm:px-6 sm:py-6`}>
+                <div className="divide-y divide-[var(--border)]">
+                  <div className="flex gap-4 py-4 first:pt-0">
                     <MapPinIcon />
                     <div>
-                      <p className="text-[13px] font-semibold leading-5 text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
                         Адрес
                       </p>
-                      <address className="mt-1 not-italic text-[16px] leading-6 text-[var(--text)]">
+                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)]">
                         {dealerProfile.address}
                       </address>
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 py-4">
                     <ClockIcon />
                     <div>
-                      <p className="text-[13px] font-semibold leading-5 text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
                         Часы работы
                       </p>
-                      <div className="mt-1 space-y-1 text-[16px] leading-6 text-[var(--text)]">
+                      <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)]">
                         {dealerProfile.workHours.map((item) => (
                           <p key={item}>{item}</p>
                         ))}
@@ -448,14 +463,14 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 pb-0 pt-4">
                     <PhoneIcon />
                     <div>
-                      <p className="text-[13px] font-semibold leading-5 text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
                         Телефон
                       </p>
                       <a
-                        className="mt-1 inline-flex text-[16px] font-semibold leading-6 text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
+                        className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
                         href={dealerProfile.phoneHref}
                       >
                         {dealerProfile.phoneDisplay}
@@ -465,21 +480,21 @@ export default function Home() {
                 </div>
               </article>
 
-              <aside className="rounded-[16px] border border-[var(--border)] bg-[var(--bg-soft)] p-4 sm:p-6">
-                <div className="space-y-3.5 sm:space-y-4">
-                  <div className="space-y-1.5 sm:space-y-2">
-                    <p className="text-[18px] font-semibold leading-[24px] text-[var(--text)] sm:text-[20px] sm:leading-[28px]">
+              <aside className={`${surfaceMutedClassName} px-5 py-5 sm:px-6 sm:py-6`}>
+                <div className="space-y-4 sm:space-y-5">
+                  <div className="space-y-2 sm:space-y-3">
+                    <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] sm:text-[24px]">
                       Быстрая связь с сервисом
                     </p>
-                    <p className="text-[14px] leading-5 text-[var(--text-2)] sm:text-[15px] sm:leading-6">
+                    <p className="text-[14px] leading-6 text-[var(--text-2)] sm:text-[15px]">
                       Позвоните или постройте маршрут до дилерского центра. Если удобнее,
                       оставьте заявку выше и мы свяжемся в рабочее время.
                     </p>
                   </div>
-                  <div className="flex flex-col gap-2.5 sm:gap-3">
+                  <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 sm:gap-3 sm:pt-5">
                     <CallButton className="w-full" tone="primary" />
                     <a
-                      className="inline-flex min-h-[46px] items-center justify-center rounded-[12px] border border-[var(--border)] bg-white px-5 text-[14px] font-semibold text-[var(--text)] transition hover:border-[var(--primary)] hover:text-[var(--primary)] sm:min-h-12 sm:text-[15px]"
+                      className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] sm:min-h-12 sm:text-[15px]"
                       href={dealerProfile.routeHref}
                       rel="noreferrer"
                       target="_blank"
@@ -492,10 +507,10 @@ export default function Home() {
             </div>
           </section>
 
-          <footer className="py-6 text-[14px] leading-6 text-[var(--text-2)]">
+          <footer className="mt-10 border-t border-[var(--border)] py-6 text-[13px] leading-6 text-[var(--text-2)] sm:mt-12 sm:py-7">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="space-y-1">
-                <p className="font-semibold text-[var(--text)]">
+                <p className="font-semibold tracking-[-0.01em] text-[var(--text)]">
                   Официальный дилер LADA • КОЛМИ • Якутск
                 </p>
                 <a
@@ -519,16 +534,16 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-white/96 px-4 py-2 shadow-[0_-6px_18px_rgba(11,15,20,0.06)] backdrop-blur max-[430px]:py-1.5 md:hidden">
-        <div className="mx-auto flex max-w-6xl gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+4px)]">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.96)] px-4 py-2 shadow-[0_-10px_24px_rgba(15,23,42,0.04)] backdrop-blur-[10px] max-[430px]:py-1.5 md:hidden">
+        <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+4px)]">
           <a
-            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[12px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
             Записаться
           </a>
           <a
-            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[12px] border border-[var(--border)] bg-white px-3.5 text-[14px] font-semibold text-[var(--text)] transition hover:border-[var(--primary)] hover:text-[var(--primary)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
             href={dealerProfile.phoneHref}
           >
             Позвонить

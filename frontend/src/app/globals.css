@@ -1,22 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --bg-soft: #f6f7f9;
-  --text: #0b0f14;
-  --text-2: #4b5563;
-  --border: #d5d9e0;
-  --primary: #0a5bd3;
-  --primary-pressed: #084db5;
+  --bg: #f2f4f6;
+  --surface: rgba(255, 255, 255, 0.94);
+  --surface-muted: #e9edf2;
+  --surface-subtle: #f7f8fa;
+  --text: #11161d;
+  --text-2: #6b7482;
+  --border: rgba(17, 22, 29, 0.12);
+  --border-strong: rgba(17, 22, 29, 0.18);
+  --primary: #0b4ca8;
+  --primary-pressed: #083d86;
   --success: #117a37;
   --danger: #c62828;
   --warning: #b45309;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.04);
 }
 
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  --font-sans: Inter, system-ui, sans-serif;
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
 }
 
 *,
@@ -31,9 +35,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.54) 0%, rgba(255, 255, 255, 0) 24%),
+    var(--bg);
   color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  letter-spacing: -0.014em;
   text-rendering: optimizeLegibility;
 }
 
@@ -51,7 +58,7 @@ select {
 
 input::placeholder,
 textarea::placeholder {
-  color: #8a93a3;
+  color: #97a0ae;
 }
 
 button,
@@ -62,5 +69,47 @@ textarea {
 }
 
 ::selection {
-  background: rgba(10, 91, 211, 0.16);
+  background: rgba(11, 76, 168, 0.14);
+}
+
+.page-section {
+  border-top: 1px solid var(--border);
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.surface-panel {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.surface-muted {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-muted);
+}
+
+.surface-subtle {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-subtle);
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-kicker::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background: rgba(11, 76, 168, 0.3);
 }
