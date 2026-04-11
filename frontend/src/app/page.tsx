@@ -163,66 +163,6 @@ function ClockIcon() {
   );
 }
 
-function CompactIconShell({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
-  return (
-    <span
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--primary)] sm:h-9 sm:w-9"
-    >
-      <svg
-        aria-hidden="true"
-        className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-        viewBox="0 0 24 24"
-      >
-        {children}
-      </svg>
-    </span>
-  );
-}
-
-function CompactPhoneIcon() {
-  return (
-    <CompactIconShell>
-      <path d="M4.5 6.8c0-1 .8-1.8 1.8-1.8h2.4l1.3 3.7-1.9 1.9a15.8 15.8 0 0 0 5.3 5.3l1.9-1.9 3.7 1.3v2.4c0 1-.8 1.8-1.8 1.8h-.7C10.4 19.5 4.5 13.6 4.5 6.8Z" />
-    </CompactIconShell>
-  );
-}
-
-function CompactClockIcon() {
-  return (
-    <CompactIconShell>
-      <circle cx="12" cy="12" r="8.5" />
-      <path d="M12 7.5v5l3.3 2" />
-    </CompactIconShell>
-  );
-}
-
-function CompactMapPinIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-[18px] w-[18px]"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-    >
-      <path d="M12 20c3.3-4 5-7 5-9.5a5 5 0 1 0-10 0c0 2.5 1.7 5.5 5 9.5Z" />
-      <circle cx="12" cy="10.5" r="1.8" />
-    </svg>
-  );
-}
-
 function SectionHeading({
   title,
   description,
@@ -266,53 +206,66 @@ function CallButton({
   );
 }
 
-function HeaderQuickFact({
-  icon,
-  label,
-  value,
-  href,
-  ariaLabel,
-}: Readonly<{
-  icon: ReactNode;
-  label: string;
-  value: ReactNode;
-  href?: string;
-  ariaLabel?: string;
-}>) {
-  const contentClassName =
-    "mt-0.5 block text-[13px] font-semibold leading-5 tracking-[-0.01em] text-[var(--text)] max-[360px]:text-[12px] max-[360px]:leading-[18px] sm:text-[14px]";
-
-  return (
-    <div
-      className={`flex min-w-0 items-center gap-2.5 px-3.5 py-2.5 max-[360px]:gap-2 max-[360px]:px-3 max-[360px]:py-2 sm:gap-3 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
-    >
-      {icon}
-      <div className="min-w-0">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] sm:text-[11px]">
-          {label}
-        </p>
-        {href ? (
-          <a aria-label={ariaLabel} className={contentClassName} href={href}>
-            {value}
-          </a>
-        ) : (
-          <p className={contentClassName}>{value}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
+  const mobileWorkHours = "Пн–Пт 09:00–19:00";
   const shortAddress = "Покровское шоссе, 6 км";
+  const mobileHeroDescription =
+    "ТО, диагностика и ремонт по стандартам LADA. Оставьте телефон — согласуем визит.";
 
   return (
     <>
       <main className="min-h-screen bg-transparent text-[var(--text)]">
-        <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-4 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
-          <header className="border-b border-[var(--border-strong)] pb-4 sm:pb-5">
-            <div className="grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-6">
+        <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-3 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] max-[390px]:pt-2.5 sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
+          <header className="border-b border-[var(--border-strong)] pb-2.5 sm:pb-5">
+            <div className="grid grid-cols-[minmax(0,1fr)_104px] items-center gap-x-2.5 gap-y-2 sm:hidden">
+              <div
+                className={`inline-flex max-w-full items-center gap-2 px-2 py-1.5 ${surfaceSubtleClassName}`}
+              >
+                <Image
+                  src="/images/logos/lada-logo.png"
+                  alt="LADA"
+                  width={2100}
+                  height={893}
+                  priority
+                  className="h-[18px] w-auto shrink-0 object-contain"
+                />
+                <span className="h-5 w-px shrink-0 bg-[var(--border-strong)]" />
+                <Image
+                  src="/images/logos/kolmi-logo.png"
+                  alt="КОЛМИ"
+                  width={690}
+                  height={475}
+                  priority
+                  className="h-[26px] w-auto shrink-0 object-contain"
+                />
+              </div>
+
+              <CallButton
+                className="min-h-[42px] px-3.5 text-[13px] font-semibold"
+                tone="default"
+              />
+
+              <div className="col-span-full flex items-end justify-between gap-3">
+                <a
+                  className="min-w-0 text-[14px] font-semibold leading-[18px] tracking-[-0.03em] text-[var(--text)] transition hover:text-[var(--primary)]"
+                  href={dealerProfile.phoneHref}
+                >
+                  <span className="max-[360px]:hidden">{dealerProfile.phoneDisplay}</span>
+                  <span className="hidden max-[360px]:grid">
+                    <span className="whitespace-nowrap">+7 (4112)</span>
+                    <span className="whitespace-nowrap">40-08-88</span>
+                  </span>
+                </a>
+                <p className="shrink-0 text-right text-[10px] leading-[13px] text-[var(--text-2)]">
+                  <span className="font-semibold text-[var(--text)]">{mobileWorkHours}</span>
+                  <br />
+                  <span>{shortAddress}</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="hidden sm:grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-6">
               <div
                 className={`inline-flex max-w-full items-center gap-2.5 px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
               >
@@ -353,43 +306,46 @@ export default function Home() {
             </div>
           </header>
 
-          <section className="py-8 sm:py-10 lg:py-14">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:items-start lg:gap-12">
+          <section className="py-5 max-[390px]:py-4 sm:py-10 lg:py-14">
+            <div className="grid gap-4 max-[390px]:gap-3.5 sm:gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)] lg:items-start lg:gap-x-12 lg:gap-y-8">
               <div className="min-w-0 lg:max-w-[44rem] lg:pt-2">
-                <div className="space-y-4 sm:space-y-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] sm:text-[12px]">
+                <div className="space-y-3 max-[390px]:space-y-2.5 sm:space-y-5">
+                  <p className="hidden text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] sm:block sm:text-[12px]">
                     LADA • КОЛМИ • ЯКУТСК
                   </p>
-                  <h1 className="max-w-[12ch] text-[38px] font-semibold leading-[0.98] tracking-[-0.065em] text-[var(--text)] max-[360px]:text-[34px] sm:text-[56px] sm:leading-[0.96]">
+                  <h1 className="max-w-[11.5ch] text-[32px] font-semibold leading-[0.99] tracking-[-0.06em] text-[var(--text)] max-[390px]:text-[30px] max-[360px]:text-[28px] sm:max-w-[12ch] sm:text-[56px] sm:leading-[0.96]">
                     {dealerProfile.heroTitle}
                   </h1>
-                  <p className="max-w-[38rem] text-[15px] leading-[24px] text-[var(--text-2)] max-[430px]:text-[14px] max-[430px]:leading-[22px] sm:text-[17px] sm:leading-[28px]">
-                    {dealerProfile.heroDescription}
+                  <p className="max-w-[34rem] text-[14px] leading-[21px] text-[var(--text-2)] max-[390px]:leading-5 sm:max-w-[38rem] sm:text-[17px] sm:leading-[28px]">
+                    <span className="sm:hidden">{mobileHeroDescription}</span>
+                    <span className="hidden sm:inline">{dealerProfile.heroDescription}</span>
                   </p>
                 </div>
-
-                <ol className="mt-8 max-w-[40rem] divide-y divide-[var(--border)] border-y border-[var(--border)]">
-                  {heroTrustPoints.map((item, index) => (
-                    <li
-                      key={item}
-                      className="grid grid-cols-[42px_minmax(0,1fr)] items-start gap-3 py-4 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-4 sm:py-5"
-                    >
-                      <span className="pt-0.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <p className="text-[15px] font-semibold leading-6 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
-                        {item}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
               </div>
 
-              <div className="min-w-0 lg:border-l lg:border-[var(--border)] lg:pl-10">
+              <div className="min-w-0 lg:row-span-2 lg:border-l lg:border-[var(--border)] lg:pl-10">
                 <div className="max-w-[430px] lg:ml-auto">
                   <ServiceBookingForm />
                 </div>
               </div>
+
+              <ol className="border-y border-[var(--border)] lg:max-w-[40rem]">
+                {heroTrustPoints.map((item, index) => (
+                  <li
+                    key={item}
+                    className={`grid grid-cols-[28px_minmax(0,1fr)] items-start gap-2.5 py-2.5 max-[390px]:py-2 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
+                      index > 0 ? "border-t border-[var(--border)]" : ""
+                    }`}
+                  >
+                    <span className="pt-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] sm:text-[11px]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-[13px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px] sm:leading-6">
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </section>
 

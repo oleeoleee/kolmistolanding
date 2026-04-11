@@ -311,22 +311,22 @@ export function ServiceBookingForm() {
   return (
     <div
       id="service-form"
-      className="surface-panel scroll-mt-6 p-4 sm:p-5 lg:p-6"
+      className="surface-panel scroll-mt-6 p-3.5 max-[390px]:p-3 sm:p-5 lg:p-6"
     >
-      <div className="mb-4 space-y-2 border-b border-[var(--border)] pb-4 sm:mb-5">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)]">
+      <div className="mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 sm:mb-5 sm:space-y-2 sm:pb-4">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] sm:text-[11px]">
           Предварительная запись
         </p>
         <h2 className="text-[21px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[22px]">
           Заявка на сервис
         </h2>
-        <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
+        <p className="text-[13px] leading-[19px] text-[var(--text-2)] sm:text-[14px] sm:leading-6">
           Достаточно телефона. Остальное можно указать по желанию.
         </p>
       </div>
 
-      <form className="space-y-3.5 sm:space-y-4" noValidate onSubmit={handleSubmit}>
-        <div className="space-y-2.5 border-b border-[var(--border)] pb-4">
+      <form className="space-y-3 sm:space-y-4" noValidate onSubmit={handleSubmit}>
+        <div className="space-y-2 border-b border-[var(--border)] pb-3.5 sm:space-y-2.5 sm:pb-4">
           <div className={fieldHeaderClassName}>
             <label className={fieldLabelClassName} htmlFor="phone">
               Телефон для связи
@@ -364,7 +364,7 @@ export function ServiceBookingForm() {
           ) : null}
         </div>
 
-        <fieldset className="space-y-2.5">
+        <fieldset className="space-y-2">
           <legend className="sr-only">Что нужно</legend>
           <div className={fieldHeaderClassName}>
             <p className={fieldLabelClassName}>Услуга</p>
@@ -399,7 +399,7 @@ export function ServiceBookingForm() {
           </div>
         </fieldset>
 
-        <fieldset className="space-y-2.5">
+        <fieldset className="space-y-2">
           <legend className="sr-only">Когда удобно связаться</legend>
           <div className={fieldHeaderClassName}>
             <p className={fieldLabelClassName}>Когда удобно связаться</p>
@@ -435,7 +435,7 @@ export function ServiceBookingForm() {
           </div>
         </fieldset>
 
-        <div className="space-y-2.5 border-t border-[var(--border)] pt-3.5 sm:pt-4">
+        <div className="space-y-2 border-t border-[var(--border)] pt-3 sm:space-y-2.5 sm:pt-4">
           <button
             type="button"
             onClick={() => setExpanded((current) => !current)}
@@ -460,7 +460,7 @@ export function ServiceBookingForm() {
           </button>
 
           {expanded ? (
-            <div id="booking-comment" className="space-y-2.5">
+            <div id="booking-comment" className="space-y-2">
               <div className="space-y-2">
                 <textarea
                   id="comment"
@@ -489,7 +489,7 @@ export function ServiceBookingForm() {
           )}
         </div>
 
-        <div className="space-y-3 pt-1.5">
+        <div className="space-y-2.5 pt-1 sm:space-y-3 sm:pt-1.5">
           <button
             type="submit"
             disabled={submitState === "submitting"}
