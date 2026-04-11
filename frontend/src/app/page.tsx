@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: dealerProfile.heroDescription,
 };
 
-const sectionClassName = "page-section";
+const sectionClassName = "page-section max-[430px]:pt-8 max-[390px]:pt-7";
 const surfacePanelClassName = "surface-panel";
 const surfaceMutedClassName = "surface-muted";
 const surfaceSubtleClassName = "surface-subtle";
@@ -346,7 +346,7 @@ export default function Home() {
           </section>
 
           <section className={sectionClassName}>
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
+            <div className="grid gap-5 max-[430px]:gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
               <div className="lg:pt-1">
                 <SectionHeading
                   title="Почему выбирают сервис КОЛМИ"
@@ -368,16 +368,16 @@ export default function Home() {
                   return (
                     <article
                       key={item.title}
-                      className={`grid grid-cols-[22px_minmax(0,1fr)] gap-3 py-4 sm:grid-cols-[24px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
+                      className={`grid grid-cols-[20px_minmax(0,1fr)] gap-2.5 py-3 max-[430px]:py-2.5 sm:grid-cols-[24px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
                         index > 0 ? "border-t border-[var(--border)]" : ""
                       }`}
                     >
                       <Icon />
-                      <div className="space-y-1 md:grid md:grid-cols-[minmax(220px,0.88fr)_minmax(0,1.12fr)] md:items-start md:gap-6 md:space-y-0">
-                        <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[16px]">
+                      <div className="space-y-0.5 max-[430px]:space-y-px md:grid md:grid-cols-[minmax(220px,0.88fr)_minmax(0,1.12fr)] md:items-start md:gap-6 md:space-y-0">
+                        <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[16px]">
                           {item.title}
                         </h3>
-                        <p className="text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
+                        <p className="text-[13px] leading-5 text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
                           {item.description}
                         </p>
                       </div>
@@ -393,21 +393,21 @@ export default function Home() {
               title="Как проходит запись"
               description="Короткий и понятный сценарий без лишних шагов."
             />
-            <ol className="grid gap-x-8 gap-y-0 lg:grid-cols-3">
+            <ol className="grid gap-x-8 gap-y-0 max-[430px]:gap-y-0 lg:grid-cols-3">
               {processSteps.map((step, index) => (
-                <li key={step.title} className="border-t border-[var(--border)] pt-5 sm:pt-6">
-                  <div className="mb-3 flex items-center gap-3 sm:mb-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[var(--text)] text-[13px] font-semibold tracking-[-0.01em] text-white sm:h-9 sm:w-9 sm:text-[14px]">
+                <li key={step.title} className="border-t border-[var(--border)] pt-4 max-[430px]:pt-3 sm:pt-6">
+                  <div className="mb-2.5 flex items-center gap-2.5 max-[430px]:mb-2 max-[430px]:gap-2 sm:mb-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[var(--text)] text-[13px] font-semibold tracking-[-0.01em] text-white max-[430px]:h-7 max-[430px]:w-7 max-[430px]:text-[12px] sm:h-9 sm:w-9 sm:text-[14px]">
                       {index + 1}
                     </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)]">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:tracking-[0.14em]">
                       Шаг {index + 1}
                     </span>
                   </div>
-                  <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px]">
+                  <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[17px]">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-[13px] leading-5 text-[var(--text-2)] sm:text-[14px] sm:leading-6">
+                  <p className="mt-1.5 text-[13px] leading-5 text-[var(--text-2)] max-[430px]:mt-1 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
                     {step.description}
                   </p>
                 </li>
@@ -417,28 +417,28 @@ export default function Home() {
 
           <section className={sectionClassName} id="contacts">
             <SectionHeading title="Контакты" />
-            <div className="grid gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
-              <article className={`${surfacePanelClassName} px-5 py-5 sm:px-6 sm:py-6`}>
+            <div className="grid gap-3.5 max-[430px]:gap-3 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
+              <article className={`${surfacePanelClassName} px-5 py-5 max-[430px]:px-4 max-[430px]:py-4 sm:px-6 sm:py-6`}>
                 <div className="divide-y divide-[var(--border)]">
-                  <div className="flex gap-4 py-4 first:pt-0">
+                  <div className="flex gap-4 py-4 first:pt-0 max-[430px]:gap-3 max-[430px]:py-3">
                     <MapPinIcon />
                     <div>
-                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Адрес
                       </p>
-                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)]">
+                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5">
                         {dealerProfile.address}
                       </address>
                     </div>
                   </div>
 
-                  <div className="flex gap-4 py-4">
+                  <div className="flex gap-4 py-4 max-[430px]:gap-3 max-[430px]:py-3">
                     <ClockIcon />
                     <div>
-                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Часы работы
                       </p>
-                      <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)]">
+                      <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5">
                         {dealerProfile.workHours.map((item) => (
                           <p key={item}>{item}</p>
                         ))}
@@ -446,14 +446,14 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 pb-0 pt-4">
+                  <div className="flex gap-4 pb-0 pt-4 max-[430px]:gap-3 max-[430px]:pt-3">
                     <PhoneIcon />
                     <div>
-                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
+                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
                         Телефон
                       </p>
                       <a
-                        className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
+                        className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)] max-[430px]:mt-1.5 max-[430px]:text-[14px] max-[430px]:leading-5"
                         href={dealerProfile.phoneHref}
                       >
                         {dealerProfile.phoneDisplay}
@@ -463,21 +463,21 @@ export default function Home() {
                 </div>
               </article>
 
-              <aside className={`${surfaceMutedClassName} px-5 py-5 sm:px-6 sm:py-6`}>
-                <div className="space-y-4 sm:space-y-5">
-                  <div className="space-y-2 sm:space-y-3">
-                    <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] sm:text-[24px]">
+              <aside className={`${surfaceMutedClassName} px-5 py-5 max-[430px]:px-4 max-[430px]:py-4 sm:px-6 sm:py-6`}>
+                <div className="space-y-4 max-[430px]:space-y-3 sm:space-y-5">
+                  <div className="space-y-2 max-[430px]:space-y-1.5 sm:space-y-3">
+                    <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] max-[430px]:text-[18px] sm:text-[24px]">
                       Быстрая связь с сервисом
                     </p>
-                    <p className="text-[14px] leading-6 text-[var(--text-2)] sm:text-[15px]">
+                    <p className="text-[14px] leading-6 text-[var(--text-2)] max-[430px]:text-[13px] max-[430px]:leading-5 sm:text-[15px]">
                       Позвоните или постройте маршрут до дилерского центра. Если удобнее,
                       оставьте заявку выше и мы свяжемся в рабочее время.
                     </p>
                   </div>
-                  <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 sm:gap-3 sm:pt-5">
-                    <CallButton className="w-full" tone="primary" />
+                  <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-2 max-[430px]:pt-3 sm:gap-3 sm:pt-5">
+                    <CallButton className="w-full max-[430px]:min-h-11" tone="primary" />
                     <a
-                      className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] sm:min-h-12 sm:text-[15px]"
+                      className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:text-[13px] sm:min-h-12 sm:text-[15px]"
                       href={dealerProfile.routeHref}
                       rel="noreferrer"
                       target="_blank"
@@ -490,10 +490,10 @@ export default function Home() {
             </div>
           </section>
 
-          <footer className="mt-10 border-t border-[var(--border)] py-6 text-[13px] leading-6 text-[var(--text-2)] sm:mt-12 sm:py-7">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="space-y-1">
-                <p className="font-semibold tracking-[-0.01em] text-[var(--text)]">
+          <footer className="mt-10 border-t border-[var(--border)] py-6 text-[13px] leading-6 text-[var(--text-2)] max-[430px]:mt-8 max-[430px]:py-5 max-[430px]:text-[12px] max-[430px]:leading-5 sm:mt-12 sm:py-7">
+            <div className="flex flex-col gap-4 max-[430px]:gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="space-y-1 max-[430px]:space-y-0.5">
+                <p className="font-semibold tracking-[-0.01em] text-[var(--text)] max-[430px]:leading-[18px]">
                   Официальный дилер LADA • КОЛМИ • Якутск
                 </p>
                 <a
@@ -504,7 +504,7 @@ export default function Home() {
                 </a>
                 {dealerProfile.requisites ? <p>{dealerProfile.requisites}</p> : null}
               </div>
-              <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <div className="flex flex-wrap gap-x-4 gap-y-2 max-[430px]:gap-y-1">
                 <Link
                   className="font-semibold text-[var(--primary)]"
                   href={dealerProfile.policyHref}
@@ -518,7 +518,7 @@ export default function Home() {
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.96)] px-4 py-2 shadow-[0_-10px_24px_rgba(15,23,42,0.04)] backdrop-blur-[10px] max-[430px]:py-1.5 md:hidden">
-        <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+4px)]">
+        <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
             className="inline-flex min-h-[46px] flex-1 items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
