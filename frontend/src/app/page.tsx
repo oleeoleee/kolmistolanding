@@ -220,7 +220,7 @@ export default function Home() {
           <header className="border-b border-[var(--border-strong)] pb-2.5 sm:pb-5">
             <div className="grid grid-cols-[minmax(0,1fr)_100px] items-center gap-x-2 gap-y-1.5 max-[360px]:grid-cols-[minmax(0,1fr)_96px] sm:hidden">
               <div
-                className={`inline-flex max-w-full items-center gap-2 px-2 py-1.5 ${surfaceSubtleClassName}`}
+                className={`inline-grid w-fit max-w-full grid-cols-[auto_1px_auto] items-center justify-self-start gap-2 overflow-hidden px-2 py-1.5 max-[360px]:gap-1.5 max-[360px]:px-1.5 ${surfaceSubtleClassName}`}
               >
                 <Image
                   src="/images/logos/lada-logo.png"
@@ -228,16 +228,16 @@ export default function Home() {
                   width={2100}
                   height={893}
                   priority
-                  className="h-[18px] w-auto shrink-0 object-contain"
+                  className="h-[18px] w-auto shrink-0 object-contain max-[360px]:h-[17px]"
                 />
-                <span className="h-5 w-px shrink-0 bg-[var(--border-strong)]" />
+                <span className="h-5 w-px shrink-0 bg-[var(--border-strong)] max-[360px]:h-[18px]" />
                 <Image
-                  src="/images/logos/kolmi-logo.png"
+                  src="/images/logos/kolmi-logo-clean.png"
                   alt="КОЛМИ"
                   width={690}
                   height={475}
                   priority
-                  className="h-[26px] w-auto shrink-0 object-contain"
+                  className="h-[19px] w-auto shrink-0 scale-[1.25] object-contain origin-center max-[360px]:h-[18px]"
                 />
               </div>
 
@@ -275,12 +275,12 @@ export default function Home() {
                 />
                 <span className="h-7 w-px shrink-0 bg-[var(--border-strong)] max-[430px]:h-6 sm:h-8" />
                 <Image
-                  src="/images/logos/kolmi-logo.png"
+                  src="/images/logos/kolmi-logo-clean.png"
                   alt="КОЛМИ"
                   width={690}
                   height={475}
                   priority
-                  className="h-[34px] w-auto shrink-0 object-contain max-[430px]:h-[30px] sm:h-[42px]"
+                  className="h-[34px] w-auto shrink-0 scale-[1.18] object-contain origin-center max-[430px]:h-[30px] sm:h-[42px]"
                 />
               </div>
 
@@ -523,7 +523,7 @@ export default function Home() {
             className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
-            К заявке
+            Записаться
           </a>
           <a
             className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
