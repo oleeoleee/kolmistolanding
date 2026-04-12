@@ -40,16 +40,18 @@ const fieldHeaderClassName =
 const fieldLabelClassName =
   "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:tracking-[0.14em]";
 const fieldMetaClassName =
-  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.06em] max-[430px]:text-[rgba(82,92,104,0.9)]";
+  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(82,92,104,0.72)] max-[430px]:text-[9px]";
 const optionalMetaClassName =
-  "inline-flex items-center rounded-full border border-[rgba(17,22,29,0.1)] bg-[rgba(247,248,250,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(107,116,130,0.92)] max-[430px]:border-0 max-[430px]:bg-transparent max-[430px]:px-0 max-[430px]:py-0 max-[430px]:text-[9px] max-[430px]:font-medium max-[430px]:tracking-[0.05em] max-[430px]:text-[rgba(107,116,130,0.82)]";
+  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(107,116,130,0.6)] max-[430px]:text-[9px]";
 const compactChipBaseClassName =
-  "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-full border px-3 py-2 text-[12px] font-semibold leading-4 tracking-[-0.01em] transition max-[430px]:min-h-9 max-[430px]:px-2.5 max-[430px]:py-1.5 max-[430px]:text-[11px] sm:min-h-10 sm:px-3.5 sm:text-[13px]";
+  "inline-flex min-h-[34px] cursor-pointer items-center justify-center rounded-[12px] border px-[11px] py-1.5 text-[12px] font-medium leading-[1.1] tracking-[-0.015em] transition-colors transition-[border-color,background-color,color] max-[430px]:min-h-[34px] max-[430px]:rounded-[11px] max-[430px]:px-2.5 max-[430px]:py-[5px] max-[430px]:text-[11px] sm:min-h-[36px] sm:rounded-[12px] sm:px-3 sm:text-[13px]";
+const serviceRowControlClassName =
+  "flex min-h-[46px] w-full items-center justify-between rounded-[12px] border px-3.5 py-2.5 text-left text-[13px] font-medium leading-[1.2] tracking-[-0.012em] transition-colors transition-[border-color,background-color,color] max-[430px]:min-h-[44px] max-[430px]:rounded-[11px] max-[430px]:px-3 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-12 sm:px-4 sm:text-[13px]";
 const antiAnxietyCopy =
   "Если не уверены в причине обращения — опишите своими словами, мы уточним.";
 const phoneHelperText = "Нужен для подтверждения записи.";
 const mobileCtaMicrocopy =
-  "Предварительная запись • Перезвоним в рабочее время";
+  "Достаточно телефона • Остальное можно уточнить позже";
 
 const normalizePhone = (value: string) => {
   if (value.length === 0) {
@@ -166,6 +168,7 @@ const validate = (values: FormValues): FieldErrors => {
 export function ServiceBookingForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [expanded, setExpanded] = useState(false);
+  const [detailsExpanded, setDetailsExpanded] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [touched, setTouched] = useState({
     phone: false,
@@ -316,10 +319,7 @@ export function ServiceBookingForm() {
   };
 
   return (
-    <div
-      id="service-form"
-      className="surface-panel scroll-mt-6 p-3.5 max-[430px]:p-[13px] max-[390px]:p-3 sm:p-5 lg:p-6"
-    >
+    <div id="service-form" className="scroll-mt-6">
       <div className="mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] max-[430px]:text-[9px] max-[430px]:tracking-[0.16em] sm:text-[11px]">
           Предварительная запись
@@ -333,11 +333,11 @@ export function ServiceBookingForm() {
       </div>
 
       <form
-        className="space-y-3 max-[430px]:space-y-2.5 max-[390px]:space-y-[9px] sm:space-y-4"
+        className="grid gap-3 max-[430px]:gap-2.5 max-[390px]:gap-[9px] sm:gap-4"
         noValidate
         onSubmit={handleSubmit}
       >
-        <div className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
+        <div className="order-1 space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
           <div className={fieldHeaderClassName}>
             <label className={fieldLabelClassName} htmlFor="phone">
               Телефон для связи
@@ -377,139 +377,7 @@ export function ServiceBookingForm() {
           </p>
         </div>
 
-        <fieldset className="space-y-2 max-[430px]:space-y-1.5">
-          <legend className="sr-only">Что нужно</legend>
-          <div className={fieldHeaderClassName}>
-            <p className={fieldLabelClassName}>Услуга</p>
-            <span className={optionalMetaClassName}>Необязательно</span>
-          </div>
-          <div className="flex flex-wrap gap-2 max-[430px]:gap-1.5">
-            {serviceOptions.map((option) => {
-              const isChecked = values.serviceType === option.value;
-
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  aria-pressed={isChecked}
-                  onClick={() => {
-                    setValues((current) => ({
-                      ...current,
-                      serviceType: current.serviceType === option.value ? "" : option.value,
-                    }));
-                    setSubmitState("idle");
-                  }}
-                  className={`${compactChipBaseClassName} ${
-                    isChecked
-                      ? "border-[var(--primary)] bg-[var(--primary)] text-white"
-                      : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)]"
-                  }`}
-                >
-                  <span>{option.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </fieldset>
-
-        <fieldset className="space-y-2 max-[430px]:space-y-1.5">
-          <legend className="sr-only">Когда удобно связаться</legend>
-          <div className={fieldHeaderClassName}>
-            <p className={fieldLabelClassName}>Когда удобно связаться</p>
-            <span className={optionalMetaClassName}>Необязательно</span>
-          </div>
-          <div className="flex flex-wrap gap-2 max-[430px]:gap-1.5">
-            {contactWindowOptions.map((option) => {
-              const isChecked = values.contactWindow === option.value;
-
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  aria-pressed={isChecked}
-                  onClick={() => {
-                    setValues((current) => ({
-                      ...current,
-                      contactWindow:
-                        current.contactWindow === option.value ? "" : option.value,
-                    }));
-                    setSubmitState("idle");
-                  }}
-                  className={`${compactChipBaseClassName} ${
-                    isChecked
-                      ? "border-[var(--primary)] bg-[var(--primary)] text-white"
-                      : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)]"
-                  }`}
-                >
-                  <span>{option.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </fieldset>
-
-        <div className="space-y-2 border-t border-[var(--border)] pt-3 max-[430px]:space-y-1.5 max-[430px]:pt-2.5 sm:space-y-2.5 sm:pt-4">
-          <button
-            type="button"
-            onClick={() => setExpanded((current) => !current)}
-            aria-expanded={expanded}
-            aria-controls="booking-comment"
-            className={`flex min-h-[44px] w-full items-center justify-between rounded-[10px] border px-4 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:min-h-[46px] max-[430px]:gap-2.5 max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-[46px] sm:text-[14px] ${
-              expanded
-                ? "border-[var(--primary)] bg-[rgba(11,76,168,0.08)] text-[var(--primary)]"
-                : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)]"
-            }`}
-          >
-            <span className="flex min-w-0 flex-1 items-center gap-2 max-[430px]:items-start">
-              <span className="min-w-0">
-                <span className="block truncate max-[430px]:leading-4">Комментарий к заявке</span>
-                <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(107,116,130,0.82)] max-[430px]:block">
-                  Необязательно
-                </span>
-              </span>
-              <span className={`max-[430px]:hidden ${optionalMetaClassName}`}>
-                Необязательно
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              className={`shrink-0 text-[18px] leading-none transition max-[430px]:text-[16px] ${expanded ? "rotate-45" : ""}`}
-            >
-              +
-            </span>
-          </button>
-
-          {expanded ? (
-            <div id="booking-comment" className="space-y-2 max-[430px]:space-y-1.5">
-              <div className="space-y-2">
-                <textarea
-                  id="comment"
-                  name="comment"
-                  rows={3}
-                  value={values.comment}
-                  onChange={(event) => {
-                    setValues((current) => ({
-                      ...current,
-                      comment: event.target.value,
-                    }));
-                    setSubmitState("idle");
-                  }}
-                  placeholder="Если хотите, кратко опишите вопрос или неисправность"
-                  className="w-full rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)]"
-                />
-              </div>
-              <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
-                {antiAnxietyCopy}
-              </p>
-            </div>
-          ) : (
-            <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
-              {antiAnxietyCopy}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-2.5 pt-1 max-[430px]:space-y-1.5 max-[430px]:pt-0.5 sm:space-y-3 sm:pt-1.5">
+        <div className="order-2 space-y-2.5 pt-1 max-[430px]:space-y-1.5 max-[430px]:pt-0.5 sm:order-3 sm:space-y-3 sm:pt-1.5">
           <button
             type="submit"
             disabled={submitState === "submitting"}
@@ -536,7 +404,7 @@ export function ServiceBookingForm() {
           </p>
         </div>
 
-        <div aria-live="polite" className="pt-0.5 sm:pt-1">
+        <div aria-live="polite" className="order-3 pt-0.5 sm:order-4 sm:pt-1">
           {submitState === "success" ? (
             <p className="rounded-[10px] border border-[rgba(17,122,55,0.18)] bg-[rgba(17,122,55,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
               Спасибо. Заявка отправлена, мы свяжемся с вами для согласования визита.
@@ -558,6 +426,182 @@ export function ServiceBookingForm() {
               Не удалось отправить заявку. Проверьте подключение формы и попробуйте ещё раз.
             </p>
           ) : null}
+        </div>
+
+        <div className="order-4 sm:order-2">
+          <button
+            type="button"
+            onClick={() => setDetailsExpanded((current) => !current)}
+            aria-expanded={detailsExpanded}
+            aria-controls="booking-details"
+            className={`flex w-full items-center justify-between gap-3 px-0 text-left sm:hidden ${
+              detailsExpanded
+                ? "pb-2.5"
+                : "border-b border-[var(--border)] pb-3"
+            }`}
+          >
+            <span className="min-w-0 flex-1">
+              <span className="block text-[13px] font-semibold leading-5 tracking-[-0.015em] text-[var(--text)]">
+                Уточнить детали заявки
+              </span>
+              <span className="mt-0.5 block text-[10px] font-medium leading-4 tracking-[0.01em] text-[rgba(107,116,130,0.72)]">
+                Необязательно
+              </span>
+            </span>
+            <span
+              aria-hidden="true"
+              className={`shrink-0 text-[18px] leading-none text-[var(--text-2)] transition ${
+                detailsExpanded ? "rotate-45 text-[var(--primary)]" : ""
+              }`}
+            >
+              +
+            </span>
+          </button>
+
+          <div
+            id="booking-details"
+            className={`${detailsExpanded ? "mt-2.5 grid gap-3 max-[430px]:gap-2.5 max-[390px]:gap-[9px]" : "hidden"} sm:mt-0 sm:grid sm:gap-4`}
+          >
+            <fieldset className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
+              <legend className="sr-only">Что нужно</legend>
+              <div className={fieldHeaderClassName}>
+                <p className={fieldLabelClassName}>Услуга</p>
+                <span className={optionalMetaClassName}>Необязательно</span>
+              </div>
+              <div className="grid gap-1.5 sm:gap-2">
+                {serviceOptions.map((option) => {
+                  const isChecked = values.serviceType === option.value;
+
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      aria-pressed={isChecked}
+                      onClick={() => {
+                        setValues((current) => ({
+                          ...current,
+                          serviceType: current.serviceType === option.value ? "" : option.value,
+                        }));
+                        setSubmitState("idle");
+                      }}
+                      className={`${serviceRowControlClassName} ${
+                        isChecked
+                          ? "border-[rgba(11,76,168,0.44)] bg-[rgba(11,76,168,0.04)] text-[rgba(8,57,128,0.96)]"
+                          : "border-[rgba(17,22,29,0.2)] bg-[rgba(248,249,250,0.5)] text-[rgba(26,32,41,0.94)] hover:border-[rgba(17,22,29,0.34)]"
+                      }`}
+                    >
+                      <span>{option.label}</span>
+                      <span
+                        aria-hidden="true"
+                        className={`ml-3 h-[15px] w-[15px] shrink-0 rounded-[4px] border transition-colors max-[430px]:h-[14px] max-[430px]:w-[14px] ${
+                          isChecked
+                            ? "border-[rgba(11,76,168,0.48)] bg-[rgba(11,76,168,0.12)]"
+                            : "border-[rgba(17,22,29,0.22)] bg-transparent"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+
+            <fieldset className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
+              <legend className="sr-only">Когда удобно связаться</legend>
+              <div className={fieldHeaderClassName}>
+                <p className={fieldLabelClassName}>Когда удобно связаться</p>
+                <span className={optionalMetaClassName}>Необязательно</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 max-[430px]:gap-1.5">
+                {contactWindowOptions.map((option) => {
+                  const isChecked = values.contactWindow === option.value;
+
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      aria-pressed={isChecked}
+                      onClick={() => {
+                        setValues((current) => ({
+                          ...current,
+                          contactWindow:
+                            current.contactWindow === option.value ? "" : option.value,
+                        }));
+                        setSubmitState("idle");
+                      }}
+                      className={`${compactChipBaseClassName} ${
+                        isChecked
+                          ? "border-[rgba(11,76,168,0.5)] bg-[rgba(11,76,168,0.035)] font-semibold text-[rgba(8,57,128,0.96)]"
+                          : "border-[rgba(17,22,29,0.24)] bg-transparent text-[rgba(26,32,41,0.94)] hover:border-[rgba(17,22,29,0.38)]"
+                      }`}
+                    >
+                      <span>{option.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+
+            <div className="space-y-2.5 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2 sm:pb-4">
+              <button
+                type="button"
+                onClick={() => setExpanded((current) => !current)}
+                aria-expanded={expanded}
+                aria-controls="booking-comment"
+                className={`flex min-h-[40px] w-full items-center justify-between gap-3 px-0 py-0.5 text-left text-[13px] font-semibold leading-5 tracking-[-0.01em] transition max-[430px]:min-h-[38px] max-[430px]:gap-2.5 max-[430px]:text-[12px] sm:min-h-[42px] sm:text-[14px] ${
+                  expanded
+                    ? "text-[var(--primary)]"
+                    : "text-[var(--text)]"
+                }`}
+              >
+                <span className="flex min-w-0 flex-1 items-center gap-2 max-[430px]:items-start">
+                  <span className="min-w-0">
+                    <span className="block truncate max-[430px]:leading-4">Комментарий к заявке</span>
+                    <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(107,116,130,0.82)] max-[430px]:block">
+                      Необязательно
+                    </span>
+                  </span>
+                  <span className={`max-[430px]:hidden ${optionalMetaClassName}`}>
+                    Необязательно
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`shrink-0 text-[18px] leading-none text-[var(--text-2)] transition max-[430px]:text-[16px] ${expanded ? "rotate-45 text-[var(--primary)]" : ""}`}
+                >
+                  +
+                </span>
+              </button>
+
+              {expanded ? (
+                <div id="booking-comment" className="space-y-2 max-[430px]:space-y-1.5">
+                  <div className="space-y-2">
+                    <textarea
+                      id="comment"
+                      name="comment"
+                      rows={3}
+                      value={values.comment}
+                      onChange={(event) => {
+                        setValues((current) => ({
+                          ...current,
+                          comment: event.target.value,
+                        }));
+                        setSubmitState("idle");
+                      }}
+                      placeholder="Если хотите, кратко опишите вопрос или неисправность"
+                      className="w-full rounded-[12px] border border-[rgba(17,22,29,0.18)] bg-transparent px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:rounded-[11px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)]"
+                    />
+                  </div>
+                  <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
+                    {antiAnxietyCopy}
+                  </p>
+                </div>
+              ) : (
+                <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
+                  {antiAnxietyCopy}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </form>
     </div>

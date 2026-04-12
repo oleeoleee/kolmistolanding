@@ -18,7 +18,6 @@ export const metadata: Metadata = {
 const sectionClassName = "page-section max-[430px]:pt-7 max-[390px]:pt-6";
 const surfacePanelClassName = "surface-panel";
 const surfaceMutedClassName = "surface-muted";
-const surfaceSubtleClassName = "surface-subtle";
 const heroTrustPoints = [
   "Дилерские регламенты LADA",
   "Оригинальные детали и расходные материалы",
@@ -220,7 +219,7 @@ export default function Home() {
           <header className="border-b border-[var(--border-strong)] pb-2.5 sm:pb-5">
             <div className="grid grid-cols-[minmax(0,1fr)_100px] items-center gap-x-2 gap-y-1.5 max-[360px]:grid-cols-[minmax(0,1fr)_96px] sm:hidden">
               <div
-                className={`inline-grid w-fit max-w-full grid-cols-[auto_1px_auto] items-center justify-self-start gap-2 overflow-hidden px-2 py-1.5 max-[360px]:gap-1.5 max-[360px]:px-1.5 ${surfaceSubtleClassName}`}
+                className="ml-1 inline-grid w-fit max-w-full grid-cols-[auto_1px_auto] items-center justify-self-start gap-2 max-[360px]:ml-0.5 max-[360px]:gap-1.5"
               >
                 <Image
                   src="/images/logos/lada-logo.png"
@@ -228,16 +227,16 @@ export default function Home() {
                   width={2100}
                   height={893}
                   priority
-                  className="h-[18px] w-auto shrink-0 object-contain max-[360px]:h-[17px]"
+                  className="h-[18px] w-auto shrink-0 scale-[1.09] object-contain origin-center max-[360px]:h-[17px]"
                 />
-                <span className="h-5 w-px shrink-0 bg-[var(--border-strong)] max-[360px]:h-[18px]" />
+                <span className="h-[22px] w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[360px]:h-5" />
                 <Image
                   src="/images/logos/kolmi-logo-clean.png"
                   alt="КОЛМИ"
                   width={690}
                   height={475}
                   priority
-                  className="h-[19px] w-auto shrink-0 scale-[1.25] object-contain origin-center max-[360px]:h-[18px]"
+                  className="h-[19px] w-auto shrink-0 scale-[1.38] object-contain origin-center max-[360px]:h-[18px]"
                 />
               </div>
 
@@ -263,7 +262,7 @@ export default function Home() {
 
             <div className="hidden sm:grid gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-6">
               <div
-                className={`inline-flex max-w-full items-center gap-2.5 px-2.5 py-2.5 max-[430px]:gap-2 max-[430px]:px-2 max-[430px]:py-2 sm:gap-4 sm:px-4 sm:py-3 ${surfaceSubtleClassName}`}
+                className="inline-flex max-w-full items-center gap-2.5 max-[430px]:gap-2 sm:gap-4"
               >
                 <Image
                   src="/images/logos/lada-logo.png"
@@ -271,16 +270,16 @@ export default function Home() {
                   width={2100}
                   height={893}
                   priority
-                  className="h-6 w-auto shrink-0 object-contain max-[430px]:h-[22px] sm:h-8"
+                  className="h-6 w-auto shrink-0 scale-[1.08] object-contain origin-center max-[430px]:h-[22px] sm:h-8"
                 />
-                <span className="h-7 w-px shrink-0 bg-[var(--border-strong)] max-[430px]:h-6 sm:h-8" />
+                <span className="h-8 w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[430px]:h-7 sm:h-9" />
                 <Image
                   src="/images/logos/kolmi-logo-clean.png"
                   alt="КОЛМИ"
                   width={690}
                   height={475}
                   priority
-                  className="h-[34px] w-auto shrink-0 scale-[1.18] object-contain origin-center max-[430px]:h-[30px] sm:h-[42px]"
+                  className="h-[34px] w-auto shrink-0 scale-[1.32] object-contain origin-center max-[430px]:h-[30px] sm:h-[42px]"
                 />
               </div>
 
