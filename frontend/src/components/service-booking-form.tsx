@@ -320,14 +320,14 @@ export function ServiceBookingForm() {
 
   return (
     <div id="service-form" className="scroll-mt-6">
-      <div className="mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
+      <div className="mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] max-[430px]:text-[9px] max-[430px]:tracking-[0.16em] sm:text-[11px]">
           Предварительная запись
         </p>
         <h2 className="text-[21px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[22px]">
           Заявка на сервис
         </h2>
-        <p className="text-[13px] leading-[19px] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
+        <p className="max-w-[28rem] text-[13px] leading-[18px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:max-w-[24rem] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
           Оставьте телефон. Остальное — по желанию.
         </p>
       </div>
@@ -367,7 +367,7 @@ export function ServiceBookingForm() {
           />
           <p
             id="phone-feedback"
-            className={`pt-0.5 text-[12px] leading-[18px] sm:text-[13px] sm:leading-5 ${
+            className={`pt-0.5 text-[11px] leading-4 tracking-[-0.006em] sm:text-[12px] sm:leading-[18px] ${
               phoneError
                 ? "font-medium text-[rgba(161,58,58,0.9)]"
                 : "text-[var(--text-2)]"
@@ -386,7 +386,7 @@ export function ServiceBookingForm() {
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
           </button>
           <div className="border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
-            <p className="text-[10px] leading-4 text-[var(--text-2)] max-[430px]:tracking-[0.01em] sm:hidden">
+            <p className="text-[10px] leading-[15px] tracking-[0.006em] text-[var(--text-2)] sm:hidden">
               {mobileCtaMicrocopy}
             </p>
             <div className="hidden gap-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] sm:grid sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
@@ -395,7 +395,7 @@ export function ServiceBookingForm() {
               <p>Свяжемся в рабочее время</p>
             </div>
           </div>
-          <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
+          <p className="max-w-[29rem] text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:max-w-[24rem] max-[430px]:text-[10px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
             Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
             <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
               по политике ПД
@@ -591,12 +591,12 @@ export function ServiceBookingForm() {
                       className="w-full rounded-[12px] border border-[rgba(17,22,29,0.18)] bg-transparent px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:rounded-[11px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)]"
                     />
                   </div>
-                  <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
+                  <p className="text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
                     {antiAnxietyCopy}
                   </p>
                 </div>
               ) : (
-                <p className="text-[12px] leading-[18px] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-4 max-[430px]:tracking-[-0.01em] sm:text-[13px] sm:leading-5">
+                <p className="text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
                   {antiAnxietyCopy}
                 </p>
               )}

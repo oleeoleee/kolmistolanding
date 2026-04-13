@@ -170,12 +170,12 @@ function SectionHeading({
   description?: string;
 }>) {
   return (
-    <div className="mb-6 space-y-2 sm:mb-7 sm:space-y-2.5">
+    <div className="mb-6 space-y-1.5 max-[430px]:mb-5 sm:mb-7 sm:space-y-2">
       <h2 className="text-[22px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[28px]">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-[42rem] text-[14px] leading-[22px] text-[var(--text-2)] sm:text-[15px] sm:leading-6">
+        <p className="max-w-[38rem] text-[13px] leading-5 tracking-[-0.008em] text-[var(--text-2)] sm:max-w-[40rem] sm:text-[14px] sm:leading-[22px]">
           {description}
         </p>
       ) : null}
@@ -193,11 +193,11 @@ function CallButton({
   const toneClassName =
     tone === "primary"
       ? "border-[var(--primary)] bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] hover:border-[var(--primary-pressed)] hover:text-white"
-      : "border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--border-strong)] hover:text-[var(--text)]";
+      : "border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text)] hover:border-[rgba(17,22,29,0.26)] hover:bg-white hover:text-[var(--text)]";
 
   return (
     <a
-      className={`inline-flex min-h-[46px] items-center justify-center rounded-[10px] border px-4 text-[14px] font-semibold tracking-[-0.01em] transition sm:min-h-12 ${toneClassName} ${className ?? ""}`}
+      className={`inline-flex min-h-[46px] items-center justify-center rounded-[10px] border px-4 text-[14px] font-semibold leading-none tracking-[-0.01em] transition sm:min-h-12 sm:text-[15px] ${toneClassName} ${className ?? ""}`}
       href={dealerProfile.phoneHref}
     >
       Позвонить
@@ -214,7 +214,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-transparent text-[var(--text)]">
+      <main className="page-surface min-h-screen bg-transparent text-[var(--text)]">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col px-4 pb-[calc(84px+env(safe-area-inset-bottom))] pt-3 max-[430px]:pb-[calc(78px+env(safe-area-inset-bottom))] max-[390px]:pt-2.5 sm:px-6 sm:pb-12 sm:pt-6 lg:px-8">
           <header className="border-b border-[var(--border-strong)] pb-2.5 sm:pb-5">
             <div className="grid grid-cols-[minmax(0,1fr)_100px] items-center gap-x-2 gap-y-1.5 max-[360px]:grid-cols-[minmax(0,1fr)_96px] sm:hidden">
@@ -241,7 +241,7 @@ export default function Home() {
               </div>
 
               <CallButton
-                className="min-h-[42px] px-3 text-[13px] font-semibold max-[360px]:px-2.5"
+                className="min-h-[42px] px-3 max-[360px]:px-2.5"
                 tone="default"
               />
 
@@ -311,7 +311,7 @@ export default function Home() {
                   <h1 className="max-w-[11.5ch] text-[32px] font-semibold leading-[0.99] tracking-[-0.06em] text-[var(--text)] max-[390px]:text-[30px] max-[360px]:text-[28px] sm:max-w-[12ch] sm:text-[56px] sm:leading-[0.96]">
                     {dealerProfile.heroTitle}
                   </h1>
-                  <p className="max-w-[34rem] text-[14px] leading-[21px] text-[var(--text-2)] max-[390px]:leading-5 sm:max-w-[38rem] sm:text-[17px] sm:leading-[28px]">
+                  <p className="max-w-[31rem] text-[14px] leading-5 tracking-[-0.008em] text-[var(--text-2)] max-[390px]:max-w-[29rem] max-[390px]:leading-[19px] sm:max-w-[35rem] sm:text-[16px] sm:leading-[25px]">
                     <span className="sm:hidden">{mobileHeroDescription}</span>
                     <span className="hidden sm:inline">{dealerProfile.heroDescription}</span>
                   </p>
@@ -344,7 +344,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className={sectionClassName}>
+          <section className="pt-7 max-[390px]:pt-6 sm:[padding-top:clamp(2.5rem,5vw,3.5rem)]">
             <div className="grid gap-5 max-[430px]:gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
               <div className="lg:pt-1">
                 <SectionHeading
@@ -353,7 +353,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="border-y border-[var(--border)]">
+              <div className="border-b border-[var(--border)] bg-transparent">
                 {advantages.map((item, index) => {
                   const Icon =
                     index === 0
@@ -376,7 +376,7 @@ export default function Home() {
                         <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[16px]">
                           {item.title}
                         </h3>
-                        <p className="text-[13px] leading-5 text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
+                        <p className="text-[13px] leading-[19px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
                           {item.description}
                         </p>
                       </div>
@@ -406,7 +406,7 @@ export default function Home() {
                   <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[17px]">
                     {step.title}
                   </h3>
-                  <p className="mt-1.5 text-[13px] leading-5 text-[var(--text-2)] max-[430px]:mt-1 max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[14px] sm:leading-6">
+                  <p className="mt-1.5 text-[13px] leading-[19px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:mt-1 max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
                     {step.description}
                   </p>
                 </li>
@@ -468,13 +468,13 @@ export default function Home() {
                     <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] max-[430px]:text-[17px] sm:text-[24px]">
                       Быстрая связь с сервисом
                     </p>
-                    <p className="text-[14px] leading-6 text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[18px] sm:text-[15px]">
+                    <p className="text-[14px] leading-[21px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[15px] sm:leading-[23px]">
                       Позвоните или постройте маршрут до дилерского центра. Если удобнее,
                       оставьте заявку выше и мы свяжемся в рабочее время.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-1.5 max-[430px]:pt-2.5 sm:gap-3 sm:pt-5">
-                    <CallButton className="w-full max-[430px]:min-h-11" tone="primary" />
+                    <CallButton className="w-full max-[430px]:min-h-11" tone="default" />
                     <a
                       className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:text-[13px] sm:min-h-12 sm:text-[15px]"
                       href={dealerProfile.routeHref}
@@ -516,16 +516,16 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(242,244,246,0.94)] px-4 py-2 shadow-[0_-8px_20px_rgba(15,23,42,0.032)] backdrop-blur-[8px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-5px_12px_rgba(15,23,42,0.025)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[rgba(17,22,29,0.08)] bg-[rgba(244,246,248,0.88)] px-4 py-2 shadow-[0_-4px_12px_rgba(15,23,42,0.022)] backdrop-blur-[10px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-3px_10px_rgba(15,23,42,0.018)] md:hidden">
         <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
-            className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] bg-[var(--primary)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-white transition hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[rgba(8,61,134,0.1)] bg-[rgba(10,63,132,0.62)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-[rgba(255,255,255,0.88)] transition hover:border-[rgba(8,61,134,0.14)] hover:bg-[rgba(8,61,134,0.68)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
             Записаться
           </a>
           <a
-            className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-3.5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[rgba(17,22,29,0.14)] bg-[rgba(255,255,255,0.76)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[rgba(17,22,29,0.92)] transition hover:border-[rgba(17,22,29,0.2)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[rgba(17,22,29,0.94)] max-[430px]:min-h-11 max-[430px]:px-3"
             href={dealerProfile.phoneHref}
           >
             Позвонить
