@@ -23,7 +23,14 @@ type FieldErrors = {
   phone?: string;
 };
 
-type SubmitState = "idle" | "submitting" | "success" | "integration-missing" | "error";
+type SubmitState = "idle" | "submitting" | "success" | "error";
+type BookingSubmissionPayload = {
+  phone: string;
+  serviceType: ServiceKind | "";
+  contactWindow: ContactWindow | "";
+  comment: string;
+  submittedAt: string;
+};
 
 const PHONE_PREFIX = "+7";
 const LOCAL_PHONE_LENGTH = 10;
@@ -52,6 +59,7 @@ const antiAnxietyCopy =
 const phoneHelperText = "Нужен для подтверждения записи.";
 const mobileCtaMicrocopy =
   "Достаточно телефона • Остальное можно уточнить позже";
+const mockSubmitDelayMs = 700;
 
 const normalizePhone = (value: string) => {
   if (value.length === 0) {
@@ -60,6 +68,8 @@ const normalizePhone = (value: string) => {
 
   return `7${value}`;
 };
+
+const isPhoneValid = (value: string) => normalizePhone(value).length === 11;
 
 const extractPhoneDigits = (value: string) => {
   const digits = value.replace(/\D/g, "");
@@ -158,11 +168,33 @@ const getCaretPosition = (value: string, digitIndex: number) => {
 const validate = (values: FormValues): FieldErrors => {
   const errors: FieldErrors = {};
 
-  if (normalizePhone(values.phone).length !== 11) {
+  if (!isPhoneValid(values.phone)) {
     errors.phone = "Укажите телефон полностью.";
   }
 
   return errors;
+};
+
+const submitBookingRequest = async (
+  payload: BookingSubmissionPayload,
+  endpoint?: string | null,
+) => {
+  if (!endpoint) {
+    await new Promise((resolve) => window.setTimeout(resolve, mockSubmitDelayMs));
+    return;
+  }
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error("Submission failed");
+  }
 };
 
 export function ServiceBookingForm() {
@@ -178,6 +210,7 @@ export function ServiceBookingForm() {
   const pendingPhoneCaretRef = useRef<number | null>(null);
 
   const errors = useMemo(() => validate(values), [values]);
+  const phoneIsValid = useMemo(() => isPhoneValid(values.phone), [values.phone]);
   const phoneValue = useMemo(() => formatPhone(values.phone), [values.phone]);
   const phoneHasValue = values.phone.length > 0;
   const phoneError =
@@ -276,42 +309,41 @@ export function ServiceBookingForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (submitState === "submitting") {
+      return;
+    }
+
     setSubmitAttempted(true);
     setTouched({
       phone: true,
     });
     setSubmitState("idle");
 
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
-    if (!dealerProfile.formEndpoint) {
-      setSubmitState("integration-missing");
+    if (!phoneIsValid || Object.keys(errors).length > 0) {
       return;
     }
 
     setSubmitState("submitting");
 
     try {
-      const response = await fetch(dealerProfile.formEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      await submitBookingRequest(
+        {
           phone: normalizePhone(values.phone),
           serviceType: values.serviceType,
           contactWindow: values.contactWindow,
           comment: values.comment.trim(),
           submittedAt: new Date().toISOString(),
-        }),
+        },
+        dealerProfile.formEndpoint,
+      );
+      setValues(initialValues);
+      setExpanded(false);
+      setDetailsExpanded(false);
+      setTouched({
+        phone: false,
       });
-
-      if (!response.ok) {
-        throw new Error("Submission failed");
-      }
-
+      setSubmitAttempted(false);
       setSubmitState("success");
     } catch {
       setSubmitState("error");
@@ -380,7 +412,8 @@ export function ServiceBookingForm() {
         <div className="order-2 space-y-2.5 pt-1 max-[430px]:space-y-1.5 max-[430px]:pt-0.5 sm:order-3 sm:space-y-3 sm:pt-1.5">
           <button
             type="submit"
-            disabled={submitState === "submitting"}
+            aria-busy={submitState === "submitting" ? true : undefined}
+            disabled={submitState === "submitting" || !phoneIsValid}
             className="inline-flex min-h-[54px] w-full items-center justify-center rounded-[10px] bg-[var(--primary)] px-5 text-base font-semibold tracking-[-0.01em] text-white shadow-[0_12px_26px_rgba(11,76,168,0.2)] transition max-[430px]:min-h-[52px] hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
           >
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
@@ -407,23 +440,13 @@ export function ServiceBookingForm() {
         <div aria-live="polite" className="order-3 pt-0.5 sm:order-4 sm:pt-1">
           {submitState === "success" ? (
             <p className="rounded-[10px] border border-[rgba(17,122,55,0.18)] bg-[rgba(17,122,55,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
-              Спасибо. Заявка отправлена, мы свяжемся с вами для согласования визита.
-            </p>
-          ) : null}
-
-          {submitState === "integration-missing" ? (
-            <p className="rounded-[10px] border border-[rgba(180,83,9,0.18)] bg-[rgba(180,83,9,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--warning)]">
-              Форма готова, но отправка пока не подключена. Добавьте endpoint в{" "}
-              <code className="rounded-[6px] bg-[var(--surface)] px-1 py-0.5 text-[13px]">
-                dealerProfile.formEndpoint
-              </code>
-              .
+              Заявка отправлена. Мы свяжемся с вами в рабочее время.
             </p>
           ) : null}
 
           {submitState === "error" ? (
             <p className="rounded-[10px] border border-[rgba(198,40,40,0.18)] bg-[rgba(198,40,40,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--danger)]">
-              Не удалось отправить заявку. Проверьте подключение формы и попробуйте ещё раз.
+              Не удалось отправить заявку. Попробуйте еще раз или позвоните нам.
             </p>
           ) : null}
         </div>
