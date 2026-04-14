@@ -522,7 +522,7 @@ export default function Home() {
             className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[rgba(8,61,134,0.1)] bg-[rgba(10,63,132,0.62)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-[rgba(255,255,255,0.88)] transition hover:border-[rgba(8,61,134,0.14)] hover:bg-[rgba(8,61,134,0.68)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
-            Записаться
+            Отправить запрос
           </a>
           <a
             className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[rgba(17,22,29,0.14)] bg-[rgba(255,255,255,0.76)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[rgba(17,22,29,0.92)] transition hover:border-[rgba(17,22,29,0.2)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[rgba(17,22,29,0.94)] max-[430px]:min-h-11 max-[430px]:px-3"
