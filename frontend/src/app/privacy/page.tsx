@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { dealerProfile } from "@/app/site-content";
+import { brandSeo, dealerProfile } from "@/app/site-content";
 
 export const metadata: Metadata = {
-  title: "Политика обработки персональных данных",
-  description: "Временная заглушка для страницы политики персональных данных.",
+  title: brandSeo.privacyPageTitle,
+  description: brandSeo.privacyPageDescription,
 };
 
 export default function PrivacyPage() {

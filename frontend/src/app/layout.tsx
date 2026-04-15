@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
+import { brandSeo, brandThemeStyle, activeBrand } from "@/content/brand";
 
 export const metadata: Metadata = {
   title: {
-    default: "КОЛМИ",
-    template: "%s | КОЛМИ",
+    default: brandSeo.metadataTitleDefault,
+    template: brandSeo.metadataTitleTemplate,
   },
-  description: "Официальный дилер LADA. Запись на сервис, диагностику и ремонт.",
+  description: brandSeo.metadataDescription,
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#FFFFFF",
+  themeColor: activeBrand.theme.themeColor,
 };
 
 export default function RootLayout({
@@ -24,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+      <body
+        className="flex min-h-full flex-col bg-background font-sans text-foreground"
+        style={brandThemeStyle}
+      >
         {children}
       </body>
     </html>

@@ -5,24 +5,26 @@ import type { ReactNode } from "react";
 
 import {
   advantages,
+  brandLogos,
+  brandSeo,
   dealerProfile,
+  footerContent,
+  heroContent,
+  processSection,
   processSteps,
+  quickContact,
+  trustSection,
 } from "@/app/site-content";
 import { ServiceBookingForm } from "@/components/service-booking-form";
 
 export const metadata: Metadata = {
-  title: "Запись на сервис LADA",
-  description: dealerProfile.heroDescription,
+  title: brandSeo.servicePageTitle,
+  description: brandSeo.servicePageDescription,
 };
 
 const sectionClassName = "page-section max-[430px]:pt-7 max-[390px]:pt-6";
 const surfacePanelClassName = "surface-panel";
 const surfaceMutedClassName = "surface-muted";
-const heroTrustPoints = [
-  "Дилерские регламенты LADA",
-  "Оригинальные детали и расходные материалы",
-  "Согласование работ до начала обслуживания",
-];
 
 function IconShell({
   children,
@@ -207,10 +209,8 @@ function CallButton({
 
 export default function Home() {
   const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
-  const mobileWorkHours = "Пн–Пт 09:00–19:00";
-  const shortAddress = "Покровское шоссе, 6 км";
-  const mobileHeroDescription =
-    "Официальный сервис LADA. Оставьте телефон — согласуем визит.";
+  const mobileWorkHours = dealerProfile.mobileWorkHours;
+  const shortAddress = dealerProfile.shortAddress;
 
   return (
     <>
@@ -222,21 +222,21 @@ export default function Home() {
                 className="ml-1 inline-grid w-fit max-w-full grid-cols-[auto_1px_auto] items-center justify-self-start gap-2 max-[360px]:ml-0.5 max-[360px]:gap-1.5"
               >
                 <Image
-                  src="/images/logos/lada-logo.png"
-                  alt="LADA"
-                  width={2100}
-                  height={893}
+                  src={brandLogos.primary.src}
+                  alt={brandLogos.primary.alt}
+                  width={brandLogos.primary.width}
+                  height={brandLogos.primary.height}
                   priority
-                  className="h-[18px] w-auto shrink-0 scale-[1.09] object-contain origin-center max-[360px]:h-[17px]"
+                  className={brandLogos.primary.mobileClassName}
                 />
                 <span className="h-[22px] w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[360px]:h-5" />
                 <Image
-                  src="/images/logos/kolmi-logo-clean.png"
-                  alt="КОЛМИ"
-                  width={690}
-                  height={475}
+                  src={brandLogos.secondary.src}
+                  alt={brandLogos.secondary.alt}
+                  width={brandLogos.secondary.width}
+                  height={brandLogos.secondary.height}
                   priority
-                  className="h-[19px] w-auto shrink-0 scale-[1.38] object-contain origin-center max-[360px]:h-[18px]"
+                  className={brandLogos.secondary.mobileClassName}
                 />
               </div>
 
@@ -265,21 +265,21 @@ export default function Home() {
                 className="inline-flex max-w-full items-center gap-2.5 max-[430px]:gap-2 sm:gap-4"
               >
                 <Image
-                  src="/images/logos/lada-logo.png"
-                  alt="LADA"
-                  width={2100}
-                  height={893}
+                  src={brandLogos.primary.src}
+                  alt={brandLogos.primary.alt}
+                  width={brandLogos.primary.width}
+                  height={brandLogos.primary.height}
                   priority
-                  className="h-6 w-auto shrink-0 scale-[1.08] object-contain origin-center max-[430px]:h-[22px] sm:h-8"
+                  className={brandLogos.primary.desktopClassName}
                 />
                 <span className="h-8 w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[430px]:h-7 sm:h-9" />
                 <Image
-                  src="/images/logos/kolmi-logo-clean.png"
-                  alt="КОЛМИ"
-                  width={690}
-                  height={475}
+                  src={brandLogos.secondary.src}
+                  alt={brandLogos.secondary.alt}
+                  width={brandLogos.secondary.width}
+                  height={brandLogos.secondary.height}
                   priority
-                  className="h-[34px] w-auto shrink-0 scale-[1.32] object-contain origin-center max-[430px]:h-[30px] sm:h-[42px]"
+                  className={brandLogos.secondary.desktopClassName}
                 />
               </div>
 
@@ -306,13 +306,13 @@ export default function Home() {
               <div className="min-w-0 lg:max-w-[44rem] lg:pt-2">
                 <div className="space-y-3 max-[390px]:space-y-2.5 sm:space-y-5">
                   <p className="hidden text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] sm:block sm:text-[12px]">
-                    LADA • КОЛМИ • ЯКУТСК
+                    {heroContent.eyebrow}
                   </p>
                   <h1 className="max-w-[11.5ch] text-[32px] font-semibold leading-[0.99] tracking-[-0.06em] text-[var(--text)] max-[390px]:text-[30px] max-[360px]:text-[28px] sm:max-w-[12ch] sm:text-[56px] sm:leading-[0.96]">
                     {dealerProfile.heroTitle}
                   </h1>
                   <p className="max-w-[31rem] text-[14px] leading-5 tracking-[-0.008em] text-[var(--text-2)] max-[390px]:max-w-[29rem] max-[390px]:leading-[19px] sm:max-w-[35rem] sm:text-[16px] sm:leading-[25px]">
-                    <span className="sm:hidden">{mobileHeroDescription}</span>
+                    <span className="sm:hidden">{heroContent.mobileDescription}</span>
                     <span className="hidden sm:inline">{dealerProfile.heroDescription}</span>
                   </p>
                 </div>
@@ -325,7 +325,7 @@ export default function Home() {
               </div>
 
               <ol className="border-y border-[var(--border)] lg:max-w-[40rem]">
-                {heroTrustPoints.map((item, index) => (
+                {heroContent.trustPoints.map((item, index) => (
                   <li
                     key={item}
                     className={`grid grid-cols-[28px_minmax(0,1fr)] items-start gap-2.5 py-2.5 max-[390px]:py-2 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
@@ -348,19 +348,19 @@ export default function Home() {
             <div className="grid gap-5 max-[430px]:gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
               <div className="lg:pt-1">
                 <SectionHeading
-                  title="Почему выбирают сервис КОЛМИ"
-                  description="Ключевые принципы официального дилерского сервиса LADA."
+                  title={trustSection.title}
+                  description={trustSection.description}
                 />
               </div>
 
               <div className="border-b border-[var(--border)] bg-transparent">
                 {advantages.map((item, index) => {
                   const Icon =
-                    index === 0
+                    item.icon === "parts"
                       ? PartsIcon
-                      : index === 1
+                      : item.icon === "tools"
                         ? ToolsIcon
-                        : index === 2
+                        : item.icon === "shield"
                           ? ShieldIcon
                           : ScanIcon;
 
@@ -389,8 +389,8 @@ export default function Home() {
 
           <section className={sectionClassName}>
             <SectionHeading
-              title="Как проходит запись"
-              description="Короткий и понятный сценарий без лишних шагов."
+              title={processSection.title}
+              description={processSection.description}
             />
             <ol className="grid gap-x-8 gap-y-0 max-[430px]:gap-y-0 lg:grid-cols-3">
               {processSteps.map((step, index) => (
@@ -466,11 +466,10 @@ export default function Home() {
                 <div className="space-y-4 max-[430px]:space-y-2.5 sm:space-y-5">
                   <div className="space-y-2 max-[430px]:space-y-1 sm:space-y-3">
                     <p className="text-[20px] font-semibold leading-[1.1] tracking-[-0.035em] text-[var(--text)] max-[430px]:text-[17px] sm:text-[24px]">
-                      Быстрая связь с сервисом
+                      {quickContact.title}
                     </p>
                     <p className="text-[14px] leading-[21px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[15px] sm:leading-[23px]">
-                      Позвоните или постройте маршрут до дилерского центра. Если удобнее,
-                      оставьте заявку выше и мы свяжемся в рабочее время.
+                      {quickContact.description}
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-1.5 max-[430px]:pt-2.5 sm:gap-3 sm:pt-5">
@@ -493,7 +492,7 @@ export default function Home() {
             <div className="flex flex-col gap-4 max-[430px]:gap-2.5 sm:flex-row sm:items-start sm:justify-between">
               <div className="space-y-1 max-[430px]:space-y-0.5">
                 <p className="font-semibold tracking-[-0.01em] text-[var(--text)] max-[430px]:leading-[18px]">
-                  Официальный дилер LADA • КОЛМИ • Якутск
+                  {footerContent.summaryLine}
                 </p>
                 <a
                   className="inline-flex font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
@@ -508,7 +507,7 @@ export default function Home() {
                   className="font-semibold text-[var(--primary)]"
                   href={dealerProfile.policyHref}
                 >
-                  Политика обработки персональных данных
+                  {footerContent.policyLabel}
                 </Link>
               </div>
             </div>
