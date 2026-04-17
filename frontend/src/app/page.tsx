@@ -4,16 +4,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import {
-  advantages,
   brandLogos,
   brandSeo,
   dealerProfile,
   footerContent,
   heroContent,
-  processSection,
-  processSteps,
   quickContact,
-  trustSection,
 } from "@/app/site-content";
 import { ServiceBookingForm } from "@/components/service-booking-form";
 
@@ -55,102 +51,6 @@ function PhoneIcon() {
   return (
     <IconShell>
       <path d="M4.5 6.8c0-1 .8-1.8 1.8-1.8h2.4l1.3 3.7-1.9 1.9a15.8 15.8 0 0 0 5.3 5.3l1.9-1.9 3.7 1.3v2.4c0 1-.8 1.8-1.8 1.8h-.7C10.4 19.5 4.5 13.6 4.5 6.8Z" />
-    </IconShell>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
-      <svg
-        aria-hidden="true"
-        className="h-5 w-5 sm:h-6 sm:w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-        viewBox="0 0 24 24"
-      >
-      <path d="M12 3.5 5.5 6v5.5c0 4 2.7 7 6.5 8.5 3.8-1.5 6.5-4.5 6.5-8.5V6L12 3.5Z" />
-      <path d="m9.3 11.8 1.8 1.8 3.6-3.8" />
-      </svg>
-    </span>
-  );
-}
-
-function PartsIcon() {
-  return (
-    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
-      <svg
-        aria-hidden="true"
-        className="h-5 w-5 sm:h-6 sm:w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-        viewBox="0 0 24 24"
-      >
-      <path d="M12 3.5v4" />
-      <path d="M12 16.5v4" />
-      <path d="M3.5 12h4" />
-      <path d="M16.5 12h4" />
-      <circle cx="12" cy="12" r="4.5" />
-      </svg>
-    </span>
-  );
-}
-
-function ToolsIcon() {
-  return (
-    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
-      <svg
-        aria-hidden="true"
-        className="h-5 w-5 sm:h-6 sm:w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-        viewBox="0 0 24 24"
-      >
-      <path d="m14.2 5.3 4.5 4.5" />
-      <path d="m12.3 7.2 4.5 4.5" />
-      <path d="M4.8 19.2 11 13" />
-      <path d="m4.8 14.8 4.4 4.4" />
-      <path d="M17.8 3.9a3.3 3.3 0 0 0-4.6 4.6L9 12.7l2.3 2.3 4.2-4.2a3.3 3.3 0 0 0 4.6-4.6l-1.4 1.4-1.9-1.9 1-1.8Z" />
-      </svg>
-    </span>
-  );
-}
-
-function ScanIcon() {
-  return (
-    <span className="flex h-5 w-5 shrink-0 items-center justify-center text-[var(--primary)] sm:h-6 sm:w-6">
-      <svg
-        aria-hidden="true"
-        className="h-5 w-5 sm:h-6 sm:w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.7"
-        viewBox="0 0 24 24"
-      >
-        <path d="M7.5 4.5h7l3 3v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2Z" />
-        <path d="M14.5 4.5v3h3" />
-        <path d="m9.2 13 1.7 1.8 3.9-4.3" />
-      </svg>
-    </span>
-  );
-}
-
-function MapPinIcon() {
-  return (
-    <IconShell>
-      <path d="M12 20c3.3-4 5-7 5-9.5a5 5 0 1 0-10 0c0 2.5 1.7 5.5 5 9.5Z" />
-      <circle cx="12" cy="10.5" r="1.8" />
     </IconShell>
   );
 }
@@ -324,94 +224,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <ol className="border-y border-[var(--border)] lg:max-w-[40rem]">
-                {heroContent.trustPoints.map((item, index) => (
-                  <li
-                    key={item}
-                    className={`grid grid-cols-[28px_minmax(0,1fr)] items-start gap-2.5 py-2.5 max-[390px]:py-2 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
-                      index > 0 ? "border-t border-[var(--border)]" : ""
-                    }`}
-                  >
-                    <span className="pt-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] sm:text-[11px]">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-[13px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] sm:text-[17px] sm:leading-6">
-                      {item}
-                    </p>
-                  </li>
-                ))}
-              </ol>
+
             </div>
-          </section>
-
-          <section className="pt-7 max-[390px]:pt-6 sm:[padding-top:clamp(2.5rem,5vw,3.5rem)]">
-            <div className="grid gap-5 max-[430px]:gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
-              <div className="lg:pt-1">
-                <SectionHeading
-                  title={trustSection.title}
-                  description={trustSection.description}
-                />
-              </div>
-
-              <div className="border-b border-[var(--border)] bg-transparent">
-                {advantages.map((item, index) => {
-                  const Icon =
-                    item.icon === "parts"
-                      ? PartsIcon
-                      : item.icon === "tools"
-                        ? ToolsIcon
-                        : item.icon === "shield"
-                          ? ShieldIcon
-                          : ScanIcon;
-
-                  return (
-                    <article
-                      key={item.title}
-                      className={`grid grid-cols-[20px_minmax(0,1fr)] gap-2.5 py-3 max-[430px]:py-2.5 sm:grid-cols-[24px_minmax(0,1fr)] sm:gap-4 sm:py-5 ${
-                        index > 0 ? "border-t border-[var(--border)]" : ""
-                      }`}
-                    >
-                      <Icon />
-                      <div className="space-y-0.5 max-[430px]:space-y-px md:grid md:grid-cols-[minmax(220px,0.88fr)_minmax(0,1.12fr)] md:items-start md:gap-6 md:space-y-0">
-                        <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[16px]">
-                          {item.title}
-                        </h3>
-                        <p className="text-[13px] leading-[19px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
-                          {item.description}
-                        </p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          <section className={sectionClassName}>
-            <SectionHeading
-              title={processSection.title}
-              description={processSection.description}
-            />
-            <ol className="grid gap-x-8 gap-y-0 max-[430px]:gap-y-0 lg:grid-cols-3">
-              {processSteps.map((step, index) => (
-                <li key={step.title} className="border-t border-[var(--border)] pt-4 max-[430px]:pt-3 sm:pt-6">
-                  <div className="mb-2.5 flex items-center gap-2.5 max-[430px]:mb-2 max-[430px]:gap-2 sm:mb-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[var(--text)] text-[13px] font-semibold tracking-[-0.01em] text-white max-[430px]:h-7 max-[430px]:w-7 max-[430px]:text-[12px] sm:h-9 sm:w-9 sm:text-[14px]">
-                      {index + 1}
-                    </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:text-[10px] max-[430px]:tracking-[0.14em]">
-                      Шаг {index + 1}
-                    </span>
-                  </div>
-                  <h3 className="text-[15px] font-semibold leading-5 tracking-[-0.02em] text-[var(--text)] max-[430px]:text-[14px] max-[430px]:leading-[18px] sm:text-[17px]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-1.5 text-[13px] leading-[19px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:mt-1 max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
-                    {step.description}
-                  </p>
-                </li>
-              ))}
-            </ol>
           </section>
 
           <section className={sectionClassName} id="contacts">
@@ -419,18 +233,7 @@ export default function Home() {
             <div className="grid gap-3.5 max-[430px]:gap-2.5 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
               <article className={`${surfacePanelClassName} px-5 py-5 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-6`}>
                 <div className="divide-y divide-[var(--border)]">
-                  <div className="flex gap-4 py-4 first:pt-0 max-[430px]:gap-2.5 max-[430px]:py-2.5">
-                    <MapPinIcon />
-                    <div>
-                      <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
-                        Адрес
-                      </p>
-                      <address className="mt-2 not-italic text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5">
-                        {dealerProfile.address}
-                      </address>
-                    </div>
-                  </div>
-
+                
                   <div className="flex gap-4 py-4 max-[430px]:gap-2.5 max-[430px]:py-2.5">
                     <ClockIcon />
                     <div>
@@ -474,14 +277,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-1.5 max-[430px]:pt-2.5 sm:gap-3 sm:pt-5">
                     <CallButton className="w-full max-[430px]:min-h-11" tone="default" />
-                    <a
-                      className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] border border-[var(--border)] bg-[var(--surface)] px-5 text-[14px] font-semibold tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:text-[13px] sm:min-h-12 sm:text-[15px]"
-                      href={dealerProfile.routeHref}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      Построить маршрут
-                    </a>
+              
                   </div>
                 </div>
               </aside>
@@ -494,12 +290,7 @@ export default function Home() {
                 <p className="font-semibold tracking-[-0.01em] text-[var(--text)] max-[430px]:leading-[18px]">
                   {footerContent.summaryLine}
                 </p>
-                <a
-                  className="inline-flex font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
-                  href={dealerProfile.phoneHref}
-                >
-                  {dealerProfile.phoneDisplay}
-                </a>
+               
                 {dealerProfile.requisites ? <p>{dealerProfile.requisites}</p> : null}
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-2 max-[430px]:gap-y-1">
