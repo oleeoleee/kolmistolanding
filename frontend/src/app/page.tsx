@@ -95,7 +95,7 @@ function CallButton({
   const toneClassName =
     tone === "primary"
       ? "border-[var(--primary)] bg-[var(--primary)] text-white hover:bg-[var(--primary-pressed)] hover:border-[var(--primary-pressed)] hover:text-white"
-      : "border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text)] hover:border-[rgba(17,22,29,0.26)] hover:bg-white hover:text-[var(--text)]";
+      : "border-[var(--border-strong)] bg-[var(--surface-subtle)] text-[var(--text)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-muted)] hover:text-[var(--text)]";
 
   return (
     <a
@@ -129,7 +129,7 @@ export default function Home() {
                   priority
                   className={brandLogos.primary.mobileClassName}
                 />
-                <span className="h-[22px] w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[360px]:h-5" />
+                <span className="h-[22px] w-px shrink-0 bg-[var(--border-strong)] max-[360px]:h-5" />
                 <Image
                   src={brandLogos.secondary.src}
                   alt={brandLogos.secondary.alt}
@@ -172,7 +172,7 @@ export default function Home() {
                   priority
                   className={brandLogos.primary.desktopClassName}
                 />
-                <span className="h-8 w-px shrink-0 bg-[rgba(17,22,29,0.14)] max-[430px]:h-7 sm:h-9" />
+                <span className="h-8 w-px shrink-0 bg-[var(--border-strong)] max-[430px]:h-7 sm:h-9" />
                 <Image
                   src={brandLogos.secondary.src}
                   alt={brandLogos.secondary.alt}
@@ -306,16 +306,16 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[rgba(17,22,29,0.08)] bg-[rgba(244,246,248,0.88)] px-4 py-2 shadow-[0_-4px_12px_rgba(15,23,42,0.022)] backdrop-blur-[10px] max-[430px]:py-1.5 max-[430px]:shadow-[0_-3px_10px_rgba(15,23,42,0.018)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--border)] bg-[rgba(23,29,34,0.84)] px-4 py-2 shadow-[0_-8px_24px_rgba(3,7,12,0.32)] backdrop-blur-[14px] max-[430px]:py-1.5 md:hidden">
         <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
-            className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[rgba(8,61,134,0.1)] bg-[rgba(10,63,132,0.62)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-[rgba(255,255,255,0.88)] transition hover:border-[rgba(8,61,134,0.14)] hover:bg-[rgba(8,61,134,0.68)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[var(--primary)] bg-[var(--primary)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-white transition hover:border-[var(--primary-pressed)] hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
             Отправить запрос
           </a>
           <a
-            className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[rgba(17,22,29,0.14)] bg-[rgba(255,255,255,0.76)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[rgba(17,22,29,0.92)] transition hover:border-[rgba(17,22,29,0.2)] hover:bg-[rgba(255,255,255,0.92)] hover:text-[rgba(17,22,29,0.94)] max-[430px]:min-h-11 max-[430px]:px-3"
+            className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:bg-[var(--surface-muted)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
             href={dealerProfile.phoneHref}
           >
             Позвонить

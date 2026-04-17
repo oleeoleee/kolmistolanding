@@ -12,6 +12,7 @@ export type BrandTheme = {
   border: string;
   borderStrong: string;
   primary: string;
+  primarySoft: string;
   primaryPressed: string;
   success: string;
   danger: string;

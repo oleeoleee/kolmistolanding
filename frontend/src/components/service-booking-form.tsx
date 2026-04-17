@@ -45,11 +45,11 @@ const initialValues: FormValues = {
 const fieldHeaderClassName =
   "mb-2 flex items-center justify-between gap-3 max-[430px]:mb-1.5 max-[430px]:items-end max-[430px]:gap-2";
 const fieldLabelClassName =
-  "text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:tracking-[0.14em]";
+  "form-label-accent text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-2)] max-[430px]:tracking-[0.14em]";
 const fieldMetaClassName =
-  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(82,92,104,0.72)] max-[430px]:text-[9px]";
+  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(209,216,223,0.72)] max-[430px]:text-[9px]";
 const optionalMetaClassName =
-  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(107,116,130,0.6)] max-[430px]:text-[9px]";
+  "shrink-0 whitespace-nowrap text-[10px] font-medium tracking-[0.005em] text-[rgba(183,191,199,0.62)] max-[430px]:text-[9px]";
 const compactChipBaseClassName =
   "inline-flex min-h-[34px] cursor-pointer items-center justify-center rounded-[12px] border px-[11px] py-1.5 text-[12px] font-medium leading-[1.1] tracking-[-0.015em] transition-colors transition-[border-color,background-color,color] max-[430px]:min-h-[34px] max-[430px]:rounded-[11px] max-[430px]:px-2.5 max-[430px]:py-[5px] max-[430px]:text-[11px] sm:min-h-[36px] sm:rounded-[12px] sm:px-3 sm:text-[13px]";
 const serviceRowControlClassName =
@@ -351,9 +351,12 @@ export function ServiceBookingForm() {
   };
 
   return (
-    <div id="service-form" className="scroll-mt-6">
-      <div className="mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] max-[430px]:text-[9px] max-[430px]:tracking-[0.16em] sm:text-[11px]">
+    <div
+      id="service-form"
+      className="surface-panel scroll-mt-6 px-5 py-5 max-[430px]:px-4 max-[430px]:py-4 sm:px-6 sm:py-6"
+    >
+      <div className="accent-divider mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
+        <p className="form-label-accent text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] max-[430px]:text-[9px] max-[430px]:tracking-[0.16em] sm:text-[11px]">
           Предварительная запись
         </p>
         <h2 className="text-[21px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[22px]">
@@ -369,7 +372,7 @@ export function ServiceBookingForm() {
         noValidate
         onSubmit={handleSubmit}
       >
-        <div className="order-1 space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
+        <div className="accent-divider order-1 space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
           <div className={fieldHeaderClassName}>
             <label className={fieldLabelClassName} htmlFor="phone">
               Телефон для связи
@@ -395,13 +398,13 @@ export function ServiceBookingForm() {
             placeholder="+7 (900) 123-45-67"
             aria-invalid={Boolean(phoneError)}
             aria-describedby="phone-feedback"
-            className="min-h-[54px] w-full rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface)] px-4 text-[17px] leading-6 tracking-[-0.02em] text-[var(--text)] outline-none transition max-[430px]:min-h-[52px] max-[430px]:px-3.5 max-[430px]:text-[16px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)] sm:min-h-[56px] sm:text-[18px]"
+            className="min-h-[54px] w-full rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-4 text-[17px] leading-6 tracking-[-0.02em] text-[var(--text)] outline-none transition max-[430px]:min-h-[52px] max-[430px]:px-3.5 max-[430px]:text-[16px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-soft)] sm:min-h-[56px] sm:text-[18px]"
           />
           <p
             id="phone-feedback"
             className={`pt-0.5 text-[11px] leading-4 tracking-[-0.006em] sm:text-[12px] sm:leading-[18px] ${
               phoneError
-                ? "font-medium text-[rgba(161,58,58,0.9)]"
+                ? "font-medium text-[var(--danger)]"
                 : "text-[var(--text-2)]"
             }`}
           >
@@ -414,11 +417,11 @@ export function ServiceBookingForm() {
             type="submit"
             aria-busy={submitState === "submitting" ? true : undefined}
             disabled={submitState === "submitting" || !phoneIsValid}
-            className="inline-flex min-h-[54px] w-full items-center justify-center rounded-[10px] bg-[var(--primary)] px-5 text-base font-semibold tracking-[-0.01em] text-white shadow-[0_12px_26px_rgba(11,76,168,0.2)] transition max-[430px]:min-h-[52px] hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
+            className="inline-flex min-h-[54px] w-full items-center justify-center rounded-[10px] bg-[var(--primary)] px-5 text-base font-semibold tracking-[-0.01em] text-white shadow-[0_16px_36px_rgba(112,46,18,0.22)] transition max-[430px]:min-h-[52px] hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
           >
             {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
           </button>
-          <div className="border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
+          <div className="accent-divider border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
             <p className="text-[10px] leading-[15px] tracking-[0.006em] text-[var(--text-2)] sm:hidden">
               {mobileCtaMicrocopy}
             </p>
@@ -439,13 +442,13 @@ export function ServiceBookingForm() {
 
         <div aria-live="polite" className="order-3 pt-0.5 sm:order-4 sm:pt-1">
           {submitState === "success" ? (
-            <p className="rounded-[10px] border border-[rgba(17,122,55,0.18)] bg-[rgba(17,122,55,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
+            <p className="rounded-[10px] border border-[rgba(139,207,151,0.24)] bg-[rgba(139,207,151,0.1)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
               Заявка отправлена. Мы свяжемся с вами в рабочее время.
             </p>
           ) : null}
 
           {submitState === "error" ? (
-            <p className="rounded-[10px] border border-[rgba(198,40,40,0.18)] bg-[rgba(198,40,40,0.08)] px-4 py-3 text-[14px] leading-5 text-[var(--danger)]">
+            <p className="rounded-[10px] border border-[rgba(255,154,144,0.22)] bg-[rgba(255,154,144,0.1)] px-4 py-3 text-[14px] leading-5 text-[var(--danger)]">
               Не удалось отправить заявку. Попробуйте еще раз или позвоните нам.
             </p>
           ) : null}
@@ -460,14 +463,14 @@ export function ServiceBookingForm() {
             className={`flex w-full items-center justify-between gap-3 px-0 text-left sm:hidden ${
               detailsExpanded
                 ? "pb-2.5"
-                : "border-b border-[var(--border)] pb-3"
+                : "accent-divider border-b border-[var(--border)] pb-3"
             }`}
           >
             <span className="min-w-0 flex-1">
               <span className="block text-[13px] font-semibold leading-5 tracking-[-0.015em] text-[var(--text)]">
                 Уточнить детали заявки
               </span>
-              <span className="mt-0.5 block text-[10px] font-medium leading-4 tracking-[0.01em] text-[rgba(107,116,130,0.72)]">
+              <span className="mt-0.5 block text-[10px] font-medium leading-4 tracking-[0.01em] text-[rgba(183,191,199,0.72)]">
                 Необязательно
               </span>
             </span>
@@ -485,7 +488,7 @@ export function ServiceBookingForm() {
             id="booking-details"
             className={`${detailsExpanded ? "mt-2.5 grid gap-3 max-[430px]:gap-2.5 max-[390px]:gap-[9px]" : "hidden"} sm:mt-0 sm:grid sm:gap-4`}
           >
-            <fieldset className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
+            <fieldset className="accent-divider space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
               <legend className="sr-only">Что нужно</legend>
               <div className={fieldHeaderClassName}>
                 <p className={fieldLabelClassName}>Услуга</p>
@@ -509,8 +512,8 @@ export function ServiceBookingForm() {
                       }}
                       className={`${serviceRowControlClassName} ${
                         isChecked
-                          ? "border-[rgba(11,76,168,0.44)] bg-[rgba(11,76,168,0.04)] text-[rgba(8,57,128,0.96)]"
-                          : "border-[rgba(17,22,29,0.2)] bg-[rgba(248,249,250,0.5)] text-[rgba(26,32,41,0.94)] hover:border-[rgba(17,22,29,0.34)]"
+                          ? "border-[var(--primary)] bg-[var(--primary-soft)] text-[var(--text)]"
+                          : "border-[var(--border-strong)] bg-[var(--surface-subtle)] text-[var(--text)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-muted)]"
                       }`}
                     >
                       <span>{option.label}</span>
@@ -518,8 +521,8 @@ export function ServiceBookingForm() {
                         aria-hidden="true"
                         className={`ml-3 h-[15px] w-[15px] shrink-0 rounded-[4px] border transition-colors max-[430px]:h-[14px] max-[430px]:w-[14px] ${
                           isChecked
-                            ? "border-[rgba(11,76,168,0.48)] bg-[rgba(11,76,168,0.12)]"
-                            : "border-[rgba(17,22,29,0.22)] bg-transparent"
+                            ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                            : "border-[var(--border-strong)] bg-transparent"
                         }`}
                       />
                     </button>
@@ -528,7 +531,7 @@ export function ServiceBookingForm() {
               </div>
             </fieldset>
 
-            <fieldset className="space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
+            <fieldset className="accent-divider space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
               <legend className="sr-only">Когда удобно связаться</legend>
               <div className={fieldHeaderClassName}>
                 <p className={fieldLabelClassName}>Когда удобно связаться</p>
@@ -553,8 +556,8 @@ export function ServiceBookingForm() {
                       }}
                       className={`${compactChipBaseClassName} ${
                         isChecked
-                          ? "border-[rgba(11,76,168,0.5)] bg-[rgba(11,76,168,0.035)] font-semibold text-[rgba(8,57,128,0.96)]"
-                          : "border-[rgba(17,22,29,0.24)] bg-transparent text-[rgba(26,32,41,0.94)] hover:border-[rgba(17,22,29,0.38)]"
+                          ? "border-[var(--primary)] bg-[var(--primary-soft)] font-semibold text-[var(--text)]"
+                          : "border-[var(--border-strong)] bg-transparent text-[var(--text)] hover:border-[var(--border-strong)] hover:bg-[var(--surface-subtle)]"
                       }`}
                     >
                       <span>{option.label}</span>
@@ -564,7 +567,7 @@ export function ServiceBookingForm() {
               </div>
             </fieldset>
 
-            <div className="space-y-2.5 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2 sm:pb-4">
+            <div className="accent-divider space-y-2.5 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2 sm:pb-4">
               <button
                 type="button"
                 onClick={() => setExpanded((current) => !current)}
@@ -579,7 +582,7 @@ export function ServiceBookingForm() {
                 <span className="flex min-w-0 flex-1 items-center gap-2 max-[430px]:items-start">
                   <span className="min-w-0">
                     <span className="block truncate max-[430px]:leading-4">Комментарий к заявке</span>
-                    <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(107,116,130,0.82)] max-[430px]:block">
+                    <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(183,191,199,0.82)] max-[430px]:block">
                       Необязательно
                     </span>
                   </span>
@@ -611,7 +614,7 @@ export function ServiceBookingForm() {
                         setSubmitState("idle");
                       }}
                       placeholder="Если хотите, кратко опишите вопрос или неисправность"
-                      className="w-full rounded-[12px] border border-[rgba(17,22,29,0.18)] bg-transparent px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:rounded-[11px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[rgba(11,76,168,0.1)]"
+                      className="w-full rounded-[12px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:rounded-[11px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-soft)]"
                     />
                   </div>
                   <p className="text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">

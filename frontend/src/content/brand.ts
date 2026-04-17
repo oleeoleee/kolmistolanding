@@ -20,6 +20,7 @@ export const brandThemeStyle: CSSVariableStyle = {
   "--border": activeBrand.theme.border,
   "--border-strong": activeBrand.theme.borderStrong,
   "--primary": activeBrand.theme.primary,
+  "--primary-soft": activeBrand.theme.primarySoft,
   "--primary-pressed": activeBrand.theme.primaryPressed,
   "--success": activeBrand.theme.success,
   "--danger": activeBrand.theme.danger,
