@@ -43,14 +43,14 @@ export const ladaBrand: BrandConfig = {
         "h-6 w-auto shrink-0 scale-[1.08] object-contain origin-center max-[430px]:h-[22px] sm:h-8",
     },
     secondary: {
-      src: "/images/logos/kolmi-logo-clean.png",
+      src: "/images/logos/kolmi-logo-transparent.png",
       alt: "КОЛМИ",
       width: 690,
       height: 475,
       mobileClassName:
-        "h-[19px] w-auto shrink-0 scale-[1.38] object-contain origin-center max-[360px]:h-[18px]",
+        "h-[24px] w-auto shrink-0 object-contain max-[360px]:h-[22px]",
       desktopClassName:
-        "h-[34px] w-auto shrink-0 scale-[1.32] object-contain origin-center max-[430px]:h-[30px] sm:h-[42px]",
+        "h-[38px] w-auto shrink-0 object-contain max-[430px]:h-[34px] sm:h-[48px]",
     },
   },
   dealerProfile: {
