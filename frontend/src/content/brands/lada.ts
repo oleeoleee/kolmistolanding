@@ -48,9 +48,9 @@ export const ladaBrand: BrandConfig = {
       width: 690,
       height: 475,
       mobileClassName:
-        "h-[24px] w-auto shrink-0 object-contain max-[360px]:h-[22px]",
+        "h-[26px] w-auto shrink-0 object-contain max-[360px]:h-[24px]",
       desktopClassName:
-        "h-[38px] w-auto shrink-0 object-contain max-[430px]:h-[34px] sm:h-[48px]",
+        "h-[41px] w-auto shrink-0 object-contain max-[430px]:h-[37px] sm:h-[52px]",
     },
   },
   dealerProfile: {
