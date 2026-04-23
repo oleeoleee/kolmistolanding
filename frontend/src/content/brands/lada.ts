@@ -14,7 +14,7 @@ export const ladaBrand: BrandConfig = {
       "Временная заглушка для страницы политики персональных данных дилерского центра.",
   },
   theme: {
-    bg: "#343d44",
+    bg: "#3f454a",
     surface: "rgba(27, 34, 39, 0.84)",
     surfaceMuted: "rgba(42, 51, 58, 0.82)",
     surfaceSubtle: "rgba(62, 73, 81, 0.3)",
@@ -29,7 +29,7 @@ export const ladaBrand: BrandConfig = {
     danger: "#ff9a90",
     warning: "#d89954",
     shadowSoft: "0 24px 54px rgba(4, 8, 14, 0.28)",
-    themeColor: "#343d44",
+    themeColor: "#3f454a",
   },
   logos: {
     primary: {
