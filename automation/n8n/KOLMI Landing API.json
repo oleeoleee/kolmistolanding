@@ -5,19 +5,19 @@
       "parameters": {
         "fromEmail": "kosheyulitsa@gmail.com",
         "toEmail": "kosheyulitsa@gmail.com",
-        "subject": "=Новая заявка KOLMI LADA - {{$json.service_type}} - {{$json.phone}}",
+        "subject": "=Новая заявка с лендинга KOLMI LADA",
         "emailFormat": "text",
-        "text": "=Новая заявка с лендинга KOLMI LADA\n\nТелефон: {{$json.phone}}\nУслуга: {{$json.service_type || '—'}}\nКогда связаться: {{$json.contact_window || '—'}}\nКомментарий: {{$json.comment || '—'}}\nИсточник: {{$json.source}}\nДата заявки: {{$json.created_at}}\nСтатус: {{$json.status}}",
+        "text": "=Новая заявка с лендинга KOLMI LADA\n\nТелефон: {{$json.phone}}\nУслуга: {{$json.serviceType || '—'}}\nКогда связаться: {{$json.contactWindow || '—'}}\nКомментарий: {{$json.comment || '—'}}\nИсточник: {{$json.source}}\nДата заявки: {{$json.createdAt || '—'}}\nСтатус: {{$json.status}}",
         "options": {
           "appendAttribution": false
         }
       },
-      "id": "7d7285f2-3348-4644-914e-8454a54708eb",
+      "id": "03a81dfc-b3c0-4875-a572-e42f1ed71fb9",
       "name": "Send Email to Support",
       "type": "n8n-nodes-base.emailSend",
       "position": [
-        208,
-        48
+        -304,
+        16
       ],
       "webhookId": "d7c17528-c69a-4284-8c21-77cb2f0153ad",
       "typeVersion": 2.1,
@@ -35,129 +35,14 @@
         "height": 80,
         "color": 4
       },
-      "id": "2dca693b-e4c1-451f-a7d1-f9c7827bf8df",
+      "id": "01c21b32-b2b2-4c28-8dd9-5b0f147f78f1",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        256,
-        272
+        -256,
+        240
       ],
       "typeVersion": 1
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1gMLp0F0YfKKP7Rbm8DJrc9I7Bhj-ZhFA9GvVGb_tgQE",
-          "mode": "list",
-          "cachedResultName": "KolmiLanding",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gMLp0F0YfKKP7Rbm8DJrc9I7Bhj-ZhFA9GvVGb_tgQE/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 942608893,
-          "mode": "list",
-          "cachedResultName": "Sheet2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gMLp0F0YfKKP7Rbm8DJrc9I7Bhj-ZhFA9GvVGb_tgQE/edit#gid=942608893"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "created_at": "={{$json.createdAt}}",
-            "status": "={{$json.status}}",
-            "source": "={{$json.source}}",
-            "phone": "={{$json.phone}}",
-            "service_type": "={{$json.serviceType}}",
-            "contact_window": "={{$json.contactWindow}}",
-            "comment": "={{$json.comment}}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "created_at",
-              "displayName": "created_at",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "source",
-              "displayName": "source",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "phone",
-              "displayName": "phone",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "service_type",
-              "displayName": "service_type",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "contact_window",
-              "displayName": "contact_window",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "comment",
-              "displayName": "comment",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -272,
-        48
-      ],
-      "id": "47489ea1-17c0-49ab-bbba-bc9b6f3254e2",
-      "name": "Append row in sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "U4G5EQzJLXiPmfjT",
-          "name": "Google Sheets account"
-        }
-      }
     },
     {
       "parameters": {
@@ -169,10 +54,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -816,
-        48
+        -1328,
+        16
       ],
-      "id": "92f343c3-00ac-4f54-9383-c091ab20cfaa",
+      "id": "7b7fd39f-964d-406e-9394-4568892b4912",
       "name": "Webhook",
       "webhookId": "fcf4be3d-1237-4bce-ba3c-2d77bdde9057"
     },
@@ -229,10 +114,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -528,
-        48
+        -1040,
+        16
       ],
-      "id": "1e3c9543-bf88-410b-bc9f-c404499c6d69",
+      "id": "d709265c-3b77-41fb-ac8c-68762b765a08",
       "name": "Normalize Payload"
     },
     {
@@ -263,10 +148,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -400,
-        48
+        -912,
+        16
       ],
-      "id": "5110a8e1-cabd-4b3d-8d8d-24807dca7a6d",
+      "id": "43f99160-8d71-4742-940f-5de09bc96335",
       "name": "Phone is valid"
     },
     {
@@ -278,10 +163,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        512,
-        32
+        0,
+        0
       ],
-      "id": "04d4e460-3b24-498c-bcaa-58857bdef517",
+      "id": "32f0e20b-c143-48fa-a208-ffb047d9fa6c",
       "name": "Respond to Webhook"
     }
   ],
@@ -324,7 +209,7 @@
       "main": [
         [
           {
-            "node": "Append row in sheet",
+            "node": "Send Email to Support",
             "type": "main",
             "index": 0
           }
@@ -337,30 +222,18 @@
           }
         ]
       ]
-    },
-    "Append row in sheet": {
-      "main": [
-        [
-          {
-            "node": "Send Email to Support",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "20c27afc-98d6-4e8f-9279-7be79fcf99e4",
+  "versionId": "be76db4c-b66f-4471-8c4d-e7dde606f487",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "d8a77076edd1c41b31914fba28c31aea022e7e171dca940a8aec8b54772a85fa"
   },
-  "id": "btosdTXHLbl8JnXs",
+  "id": "b7hK5ZjFP9dzrn9c",
   "tags": []
 }
