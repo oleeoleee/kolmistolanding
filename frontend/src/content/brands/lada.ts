@@ -60,7 +60,7 @@ export const ladaBrand: BrandConfig = {
     city: "Якутск",
     serviceStatus: "Официальный сервис LADA",
     serviceCenterLabel: "Сервисный центр официального дилера",
-    heroTitle: "Официальный сервис LADA в Якутске",
+    heroTitle: "Официальный дилер LADA в Якутске",
     heroDescription:
       "ТО, диагностика и ремонт по дилерским регламентам. Оставьте телефон - свяжемся в рабочее время и согласуем визит.",
     phoneDisplay: "+7 (4112) 40-08-88",
