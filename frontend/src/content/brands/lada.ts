@@ -76,7 +76,7 @@ export const ladaBrand: BrandConfig = {
   },
   hero: {
     eyebrow: "LADA • КОЛМИ • ЯКУТСК",
-    mobileDescription: "Официальный сервис LADA. Оставьте телефон — согласуем визит.",
+    mobileDescription: "Официальный дилер LADA. Оставьте телефон — согласуем визит.",
     trustPoints: [
       "Дилерские регламенты LADA",
       "Оригинальные детали и расходные материалы",
