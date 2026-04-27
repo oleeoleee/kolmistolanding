@@ -3,21 +3,22 @@
   "nodes": [
     {
       "parameters": {
-        "fromEmail": "kosheyulitsa@gmail.com",
-        "toEmail": "kosheyulitsa@gmail.com",
+        "fromEmail": "sender@example.com",
+        "toEmail": "client@example.com",
         "subject": "=Новая заявка с лендинга KOLMI LADA",
         "emailFormat": "text",
-        "text": "=Новая заявка с лендинга KOLMI LADA\n\nТелефон: {{$json.phone}}\nУслуга: {{$json.serviceType || '—'}}\nКогда связаться: {{$json.contactWindow || '—'}}\nКомментарий: {{$json.comment || '—'}}\nИсточник: {{$json.source}}\nДата заявки: {{$json.createdAt || '—'}}\nСтатус: {{$json.status}}",
+        "text": "=Новая заявка с лендинга KOLMI LADA\n\nТелефон: {{$json.phone}}\nУслуга: {{$json.serviceType || '—'}}\nКогда связаться: {{$json.contactWindow || '—'}}\nКомментарий: {{$json.comment || '—'}}\nИсточник: {{$json.source}}\nДата заявки (Якутск): {{$json.createdAt || '—'}}\nСтатус: {{$json.status}}",
         "options": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "bccEmail": "sender@example.com"
         }
       },
-      "id": "03a81dfc-b3c0-4875-a572-e42f1ed71fb9",
+      "id": "bb06688a-199e-4477-97e9-1a359c3bb7e7",
       "name": "Send Email to Support",
       "type": "n8n-nodes-base.emailSend",
       "position": [
-        -304,
-        16
+        0,
+        0
       ],
       "webhookId": "d7c17528-c69a-4284-8c21-77cb2f0153ad",
       "typeVersion": 2.1,
@@ -35,12 +36,12 @@
         "height": 80,
         "color": 4
       },
-      "id": "01c21b32-b2b2-4c28-8dd9-5b0f147f78f1",
+      "id": "42256f1c-e111-49c3-a6b9-194cb4cc5da3",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -256,
-        240
+        80,
+        336
       ],
       "typeVersion": 1
     },
@@ -54,10 +55,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1328,
-        16
+        -992,
+        112
       ],
-      "id": "7b7fd39f-964d-406e-9394-4568892b4912",
+      "id": "ee461fb8-e956-4c46-9d1f-9178fed183b5",
       "name": "Webhook",
       "webhookId": "fcf4be3d-1237-4bce-ba3c-2d77bdde9057"
     },
@@ -98,7 +99,7 @@
             {
               "id": "14b78f6b-3845-4f8e-b275-eebb7f7c80fb",
               "name": "createdAt",
-              "value": "={{String($json.body.submittedAt ?? '').trim() || new Date().toISOString()}}",
+              "value": "={{ new Date(String($json.body.submittedAt ?? '').trim() || Date.now()).toLocaleString('ru-RU', { timeZone: 'Asia/Yakutsk', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }) }}",
               "type": "string"
             },
             {
@@ -114,10 +115,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1040,
-        16
+        -704,
+        112
       ],
-      "id": "d709265c-3b77-41fb-ac8c-68762b765a08",
+      "id": "c97028c0-fed1-4b32-a64b-46f394496956",
       "name": "Normalize Payload"
     },
     {
@@ -148,10 +149,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -912,
-        16
+        -576,
+        112
       ],
-      "id": "43f99160-8d71-4742-940f-5de09bc96335",
+      "id": "36f2b093-e6ad-4075-8434-98d4d891a5a3",
       "name": "Phone is valid"
     },
     {
@@ -163,10 +164,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        0,
-        0
+        336,
+        96
       ],
-      "id": "32f0e20b-c143-48fa-a208-ffb047d9fa6c",
+      "id": "861647f4-cc8d-4d6c-8ea8-f98f31c04c94",
       "name": "Respond to Webhook"
     }
   ],
@@ -228,12 +229,16 @@
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Tokyo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1
   },
-  "versionId": "be76db4c-b66f-4471-8c4d-e7dde606f487",
+  "versionId": "2d0e29d9-534a-4496-8353-9cb12b858502",
   "meta": {
     "instanceId": "d8a77076edd1c41b31914fba28c31aea022e7e171dca940a8aec8b54772a85fa"
   },
-  "id": "b7hK5ZjFP9dzrn9c",
+  "id": "fxD0vJFXWPBd8mvv",
   "tags": []
 }
