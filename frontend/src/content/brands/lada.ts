@@ -58,7 +58,7 @@ export const ladaBrand: BrandConfig = {
     brandName: "LADA",
     dealerName: "КОЛМИ",
     city: "Якутск",
-    serviceStatus: "Официальный сервис LADA",
+    serviceStatus: "Официальный дилер LADA",
     serviceCenterLabel: "Сервисный центр официального дилера",
     heroTitle: "Официальный дилер LADA в Якутске",
     heroDescription:
