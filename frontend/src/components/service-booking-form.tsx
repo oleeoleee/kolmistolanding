@@ -432,9 +432,15 @@ export function ServiceBookingForm() {
             </div>
           </div>
           <p className="max-w-[29rem] text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:max-w-[24rem] max-[430px]:text-[10px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
-            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных{" "}
-            <Link className="font-semibold text-[var(--primary)]" href={dealerProfile.policyHref}>
-              по политике ПД
+            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных в
+            соответствии с{" "}
+            <Link
+              className="font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
+              href={dealerProfile.policyHref}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              политикой обработки персональных данных
             </Link>
             .
           </p>
