@@ -1,23 +1,22 @@
-# Форма заявки для СТО
+# Reusable Landing Skeleton
 
-Цель проекта: сделать простую форму заявки для СТО, чтобы клиент мог оставить свои данные, а менеджер получил уведомление и связался с ним.
+Phase 1 converts the copied Kolmi/LADA landing into a reusable white-label
+skeleton without redesigning the current UI.
 
-## MVP формы
-- Имя
-- Телефон
-- Марка и модель авто
-- Описание проблемы
-- Удобное время звонка
+## Current Example Fixture
 
-## Что должно происходить после отправки
-- заявка уходит менеджеру на email
-- заявка сохраняется в Google Sheets
-- клиент видит сообщение: "Спасибо, ваша заявка отправлена"
+The active example is Kolmi/LADA:
 
-## Этапы
-1. Описать поля формы
-2. Собрать форму в n8n
-3. Подключить email
-4. Подключить Google Sheets
-5. Протестировать отправку
-6. Улучшить внешний вид
+- `frontend/src/content/examples/kolmi-lada.ts`
+- `frontend/src/content/brand.ts`
+
+The UI should keep reading through the config bridge instead of hardcoding
+brand, contact, form, legal, locale, or automation data in components.
+
+## Frontend
+
+```bash
+cd frontend
+npm run lint
+npm run build
+```

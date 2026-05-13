@@ -6,9 +6,11 @@ import type { ReactNode } from "react";
 import {
   brandLogos,
   brandSeo,
-  dealerProfile,
+  contactContent,
   footerContent,
+  formContent,
   heroContent,
+  legalContent,
   quickContact,
 } from "@/app/site-content";
 import { ServiceBookingForm } from "@/components/service-booking-form";
@@ -100,17 +102,17 @@ function CallButton({
   return (
     <a
       className={`inline-flex min-h-[46px] items-center justify-center rounded-[10px] border px-4 text-[14px] font-semibold leading-none tracking-[-0.01em] transition sm:min-h-12 sm:text-[15px] ${toneClassName} ${className ?? ""}`}
-      href={dealerProfile.phoneHref}
+      href={contactContent.phoneHref}
     >
-      Позвонить
+      {contactContent.labels.callCta}
     </a>
   );
 }
 
 export default function Home() {
-  const primaryWorkHours = dealerProfile.workHours[0] ?? "Уточняется";
-  const mobileWorkHours = dealerProfile.mobileWorkHours;
-  const shortAddress = dealerProfile.shortAddress;
+  const primaryWorkHours = contactContent.workHours[0] ?? "Уточняется";
+  const mobileWorkHours = contactContent.mobileWorkHours;
+  const shortAddress = contactContent.shortAddress;
 
   return (
     <>
@@ -148,9 +150,9 @@ export default function Home() {
               <div className="col-span-full flex items-center justify-between gap-2">
                 <a
                   className="min-w-0 flex-1 whitespace-nowrap text-[13px] font-semibold leading-4 tracking-[-0.02em] text-[var(--text)] transition hover:text-[var(--primary)] max-[360px]:text-[12px]"
-                  href={dealerProfile.phoneHref}
+                  href={contactContent.phoneHref}
                 >
-                  {dealerProfile.phoneDisplay}
+                  {contactContent.phoneDisplay}
                 </a>
                 <p className="shrink-0 text-right text-[9px] leading-[12px] tracking-[-0.01em] text-[var(--text-2)]">
                   <span className="font-semibold text-[var(--text)]">{mobileWorkHours}</span>
@@ -192,9 +194,9 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 lg:justify-self-end">
                 <a
                   className="inline-flex text-[14px] font-semibold tracking-[-0.02em] text-[var(--text)] transition hover:text-[var(--primary)] sm:text-[15px]"
-                  href={dealerProfile.phoneHref}
+                  href={contactContent.phoneHref}
                 >
-                  {dealerProfile.phoneDisplay}
+                  {contactContent.phoneDisplay}
                 </a>
                 <CallButton className="min-w-[118px]" tone="default" />
               </div>
@@ -209,11 +211,11 @@ export default function Home() {
                     {heroContent.eyebrow}
                   </p>
                   <h1 className="max-w-[11.5ch] text-[32px] font-semibold leading-[0.99] tracking-[-0.06em] text-[var(--text)] max-[390px]:text-[30px] max-[360px]:text-[28px] sm:max-w-[12ch] sm:text-[56px] sm:leading-[0.96]">
-                    {dealerProfile.heroTitle}
+                    {heroContent.title}
                   </h1>
                   <p className="max-w-[31rem] text-[14px] leading-5 tracking-[-0.008em] text-[var(--text-2)] max-[390px]:max-w-[29rem] max-[390px]:leading-[19px] sm:max-w-[35rem] sm:text-[16px] sm:leading-[25px]">
                     <span className="sm:hidden">{heroContent.mobileDescription}</span>
-                    <span className="hidden sm:inline">{dealerProfile.heroDescription}</span>
+                    <span className="hidden sm:inline">{heroContent.description}</span>
                   </p>
                 </div>
               </div>
@@ -229,7 +231,7 @@ export default function Home() {
           </section>
 
           <section className={sectionClassName} id="contacts">
-            <SectionHeading title="Контакты" />
+            <SectionHeading title={contactContent.labels.sectionTitle} />
             <div className="grid gap-3.5 max-[430px]:gap-2.5 sm:gap-5 lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]">
               <article className={`${surfacePanelClassName} px-5 py-5 max-[430px]:px-3.5 max-[430px]:py-3.5 sm:px-6 sm:py-6`}>
                 <div className="divide-y divide-[var(--border)]">
@@ -238,10 +240,10 @@ export default function Home() {
                     <ClockIcon />
                     <div>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
-                        Часы работы
+                        {contactContent.labels.workHours}
                       </p>
                       <div className="mt-2 space-y-1 text-[16px] leading-6 tracking-[-0.01em] text-[var(--text)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5">
-                        {dealerProfile.workHours.map((item) => (
+                        {contactContent.workHours.map((item) => (
                           <p key={item}>{item}</p>
                         ))}
                       </div>
@@ -252,13 +254,13 @@ export default function Home() {
                     <PhoneIcon />
                     <div>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)] max-[430px]:text-[11px]">
-                        Телефон
+                        {contactContent.labels.phone}
                       </p>
                       <a
                         className="mt-2 inline-flex text-[16px] font-semibold leading-6 tracking-[-0.01em] text-[var(--primary)] transition hover:text-[var(--primary-pressed)] max-[430px]:mt-1 max-[430px]:text-[14px] max-[430px]:leading-5"
-                        href={dealerProfile.phoneHref}
+                        href={contactContent.phoneHref}
                       >
-                        {dealerProfile.phoneDisplay}
+                        {contactContent.phoneDisplay}
                       </a>
                     </div>
                   </div>
@@ -291,12 +293,12 @@ export default function Home() {
                   {footerContent.summaryLine}
                 </p>
                
-                {dealerProfile.requisites ? <p>{dealerProfile.requisites}</p> : null}
+                {contactContent.requisites ? <p>{contactContent.requisites}</p> : null}
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-2 max-[430px]:gap-y-1">
                 <Link
                   className="font-semibold text-[var(--primary)]"
-                  href={dealerProfile.policyHref}
+                  href={legalContent.policyHref}
                 >
                   {footerContent.policyLabel}
                 </Link>
@@ -312,13 +314,13 @@ export default function Home() {
             className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[var(--primary)] bg-[var(--primary)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-white transition hover:border-[var(--primary-pressed)] hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
             href="#service-form"
           >
-            Отправить запрос
+            {formContent.copy.mobileStickySubmitLabel}
           </a>
           <a
             className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:bg-[var(--surface-muted)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
-            href={dealerProfile.phoneHref}
+            href={contactContent.phoneHref}
           >
-            Позвонить
+            {contactContent.labels.callCta}
           </a>
         </div>
       </div>

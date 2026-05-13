@@ -1,12 +1,26 @@
 import type { CSSProperties } from "react";
 
-import { ladaBrand } from "@/content/brands/lada";
+import { autoDetailingYakutskExampleConfig } from "@/content/examples/auto-detailing-yakutsk";
 import type { BrandConfig } from "@/content/brand-types";
 
-export type { BrandConfig, ContactWindow, ServiceKind } from "@/content/brand-types";
+export type {
+  AutomationConfig,
+  AutomationPayloadKey,
+  BrandAssets,
+  BrandConfig,
+  BrandIdentity,
+  ContactContent,
+  ContactWindow,
+  FormContent,
+  LegalContent,
+  LocaleConfig,
+  ServiceOption,
+  ServiceOptionId,
+  ServiceKind,
+} from "@/content/brand-types";
 
-// Switch this import to another brand config when cloning the template.
-export const activeBrand: BrandConfig = ladaBrand;
+// Switch this fixture to adapt the white-label skeleton to another local service.
+export const activeBrand: BrandConfig = autoDetailingYakutskExampleConfig;
 
 type CSSVariableStyle = CSSProperties & Record<`--${string}`, string>;
 
@@ -29,11 +43,18 @@ export const brandThemeStyle: CSSVariableStyle = {
 };
 
 export const brandSeo = activeBrand.seo;
-export const brandLogos = activeBrand.logos;
+export const localeContent = activeBrand.locale;
+export const brandContent = activeBrand.brand;
+export const assetsContent = activeBrand.assets;
+export const brandLogos = activeBrand.assets.logos;
+export const contactContent = activeBrand.contact;
 export const dealerProfile = activeBrand.dealerProfile;
 export const heroContent = activeBrand.hero;
-export const serviceOptions = activeBrand.form.serviceOptions;
-export const contactWindowOptions = activeBrand.form.contactWindowOptions;
+export const formContent = activeBrand.form;
+export const serviceOptions = formContent.serviceOptions;
+export const contactWindowOptions = formContent.contactWindowOptions;
+export const legalContent = activeBrand.legal;
+export const automationContent = activeBrand.automation;
 export const trustSection = activeBrand.trustSection;
 export const advantages = activeBrand.trustSection.advantages;
 export const processSection = activeBrand.processSection;

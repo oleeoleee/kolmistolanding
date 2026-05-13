@@ -1,25 +1,27 @@
-# План работы
+# Skeleton Plan
 
-## Этап 1. Подготовка
-- определить MVP формы
-- определить список полей
-- определить куда отправлять заявку
+## Phase 1
 
-## Этап 2. Сборка в n8n
-- создать Form Trigger
-- добавить поля формы
-- проверить отправку тестовой заявки
+- Keep the current Kolmi/LADA UI and behavior.
+- Move brand, contact, form, legal, locale, and automation metadata into config.
+- Keep risky interaction logic and the original n8n workflow stable.
+- Preserve Kolmi/LADA as an example fixture.
 
-## Этап 3. Интеграции
-- подключить email
-- подключить Google Sheets
+## Phase 1.5
 
-## Этап 4. Тестирование
-- проверить корректность полей
-- проверить отправку уведомления
-- проверить сохранение в таблицу
+- Make service option IDs fixture-owned slugs instead of a Kolmi-shaped shared
+  enum.
+- Constrain the current phone setup explicitly as `ru-phone-first`.
+- Keep compatibility aliases, but document that they are transitional.
+- Record the existing payload contract in automation template hints without
+  rewriting the n8n workflow.
+- Document the current fixed two-logo header assumption for future fixtures.
 
-## Этап 5. Улучшения
-- улучшить текст формы
-- улучшить дизайн
-- добавить дополнительные поля при необходимости
+## Next Phase Candidates
+
+- Template the n8n workflow from `automation` config.
+- Generalize phone formatting with tests.
+- Decide whether webhook-specific payload adapters are needed once fixtures
+  diverge further.
+- Generalize or simplify the dual-logo header contract.
+- Retire legacy config aliases after the app reads only canonical groups.

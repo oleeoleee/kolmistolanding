@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { brandSeo, dealerProfile } from "@/app/site-content";
+import { brandContent, brandSeo, legalContent } from "@/app/site-content";
 import { privacyPolicy } from "@/content/privacy-policy";
 
 export const metadata: Metadata = {
@@ -17,12 +17,12 @@ export default function PrivacyPage() {
           className="mb-6 inline-flex text-[14px] font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
           href="/"
         >
-          На страницу записи
+          {legalContent.backLinkLabel}
         </Link>
 
         <article className="surface-panel p-5 sm:p-6 lg:p-8">
           <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--text-2)]">
-            {dealerProfile.brandLine} • {dealerProfile.dealerName}
+            {brandContent.brandLine} • {brandContent.dealerName}
           </p>
           <h1 className="mt-3 text-[32px] font-semibold leading-[1.04] tracking-[-0.05em] text-[var(--text)]">
             {privacyPolicy.title}

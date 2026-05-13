@@ -1,6 +1,32 @@
-export type ServiceKind = "maintenance" | "repair" | "diagnostics" | "consultation";
+export type ServiceOptionId = string;
+
+// Compatibility alias kept while the form payload still uses `serviceType`.
+export type ServiceKind = ServiceOptionId;
 
 export type ContactWindow = "today" | "tomorrow" | "worktime";
+
+export type LocaleConfig = {
+  htmlLang: string;
+  dateLocale: string;
+  timeZone: string;
+  phone: {
+    mode: "ru-phone-first";
+    prefix: string;
+    normalizedCountryCode: string;
+    localLength: number;
+    trunkPrefixes: string[];
+    placeholder: string;
+  };
+};
+
+export type BrandIdentity = {
+  brandLine: string;
+  brandName: string;
+  dealerName: string;
+  city: string;
+  serviceStatus: string;
+  serviceCenterLabel: string;
+};
 
 export type BrandTheme = {
   bg: string;
@@ -51,12 +77,31 @@ export type DealerProfile = {
   requisites: string | null;
 };
 
+export type ContactContent = {
+  phoneDisplay: string;
+  phoneHref: string;
+  address: string;
+  shortAddress: string;
+  workHours: string[];
+  mobileWorkHours: string;
+  routeHref: string;
+  requisites: string | null;
+  labels: {
+    sectionTitle: string;
+    workHours: string;
+    phone: string;
+    callCta: string;
+  };
+};
+
 export type SectionText = {
   title: string;
   description?: string;
 };
 
 export type HeroContent = {
+  title: string;
+  description: string;
   eyebrow: string;
   mobileDescription: string;
   trustPoints: string[];
@@ -75,8 +120,92 @@ export type ProcessStep = {
   description: string;
 };
 
+export type FormCopy = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  phoneLabel: string;
+  requiredLabel: string;
+  optionalLabel: string;
+  phoneHelperText: string;
+  phoneErrorText: string;
+  submitLabel: string;
+  submittingLabel: string;
+  mobileCtaMicrocopy: string;
+  desktopCtaPoints: string[];
+  legalPrefix: string;
+  legalLinkLabel: string;
+  successMessage: string;
+  errorMessage: string;
+  detailsToggleLabel: string;
+  detailsToggleMeta: string;
+  serviceLegend: string;
+  serviceLabel: string;
+  contactWindowLegend: string;
+  contactWindowLabel: string;
+  commentLabel: string;
+  commentPlaceholder: string;
+  antiAnxietyCopy: string;
+  mobileStickySubmitLabel: string;
+};
+
+export type ServiceOption = {
+  value: ServiceOptionId;
+  label: string;
+};
+
+export type FormContent = {
+  serviceOptions: ServiceOption[];
+  contactWindowOptions: Array<{ value: ContactWindow; label: string }>;
+  copy: FormCopy;
+  submission: {
+    endpoint: string | null;
+    source: string;
+    mockDelayMs: number;
+  };
+};
+
+export type LegalContent = {
+  policyHref: string;
+  policyLabel: string;
+  privacyPolicyRaw: string;
+  backLinkLabel: string;
+};
+
+export type AutomationPayloadKey =
+  | "phone"
+  | "serviceType"
+  | "contactWindow"
+  | "comment"
+  | "source"
+  | "submittedAt";
+
+export type AutomationConfig = {
+  workflowName: string;
+  webhookPath: string;
+  source: string;
+  timeZone: string;
+  emailSubject: string;
+  templateHints: {
+    expectedPayloadKeys: AutomationPayloadKey[];
+  };
+};
+
+export type BrandAssets = {
+  // The current header renders a fixed two-logo lockup.
+  logos: {
+    primary: BrandLogo;
+    secondary: BrandLogo;
+  };
+  faviconPath: string;
+  logoDirectory: string;
+  ogImagePath?: string | null;
+};
+
 export type BrandConfig = {
   id: string;
+  locale: LocaleConfig;
+  brand: BrandIdentity;
   seo: {
     metadataTitleDefault: string;
     metadataTitleTemplate: string;
@@ -87,16 +216,18 @@ export type BrandConfig = {
     privacyPageDescription: string;
   };
   theme: BrandTheme;
+  assets: BrandAssets;
+  contact: ContactContent;
+  hero: HeroContent;
+  form: FormContent;
+  legal: LegalContent;
+  automation: AutomationConfig;
+  // Compatibility aliases kept while the existing page bridge is retired gradually.
   logos: {
     primary: BrandLogo;
     secondary: BrandLogo;
   };
   dealerProfile: DealerProfile;
-  hero: HeroContent;
-  form: {
-    serviceOptions: Array<{ value: ServiceKind; label: string }>;
-    contactWindowOptions: Array<{ value: ContactWindow; label: string }>;
-  };
   trustSection: SectionText & {
     advantages: AdvantageItem[];
   };
@@ -107,10 +238,5 @@ export type BrandConfig = {
   footer: {
     summaryLine: string;
     policyLabel: string;
-  };
-  assets: {
-    faviconPath: string;
-    logoDirectory: string;
-    ogImagePath?: string | null;
   };
 };

@@ -1,13 +1,20 @@
 export {
   activeBrand,
   advantages,
+  assetsContent,
+  automationContent,
+  brandContent,
   brandLogos,
   brandSeo,
   brandThemeStyle,
+  contactContent,
   contactWindowOptions,
   dealerProfile,
   footerContent,
+  formContent,
   heroContent,
+  legalContent,
+  localeContent,
   processSection,
   processSteps,
   quickContact,
@@ -15,4 +22,18 @@ export {
   trustSection,
 } from "@/content/brand";
 
-export type { BrandConfig, ContactWindow, ServiceKind } from "@/content/brand";
+export type {
+  AutomationConfig,
+  AutomationPayloadKey,
+  BrandAssets,
+  BrandConfig,
+  BrandIdentity,
+  ContactContent,
+  ContactWindow,
+  FormContent,
+  LegalContent,
+  LocaleConfig,
+  ServiceOption,
+  ServiceOptionId,
+  ServiceKind,
+} from "@/content/brand";

@@ -6,7 +6,9 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import {
   contactWindowOptions,
-  dealerProfile,
+  formContent,
+  legalContent,
+  localeContent,
   serviceOptions,
   type ContactWindow,
   type ServiceKind,
@@ -29,11 +31,15 @@ type BookingSubmissionPayload = {
   serviceType: ServiceKind | "";
   contactWindow: ContactWindow | "";
   comment: string;
+  source: string;
   submittedAt: string;
 };
 
-const PHONE_PREFIX = "+7";
-const LOCAL_PHONE_LENGTH = 10;
+const phoneDefaults = localeContent.phone;
+const formCopy = formContent.copy;
+const submissionConfig = formContent.submission;
+const PHONE_PREFIX = phoneDefaults.prefix;
+const LOCAL_PHONE_LENGTH = phoneDefaults.localLength;
 
 const initialValues: FormValues = {
   phone: "",
@@ -54,22 +60,17 @@ const compactChipBaseClassName =
   "inline-flex min-h-[34px] cursor-pointer items-center justify-center rounded-[12px] border px-[11px] py-1.5 text-[12px] font-medium leading-[1.1] tracking-[-0.015em] transition-colors transition-[border-color,background-color,color] max-[430px]:min-h-[34px] max-[430px]:rounded-[11px] max-[430px]:px-2.5 max-[430px]:py-[5px] max-[430px]:text-[11px] sm:min-h-[36px] sm:rounded-[12px] sm:px-3 sm:text-[13px]";
 const serviceRowControlClassName =
   "flex min-h-[46px] w-full items-center justify-between rounded-[12px] border px-3.5 py-2.5 text-left text-[13px] font-medium leading-[1.2] tracking-[-0.012em] transition-colors transition-[border-color,background-color,color] max-[430px]:min-h-[44px] max-[430px]:rounded-[11px] max-[430px]:px-3 max-[430px]:py-2.5 max-[430px]:text-[12px] sm:min-h-12 sm:px-4 sm:text-[13px]";
-const antiAnxietyCopy =
-  "Если не уверены в причине обращения — опишите своими словами, мы уточним.";
-const phoneHelperText = "Нужен для подтверждения записи.";
-const mobileCtaMicrocopy =
-  "Достаточно телефона • Остальное можно уточнить позже";
-const mockSubmitDelayMs = 700;
-
 const normalizePhone = (value: string) => {
   if (value.length === 0) {
     return "";
   }
 
-  return `7${value}`;
+  return `${phoneDefaults.normalizedCountryCode}${value}`;
 };
 
-const isPhoneValid = (value: string) => normalizePhone(value).length === 11;
+const isPhoneValid = (value: string) =>
+  normalizePhone(value).length ===
+  phoneDefaults.normalizedCountryCode.length + LOCAL_PHONE_LENGTH;
 
 const extractPhoneDigits = (value: string) => {
   const digits = value.replace(/\D/g, "");
@@ -84,7 +85,7 @@ const extractPhoneDigits = (value: string) => {
 
   if (
     digits.length > LOCAL_PHONE_LENGTH &&
-    (digits.startsWith("7") || digits.startsWith("8"))
+    phoneDefaults.trunkPrefixes.some((prefix) => digits.startsWith(prefix))
   ) {
     return digits.slice(1, LOCAL_PHONE_LENGTH + 1);
   }
@@ -169,7 +170,7 @@ const validate = (values: FormValues): FieldErrors => {
   const errors: FieldErrors = {};
 
   if (!isPhoneValid(values.phone)) {
-    errors.phone = "Укажите телефон полностью.";
+    errors.phone = formCopy.phoneErrorText;
   }
 
   return errors;
@@ -180,7 +181,9 @@ const submitBookingRequest = async (
   endpoint?: string | null,
 ) => {
   if (!endpoint) {
-    await new Promise((resolve) => window.setTimeout(resolve, mockSubmitDelayMs));
+    await new Promise((resolve) =>
+      window.setTimeout(resolve, submissionConfig.mockDelayMs),
+    );
     return;
   }
 
@@ -333,9 +336,10 @@ export function ServiceBookingForm() {
           serviceType: values.serviceType,
           contactWindow: values.contactWindow,
           comment: values.comment.trim(),
+          source: submissionConfig.source,
           submittedAt: new Date().toISOString(),
         },
-        dealerProfile.formEndpoint,
+        submissionConfig.endpoint,
       );
       setValues(initialValues);
       setExpanded(false);
@@ -357,13 +361,13 @@ export function ServiceBookingForm() {
     >
       <div className="accent-divider mb-3.5 space-y-1.5 border-b border-[var(--border)] pb-3.5 max-[430px]:mb-3 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:mb-5 sm:space-y-2 sm:pb-4">
         <p className="form-label-accent text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-2)] max-[430px]:text-[9px] max-[430px]:tracking-[0.16em] sm:text-[11px]">
-          Предварительная запись
+          {formCopy.eyebrow}
         </p>
         <h2 className="text-[21px] font-semibold leading-[1.08] tracking-[-0.04em] text-[var(--text)] sm:text-[22px]">
-          Заявка на сервис
+          {formCopy.title}
         </h2>
         <p className="max-w-[28rem] text-[13px] leading-[18px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:max-w-[24rem] max-[430px]:text-[12px] max-[430px]:leading-[17px] sm:text-[14px] sm:leading-[22px]">
-          Оставьте телефон. Остальное — по желанию.
+          {formCopy.description}
         </p>
       </div>
 
@@ -375,9 +379,9 @@ export function ServiceBookingForm() {
         <div className="accent-divider order-1 space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:space-y-2.5 sm:pb-4">
           <div className={fieldHeaderClassName}>
             <label className={fieldLabelClassName} htmlFor="phone">
-              Телефон для связи
+              {formCopy.phoneLabel}
             </label>
-            <span className={fieldMetaClassName}>Обязательно</span>
+            <span className={fieldMetaClassName}>{formCopy.requiredLabel}</span>
           </div>
           <input
             ref={phoneInputRef}
@@ -395,7 +399,7 @@ export function ServiceBookingForm() {
                 phone: true,
               }))
             }
-            placeholder="+7 (900) 123-45-67"
+            placeholder={phoneDefaults.placeholder}
             aria-invalid={Boolean(phoneError)}
             aria-describedby="phone-feedback"
             className="min-h-[54px] w-full rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-4 text-[17px] leading-6 tracking-[-0.02em] text-[var(--text)] outline-none transition max-[430px]:min-h-[52px] max-[430px]:px-3.5 max-[430px]:text-[16px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-soft)] sm:min-h-[56px] sm:text-[18px]"
@@ -408,7 +412,7 @@ export function ServiceBookingForm() {
                 : "text-[var(--text-2)]"
             }`}
           >
-            {phoneError ?? phoneHelperText}
+            {phoneError ?? formCopy.phoneHelperText}
           </p>
         </div>
 
@@ -419,28 +423,27 @@ export function ServiceBookingForm() {
             disabled={submitState === "submitting" || !phoneIsValid}
             className="inline-flex min-h-[54px] w-full items-center justify-center rounded-[10px] bg-[var(--primary)] px-5 text-base font-semibold tracking-[-0.01em] text-white shadow-[0_16px_36px_rgba(112,46,18,0.22)] transition max-[430px]:min-h-[52px] hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
           >
-            {submitState === "submitting" ? "Отправляем..." : "Оставить заявку"}
+            {submitState === "submitting" ? formCopy.submittingLabel : formCopy.submitLabel}
           </button>
           <div className="accent-divider border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
             <p className="text-[10px] leading-[15px] tracking-[0.006em] text-[var(--text-2)] sm:hidden">
-              {mobileCtaMicrocopy}
+              {formCopy.mobileCtaMicrocopy}
             </p>
             <div className="hidden gap-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] sm:grid sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
-              <p>Запись предварительная</p>
-              <p>Подтверждаем визит</p>
-              <p>Свяжемся в рабочее время</p>
+              {formCopy.desktopCtaPoints.map((point) => (
+                <p key={point}>{point}</p>
+              ))}
             </div>
           </div>
           <p className="max-w-[29rem] text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:max-w-[24rem] max-[430px]:text-[10px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
-            Нажимая кнопку, вы соглашаетесь с обработкой персональных данных в
-            соответствии с{" "}
+            {formCopy.legalPrefix}{" "}
             <Link
               className="font-semibold text-[var(--primary)] transition hover:text-[var(--primary-pressed)]"
-              href={dealerProfile.policyHref}
+              href={legalContent.policyHref}
               rel="noopener noreferrer"
               target="_blank"
             >
-              политикой обработки персональных данных
+              {formCopy.legalLinkLabel}
             </Link>
             .
           </p>
@@ -449,13 +452,13 @@ export function ServiceBookingForm() {
         <div aria-live="polite" className="order-3 pt-0.5 sm:order-4 sm:pt-1">
           {submitState === "success" ? (
             <p className="rounded-[10px] border border-[rgba(139,207,151,0.24)] bg-[rgba(139,207,151,0.1)] px-4 py-3 text-[14px] leading-5 text-[var(--success)]">
-              Заявка отправлена. Мы свяжемся с вами в рабочее время.
+              {formCopy.successMessage}
             </p>
           ) : null}
 
           {submitState === "error" ? (
             <p className="rounded-[10px] border border-[rgba(255,154,144,0.22)] bg-[rgba(255,154,144,0.1)] px-4 py-3 text-[14px] leading-5 text-[var(--danger)]">
-              Не удалось отправить заявку. Попробуйте еще раз или позвоните нам.
+              {formCopy.errorMessage}
             </p>
           ) : null}
         </div>
@@ -474,10 +477,10 @@ export function ServiceBookingForm() {
           >
             <span className="min-w-0 flex-1">
               <span className="block text-[13px] font-semibold leading-5 tracking-[-0.015em] text-[var(--text)]">
-                Уточнить детали заявки
+                {formCopy.detailsToggleLabel}
               </span>
               <span className="mt-0.5 block text-[10px] font-medium leading-4 tracking-[0.01em] text-[rgba(183,191,199,0.72)]">
-                Необязательно
+                {formCopy.detailsToggleMeta}
               </span>
             </span>
             <span
@@ -495,10 +498,10 @@ export function ServiceBookingForm() {
             className={`${detailsExpanded ? "mt-2.5 grid gap-3 max-[430px]:gap-2.5 max-[390px]:gap-[9px]" : "hidden"} sm:mt-0 sm:grid sm:gap-4`}
           >
             <fieldset className="accent-divider space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
-              <legend className="sr-only">Что нужно</legend>
+              <legend className="sr-only">{formCopy.serviceLegend}</legend>
               <div className={fieldHeaderClassName}>
-                <p className={fieldLabelClassName}>Услуга</p>
-                <span className={optionalMetaClassName}>Необязательно</span>
+                <p className={fieldLabelClassName}>{formCopy.serviceLabel}</p>
+                <span className={optionalMetaClassName}>{formCopy.optionalLabel}</span>
               </div>
               <div className="grid gap-1.5 sm:gap-2">
                 {serviceOptions.map((option) => {
@@ -538,10 +541,10 @@ export function ServiceBookingForm() {
             </fieldset>
 
             <fieldset className="accent-divider space-y-2 border-b border-[var(--border)] pb-3.5 max-[430px]:space-y-1.5 max-[430px]:pb-3 sm:pb-4">
-              <legend className="sr-only">Когда удобно связаться</legend>
+              <legend className="sr-only">{formCopy.contactWindowLegend}</legend>
               <div className={fieldHeaderClassName}>
-                <p className={fieldLabelClassName}>Когда удобно связаться</p>
-                <span className={optionalMetaClassName}>Необязательно</span>
+                <p className={fieldLabelClassName}>{formCopy.contactWindowLabel}</p>
+                <span className={optionalMetaClassName}>{formCopy.optionalLabel}</span>
               </div>
               <div className="flex flex-wrap gap-1.5 max-[430px]:gap-1.5">
                 {contactWindowOptions.map((option) => {
@@ -587,13 +590,13 @@ export function ServiceBookingForm() {
               >
                 <span className="flex min-w-0 flex-1 items-center gap-2 max-[430px]:items-start">
                   <span className="min-w-0">
-                    <span className="block truncate max-[430px]:leading-4">Комментарий к заявке</span>
+                    <span className="block truncate max-[430px]:leading-4">{formCopy.commentLabel}</span>
                     <span className="mt-0.5 hidden text-[10px] font-medium leading-4 tracking-[0.02em] text-[rgba(183,191,199,0.82)] max-[430px]:block">
-                      Необязательно
+                      {formCopy.optionalLabel}
                     </span>
                   </span>
                   <span className={`max-[430px]:hidden ${optionalMetaClassName}`}>
-                    Необязательно
+                    {formCopy.optionalLabel}
                   </span>
                 </span>
                 <span
@@ -619,17 +622,17 @@ export function ServiceBookingForm() {
                         }));
                         setSubmitState("idle");
                       }}
-                      placeholder="Если хотите, кратко опишите вопрос или неисправность"
+                      placeholder={formCopy.commentPlaceholder}
                       className="w-full rounded-[12px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-4 py-3 text-[15px] leading-6 tracking-[-0.01em] text-[var(--text)] outline-none transition max-[430px]:rounded-[11px] max-[430px]:px-3.5 max-[430px]:py-2.5 max-[430px]:text-[14px] focus:border-[var(--primary)] focus:ring-4 focus:ring-[var(--primary-soft)]"
                     />
                   </div>
                   <p className="text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
-                    {antiAnxietyCopy}
+                    {formCopy.antiAnxietyCopy}
                   </p>
                 </div>
               ) : (
                 <p className="text-[12px] leading-[17px] tracking-[-0.008em] text-[var(--text-2)] max-[430px]:text-[11px] max-[430px]:leading-[15px] sm:text-[12px] sm:leading-[19px]">
-                  {antiAnxietyCopy}
+                  {formCopy.antiAnxietyCopy}
                 </p>
               )}
             </div>
