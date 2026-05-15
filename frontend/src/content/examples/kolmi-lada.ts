@@ -1,4 +1,11 @@
 import type { BrandConfig } from "@/content/brand-types";
+import { autoHeroTemplates } from "@/content/hero-templates";
+import { toServiceOptions } from "@/content/services";
+import { themePresets, toThemePresetSelection } from "@/content/theme-presets";
+
+const contactPhoneHref = "tel:+74112400888";
+const contactRouteHref = "https://2gis.ru/yakutsk/firm/70000001018554877";
+const ctaSource = "kolmi-landing";
 
 const logos: BrandConfig["logos"] = {
   primary: {
@@ -46,24 +53,141 @@ const brand: BrandConfig["brand"] = {
   serviceCenterLabel: "Сервисный центр официального дилера",
 };
 
+const cta: BrandConfig["cta"] = {
+  headerCall: {
+    id: "header-call",
+    variant: "call-now",
+    label: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "header",
+    },
+  },
+  quickContactCall: {
+    id: "quick-contact-call",
+    variant: "call-now",
+    label: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "quick-contact",
+    },
+  },
+  mobileStickyPrimary: {
+    id: "mobile-sticky-request",
+    variant: "book-consultation",
+    label: "Оставить заявку",
+    mobileLabel: "Отправить запрос",
+    actionType: "form-anchor",
+    href: "#service-form",
+    analytics: {
+      source: ctaSource,
+      placement: "mobile-sticky-primary",
+    },
+  },
+  mobileStickySecondary: {
+    id: "mobile-sticky-call",
+    variant: "call-now",
+    label: "Позвонить",
+    mobileLabel: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "mobile-sticky-secondary",
+    },
+  },
+  formSubmit: {
+    id: "service-booking-submit",
+    variant: "book-consultation",
+    label: "Оставить заявку",
+    helperText: "Достаточно телефона • Остальное можно уточнить позже",
+    actionType: "form-submit",
+    submittingLabel: "Отправляем...",
+    desktopHelperPoints: [
+      "Запись предварительная",
+      "Подтверждаем визит",
+      "Свяжемся в рабочее время",
+    ],
+    analytics: {
+      source: ctaSource,
+      placement: "form-submit",
+    },
+  },
+  route: {
+    id: "route-to-dealer",
+    variant: "book-consultation",
+    label: "Построить маршрут",
+    actionType: "route",
+    href: contactRouteHref,
+    target: "_blank",
+    analytics: {
+      source: ctaSource,
+      placement: "contact-route",
+    },
+  },
+};
+
 const contact: BrandConfig["contact"] = {
   phoneDisplay: "+7 (4112) 40-08-88",
-  phoneHref: "tel:+74112400888",
+  phoneHref: contactPhoneHref,
   address: "Покровское шоссе, 6 километр, 1а, с. Пригородный, г. Якутск",
   shortAddress: "Покровское шоссе, 6 км",
   workHours: ["Пн–Пт 09:00–19:00, Сб–Вс 10:00–19:00"],
   mobileWorkHours: "Пн–Пт 09:00–19:00",
-  routeHref: "https://2gis.ru/yakutsk/firm/70000001018554877",
+  routeHref: contactRouteHref,
   requisites: null,
   labels: {
     sectionTitle: "Контакты",
     workHours: "Часы работы",
     phone: "Телефон",
-    callCta: "Позвонить",
+    callCta: cta.headerCall.label,
   },
 };
 
+const services: BrandConfig["services"] = {
+  items: [
+    {
+      id: "maintenance",
+      label: "ТО",
+      shortLabel: "ТО",
+      alternateLabel: "Техническое обслуживание",
+      description: "Плановое обслуживание автомобиля по регламентам производителя.",
+      category: "scheduled-service",
+      isPrimary: true,
+    },
+    {
+      id: "repair",
+      label: "Ремонт",
+      description: "Работы по устранению неисправностей после диагностики и согласования.",
+      category: "repair",
+      isPrimary: true,
+    },
+    {
+      id: "diagnostics",
+      label: "Диагностика",
+      description: "Проверка систем автомобиля и уточнение причины обращения.",
+      category: "diagnostics",
+      isPrimary: true,
+    },
+    {
+      id: "consultation",
+      label: "Нужна консультация",
+      shortLabel: "Консультация",
+      description: "Предварительная консультация, если услуга или причина обращения неясны.",
+      category: "consultation",
+    },
+  ],
+};
+
 const hero: BrandConfig["hero"] = {
+  template: {
+    ...autoHeroTemplates.serviceTrust,
+    primaryServiceIds: ["maintenance", "repair", "diagnostics"],
+  },
   title: "Официальный дилер LADA в Якутске",
   description:
     "ТО, диагностика и ремонт по дилерским регламентам. Оставьте телефон - свяжемся в рабочее время и согласуем визит.",
@@ -73,6 +197,59 @@ const hero: BrandConfig["hero"] = {
     "Дилерские регламенты LADA",
     "Оригинальные детали и расходные материалы",
     "Согласование работ до начала обслуживания",
+  ],
+};
+
+const faq: BrandConfig["faq"] = {
+  title: "Частые вопросы",
+  description:
+    "Ответы на базовые вопросы перед предварительной записью в дилерский сервис.",
+  items: [
+    {
+      id: "what-to-choose",
+      question: "Что выбрать в заявке, если я не знаю причину обращения?",
+      answer:
+        "Выберите консультацию или оставьте только телефон. Специалист уточнит симптомы, пробег и удобное время, а затем подскажет, нужна ли диагностика, ТО или ремонт.",
+      shortAnswer:
+        "Можно оставить только телефон, специалист уточнит детали при звонке.",
+      category: "consultation",
+      isPrimary: true,
+      order: 1,
+    },
+    {
+      id: "maintenance-record",
+      question: "Можно ли записаться на плановое ТО через форму?",
+      answer:
+        "Да. Укажите телефон и выберите ТО в списке услуг. При звонке можно уточнить пробег, комплектацию и удобное время визита.",
+      category: "scheduled-service",
+      isPrimary: true,
+      order: 2,
+    },
+    {
+      id: "diagnostics-before-repair",
+      question: "Нужна ли диагностика перед ремонтом?",
+      answer:
+        "Во многих случаях диагностика помогает точнее определить причину неисправности и согласовать объем работ до начала ремонта.",
+      category: "diagnostics",
+      isPrimary: true,
+      order: 3,
+    },
+    {
+      id: "work-approval",
+      question: "Работы согласовываются до начала обслуживания?",
+      answer:
+        "Да. Объем работ и дальнейшие действия согласуются с клиентом до старта обслуживания или ремонта.",
+      category: "process",
+      order: 4,
+    },
+    {
+      id: "callback-time",
+      question: "Когда со мной свяжутся после заявки?",
+      answer:
+        "Заявка предварительная. Обычно звонок выполняется в рабочее время сервиса, чтобы подтвердить детали обращения и визит.",
+      category: "contact",
+      order: 5,
+    },
   ],
 };
 
@@ -209,12 +386,7 @@ https://kolmilada.ru/privacy`,
 };
 
 const form: BrandConfig["form"] = {
-  serviceOptions: [
-    { value: "maintenance", label: "ТО" },
-    { value: "repair", label: "Ремонт" },
-    { value: "diagnostics", label: "Диагностика" },
-    { value: "consultation", label: "Нужна консультация" },
-  ],
+  serviceOptions: toServiceOptions(services.items),
   contactWindowOptions: [
     { value: "today", label: "Сегодня" },
     { value: "tomorrow", label: "Завтра" },
@@ -229,14 +401,10 @@ const form: BrandConfig["form"] = {
     optionalLabel: "Необязательно",
     phoneHelperText: "Нужен для подтверждения записи.",
     phoneErrorText: "Укажите телефон полностью.",
-    submitLabel: "Оставить заявку",
-    submittingLabel: "Отправляем...",
-    mobileCtaMicrocopy: "Достаточно телефона • Остальное можно уточнить позже",
-    desktopCtaPoints: [
-      "Запись предварительная",
-      "Подтверждаем визит",
-      "Свяжемся в рабочее время",
-    ],
+    submitLabel: cta.formSubmit.label,
+    submittingLabel: cta.formSubmit.submittingLabel,
+    mobileCtaMicrocopy: cta.formSubmit.helperText ?? "",
+    desktopCtaPoints: cta.formSubmit.desktopHelperPoints,
     legalPrefix:
       "Нажимая кнопку, вы соглашаетесь с обработкой персональных данных в соответствии с",
     legalLinkLabel: "политикой обработки персональных данных",
@@ -252,7 +420,8 @@ const form: BrandConfig["form"] = {
     commentPlaceholder: "Если хотите, кратко опишите вопрос или неисправность",
     antiAnxietyCopy:
       "Если не уверены в причине обращения — опишите своими словами, мы уточним.",
-    mobileStickySubmitLabel: "Отправить запрос",
+    mobileStickySubmitLabel:
+      cta.mobileStickyPrimary.mobileLabel ?? cta.mobileStickyPrimary.label,
   },
   submission: {
     endpoint: "https://bot.shukland.xyz/webhook/kolmi-service-booking",
@@ -277,22 +446,8 @@ export const kolmiLadaExampleConfig: BrandConfig = {
       "Политика обработки персональных данных ООО «Колми» для сайта официального дилера LADA в Якутске.",
   },
   theme: {
-    bg: "#3f454a",
-    surface: "rgba(27, 34, 39, 0.84)",
-    surfaceMuted: "rgba(42, 51, 58, 0.82)",
-    surfaceSubtle: "rgba(62, 73, 81, 0.3)",
-    text: "#f1f0eb",
-    textMuted: "#b7bec6",
-    border: "rgba(223, 229, 234, 0.12)",
-    borderStrong: "rgba(223, 229, 234, 0.2)",
-    primary: "#df6d32",
-    primarySoft: "rgba(223, 109, 50, 0.14)",
-    primaryPressed: "#c75b24",
-    success: "#8bcf97",
-    danger: "#ff9a90",
-    warning: "#d89954",
-    shadowSoft: "0 24px 54px rgba(4, 8, 14, 0.28)",
-    themeColor: "#3f454a",
+    ...themePresets.graphiteOrange.tokens,
+    preset: toThemePresetSelection(themePresets.graphiteOrange),
   },
   assets: {
     logos,
@@ -301,7 +456,10 @@ export const kolmiLadaExampleConfig: BrandConfig = {
     ogImagePath: null,
   },
   contact,
+  cta,
   hero,
+  services,
+  faq,
   form,
   legal,
   automation: {

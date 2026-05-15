@@ -8,10 +8,11 @@ import {
   brandSeo,
   contactContent,
   footerContent,
-  formContent,
   heroContent,
+  ctaContent,
   legalContent,
   quickContact,
+  type CtaDefinition,
 } from "@/app/site-content";
 import { ServiceBookingForm } from "@/components/service-booking-form";
 
@@ -89,9 +90,11 @@ function SectionHeading({
 
 function CallButton({
   className,
+  cta = ctaContent.headerCall,
   tone = "default",
 }: Readonly<{
   className?: string;
+  cta?: CtaDefinition;
   tone?: "default" | "primary";
 }>) {
   const toneClassName =
@@ -102,9 +105,11 @@ function CallButton({
   return (
     <a
       className={`inline-flex min-h-[46px] items-center justify-center rounded-[10px] border px-4 text-[14px] font-semibold leading-none tracking-[-0.01em] transition sm:min-h-12 sm:text-[15px] ${toneClassName} ${className ?? ""}`}
-      href={contactContent.phoneHref}
+      href={cta.href ?? contactContent.phoneHref}
+      rel={cta.target === "_blank" ? "noopener noreferrer" : undefined}
+      target={cta.target}
     >
-      {contactContent.labels.callCta}
+      {cta.label}
     </a>
   );
 }
@@ -278,7 +283,11 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5 border-t border-[var(--border)] pt-4 max-[430px]:gap-1.5 max-[430px]:pt-2.5 sm:gap-3 sm:pt-5">
-                    <CallButton className="w-full max-[430px]:min-h-11" tone="default" />
+                    <CallButton
+                      className="w-full max-[430px]:min-h-11"
+                      cta={ctaContent.quickContactCall}
+                      tone="default"
+                    />
               
                   </div>
                 </div>
@@ -312,15 +321,17 @@ export default function Home() {
         <div className="mx-auto flex max-w-[1180px] gap-2 pb-[calc(env(safe-area-inset-bottom)+6px)] max-[430px]:gap-1.5 max-[430px]:pb-[calc(env(safe-area-inset-bottom)+6px)]">
           <a
             className="inline-flex min-h-[46px] flex-[1.08] items-center justify-center rounded-[10px] border border-[var(--primary)] bg-[var(--primary)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.006em] text-white transition hover:border-[var(--primary-pressed)] hover:bg-[var(--primary-pressed)] max-[430px]:min-h-11 max-[430px]:px-3"
-            href="#service-form"
+            href={ctaContent.mobileStickyPrimary.href ?? "#service-form"}
           >
-            {formContent.copy.mobileStickySubmitLabel}
+            {ctaContent.mobileStickyPrimary.mobileLabel ??
+              ctaContent.mobileStickyPrimary.label}
           </a>
           <a
             className="inline-flex min-h-[46px] flex-[0.92] items-center justify-center rounded-[10px] border border-[var(--border-strong)] bg-[var(--surface-subtle)] px-3.5 text-[13px] font-medium leading-none tracking-[-0.01em] text-[var(--text)] transition hover:border-[var(--border-strong)] hover:bg-[var(--surface-muted)] hover:text-[var(--text)] max-[430px]:min-h-11 max-[430px]:px-3"
-            href={contactContent.phoneHref}
+            href={ctaContent.mobileStickySecondary.href ?? contactContent.phoneHref}
           >
-            {contactContent.labels.callCta}
+            {ctaContent.mobileStickySecondary.mobileLabel ??
+              ctaContent.mobileStickySecondary.label}
           </a>
         </div>
       </div>

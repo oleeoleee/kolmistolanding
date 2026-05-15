@@ -3,6 +3,55 @@ export type ServiceOptionId = string;
 // Compatibility alias kept while the form payload still uses `serviceType`.
 export type ServiceKind = ServiceOptionId;
 
+export type AutoHeroTemplateId =
+  | "premium-detailing"
+  | "coating-protection"
+  | "restoration-care"
+  | "service-trust";
+
+export type CtaVariant =
+  | "book-consultation"
+  | "leave-request"
+  | "call-now"
+  | "get-price";
+
+export type CtaActionType =
+  | "phone"
+  | "form-anchor"
+  | "form-submit"
+  | "route";
+
+export type CtaDefinition = {
+  id: string;
+  variant: CtaVariant;
+  label: string;
+  mobileLabel?: string;
+  helperText?: string;
+  actionType: CtaActionType;
+  href?: string;
+  target?: string;
+  analytics?: {
+    source: string;
+    placement?: string;
+  };
+};
+
+export type FormSubmitCta = CtaDefinition & {
+  actionType: "form-submit";
+  helperText: string;
+  submittingLabel: string;
+  desktopHelperPoints: string[];
+};
+
+export type CtaContent = {
+  headerCall: CtaDefinition;
+  quickContactCall: CtaDefinition;
+  mobileStickyPrimary: CtaDefinition;
+  mobileStickySecondary: CtaDefinition;
+  formSubmit: FormSubmitCta;
+  route?: CtaDefinition;
+};
+
 export type ContactWindow = "today" | "tomorrow" | "worktime";
 
 export type LocaleConfig = {
@@ -28,7 +77,7 @@ export type BrandIdentity = {
   serviceCenterLabel: string;
 };
 
-export type BrandTheme = {
+export type BrandThemeTokens = {
   bg: string;
   surface: string;
   surfaceMuted: string;
@@ -45,6 +94,35 @@ export type BrandTheme = {
   warning: string;
   shadowSoft: string;
   themeColor: string;
+};
+
+export type ThemePresetId =
+  | "premium-dark"
+  | "graphite-orange"
+  | "clean-silver"
+  | "black-gold";
+
+export type ThemePreset = {
+  id: ThemePresetId;
+  label: string;
+  description: string;
+  intendedUse: string[];
+  tokens: BrandThemeTokens;
+  notes?: string[];
+};
+
+export type ThemePresetSelection = {
+  id: ThemePresetId;
+  label: string;
+  description: string;
+  intendedUse: string[];
+  tokenSource: ThemePresetId;
+  notes?: string[];
+};
+
+export type BrandTheme = BrandThemeTokens & {
+  // Authoring metadata only. Rendering still reads the raw CSS variable tokens.
+  preset?: ThemePresetSelection;
 };
 
 export type BrandLogo = {
@@ -99,7 +177,19 @@ export type SectionText = {
   description?: string;
 };
 
+export type HeroTemplate = {
+  id: AutoHeroTemplateId;
+  label: string;
+  intent: string;
+  useCases: string[];
+};
+
+export type HeroTemplateSelection = HeroTemplate & {
+  primaryServiceIds?: ServiceOptionId[];
+};
+
 export type HeroContent = {
+  template?: HeroTemplateSelection;
   title: string;
   description: string;
   eyebrow: string;
@@ -152,6 +242,36 @@ export type FormCopy = {
 export type ServiceOption = {
   value: ServiceOptionId;
   label: string;
+};
+
+export type ServiceItem = {
+  id: ServiceOptionId;
+  label: string;
+  shortLabel?: string;
+  alternateLabel?: string;
+  description?: string;
+  category?: string;
+  isPrimary?: boolean;
+};
+
+export type ServicesContent = {
+  items: ServiceItem[];
+};
+
+export type FaqItem = {
+  id: string;
+  question: string;
+  answer: string;
+  shortAnswer?: string;
+  category?: string;
+  isPrimary?: boolean;
+  order?: number;
+};
+
+export type FaqContent = {
+  title: string;
+  description?: string;
+  items: FaqItem[];
 };
 
 export type FormContent = {
@@ -218,7 +338,10 @@ export type BrandConfig = {
   theme: BrandTheme;
   assets: BrandAssets;
   contact: ContactContent;
+  cta: CtaContent;
   hero: HeroContent;
+  services: ServicesContent;
+  faq: FaqContent;
   form: FormContent;
   legal: LegalContent;
   automation: AutomationConfig;

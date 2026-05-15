@@ -1,8 +1,15 @@
 import type { BrandConfig } from "@/content/brand-types";
+import { autoHeroTemplates } from "@/content/hero-templates";
+import { toServiceOptions } from "@/content/services";
+import { themePresets, toThemePresetSelection } from "@/content/theme-presets";
 
 const businessName = "AURUM DETAIL";
 const operatorName = "ООО «Аурум Детейл»";
 const contactEmail = "hello@aurumdetail.ru";
+const contactPhoneHref = "tel:+79142884716";
+const contactRouteHref =
+  "https://2gis.ru/yakutsk/search/%D1%83%D0%BB.%20%D0%90%D0%B2%D1%82%D0%BE%D0%B4%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D0%B0%D1%8F%2C%209";
+const ctaSource = "aurum-detail-landing";
 
 const logos: BrandConfig["logos"] = {
   primary: {
@@ -50,25 +57,153 @@ const brand: BrandConfig["brand"] = {
   serviceCenterLabel: "Студия детейлинга",
 };
 
+const cta: BrandConfig["cta"] = {
+  headerCall: {
+    id: "header-call",
+    variant: "call-now",
+    label: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "header",
+    },
+  },
+  quickContactCall: {
+    id: "quick-contact-call",
+    variant: "call-now",
+    label: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "quick-contact",
+    },
+  },
+  mobileStickyPrimary: {
+    id: "mobile-sticky-request",
+    variant: "leave-request",
+    label: "Оставить заявку",
+    mobileLabel: "Оставить заявку",
+    actionType: "form-anchor",
+    href: "#service-form",
+    analytics: {
+      source: ctaSource,
+      placement: "mobile-sticky-primary",
+    },
+  },
+  mobileStickySecondary: {
+    id: "mobile-sticky-call",
+    variant: "call-now",
+    label: "Позвонить",
+    mobileLabel: "Позвонить",
+    actionType: "phone",
+    href: contactPhoneHref,
+    analytics: {
+      source: ctaSource,
+      placement: "mobile-sticky-secondary",
+    },
+  },
+  formSubmit: {
+    id: "detailing-request-submit",
+    variant: "leave-request",
+    label: "Оставить заявку",
+    helperText: "Достаточно телефона • Детали уточним позже",
+    actionType: "form-submit",
+    submittingLabel: "Отправляем...",
+    desktopHelperPoints: [
+      "Заявка предварительная",
+      "Подберем услугу",
+      "Согласуем удобное время",
+    ],
+    analytics: {
+      source: ctaSource,
+      placement: "form-submit",
+    },
+  },
+  route: {
+    id: "route-to-studio",
+    variant: "book-consultation",
+    label: "Построить маршрут",
+    actionType: "route",
+    href: contactRouteHref,
+    target: "_blank",
+    analytics: {
+      source: ctaSource,
+      placement: "contact-route",
+    },
+  },
+};
+
 const contact: BrandConfig["contact"] = {
   phoneDisplay: "+7 (914) 288-47-16",
-  phoneHref: "tel:+79142884716",
+  phoneHref: contactPhoneHref,
   address: "Республика Саха (Якутия), г. Якутск, ул. Автодорожная, 9",
   shortAddress: "ул. Автодорожная, 9",
   workHours: ["Пн–Вс 10:00–20:00"],
   mobileWorkHours: "Пн–Вс 10:00–20:00",
-  routeHref:
-    "https://2gis.ru/yakutsk/search/%D1%83%D0%BB.%20%D0%90%D0%B2%D1%82%D0%BE%D0%B4%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D0%B0%D1%8F%2C%209",
+  routeHref: contactRouteHref,
   requisites: operatorName,
   labels: {
     sectionTitle: "Контакты",
     workHours: "Часы работы",
     phone: "Телефон",
-    callCta: "Позвонить",
+    callCta: cta.headerCall.label,
   },
 };
 
+const services: BrandConfig["services"] = {
+  items: [
+    {
+      id: "body-polishing",
+      label: "Полировка кузова",
+      shortLabel: "Полировка",
+      description: "Восстановление блеска и аккуратная коррекция следов эксплуатации.",
+      category: "polishing",
+      isPrimary: true,
+    },
+    {
+      id: "ceramic-coating",
+      label: "Керамическое покрытие",
+      shortLabel: "Керамика",
+      description: "Защитный состав для лакокрасочного покрытия и легкого ухода.",
+      category: "coating",
+      isPrimary: true,
+    },
+    {
+      id: "interior-deep-cleaning",
+      label: "Химчистка салона",
+      shortLabel: "Химчистка",
+      description: "Глубокая чистка сидений, пластика, ковров и труднодоступных зон.",
+      category: "interior-care",
+      isPrimary: true,
+    },
+    {
+      id: "paint-protection-film",
+      label: "Оклейка защитной пленкой",
+      shortLabel: "Защитная пленка",
+      description: "Локальная или комплексная защита уязвимых зон кузова.",
+      category: "paint-protection",
+    },
+    {
+      id: "presale-preparation",
+      label: "Предпродажная подготовка",
+      shortLabel: "Подготовка к продаже",
+      description: "Комплексная подготовка внешнего вида и салона перед продажей.",
+      category: "prep",
+    },
+  ],
+};
+
 const hero: BrandConfig["hero"] = {
+  template: {
+    ...autoHeroTemplates.premiumDetailing,
+    primaryServiceIds: [
+      "body-polishing",
+      "ceramic-coating",
+      "interior-deep-cleaning",
+    ],
+  },
   title: "Авто-детейлинг в Якутске",
   description:
     "Полировка кузова, химчистка салона, защитные покрытия и комплексный уход за автомобилем. Оставьте заявку, и мы подберем подходящую услугу и удобное время.",
@@ -78,6 +213,63 @@ const hero: BrandConfig["hero"] = {
     "Полировка кузова",
     "Химчистка салона",
     "Защитные покрытия",
+  ],
+};
+
+const faq: BrandConfig["faq"] = {
+  title: "Частые вопросы",
+  description:
+    "Короткие ответы для первичной консультации по детейлингу, покрытиям и подготовке автомобиля.",
+  items: [
+    {
+      id: "how-to-choose-service",
+      question: "Как понять, какая услуга нужна автомобилю?",
+      answer:
+        "Оставьте заявку с телефоном и, если удобно, добавьте модель авто и задачу в комментарий. Мы уточним состояние кузова или салона и предложим подходящий формат: полировку, химчистку, защитное покрытие или комплексный уход.",
+      shortAnswer:
+        "Мы уточним состояние авто и подберем услугу по задаче.",
+      category: "consultation",
+      isPrimary: true,
+      order: 1,
+    },
+    {
+      id: "polishing-vs-coating",
+      question: "Чем полировка отличается от керамического покрытия?",
+      answer:
+        "Полировка помогает восстановить внешний вид лакокрасочного покрытия и убрать часть следов эксплуатации. Керамическое покрытие наносится после подготовки поверхности и помогает дольше сохранять блеск и упростить уход.",
+      shortAnswer:
+        "Полировка восстанавливает внешний вид, покрытие помогает сохранить результат.",
+      category: "coating",
+      isPrimary: true,
+      order: 2,
+    },
+    {
+      id: "interior-cleaning-time",
+      question: "Сколько занимает химчистка салона?",
+      answer:
+        "Срок зависит от состояния салона, материалов и объема работ. Обычно точное время согласуем после короткой консультации, чтобы сразу учесть сушку и удобное окно выдачи автомобиля.",
+      category: "interior-care",
+      order: 3,
+    },
+    {
+      id: "need-visit-before-price",
+      question: "Можно ли узнать стоимость без визита?",
+      answer:
+        "Предварительно сориентируем по телефону. Финальную стоимость лучше подтверждать после осмотра, потому что результат и объем работ зависят от состояния кузова, салона и выбранной защиты.",
+      shortAnswer:
+        "Предварительно сориентируем по телефону, финально подтвердим после осмотра.",
+      category: "pricing",
+      isPrimary: true,
+      order: 4,
+    },
+    {
+      id: "paint-protection-film-zones",
+      question: "Можно ли оклеить пленкой только отдельные зоны?",
+      answer:
+        "Да, можно выбрать локальную защиту наиболее уязвимых зон или комплексную оклейку. Подходящий вариант подбираем по задаче, пробегу и состоянию покрытия.",
+      category: "paint-protection",
+      order: 5,
+    },
   ],
 };
 
@@ -145,13 +337,7 @@ ${contactEmail}
 };
 
 const form: BrandConfig["form"] = {
-  serviceOptions: [
-    { value: "body-polishing", label: "Полировка кузова" },
-    { value: "ceramic-coating", label: "Керамическое покрытие" },
-    { value: "interior-deep-cleaning", label: "Химчистка салона" },
-    { value: "paint-protection-film", label: "Оклейка защитной пленкой" },
-    { value: "presale-preparation", label: "Предпродажная подготовка" },
-  ],
+  serviceOptions: toServiceOptions(services.items),
   contactWindowOptions: [
     { value: "today", label: "Сегодня" },
     { value: "tomorrow", label: "Завтра" },
@@ -166,14 +352,10 @@ const form: BrandConfig["form"] = {
     optionalLabel: "Необязательно",
     phoneHelperText: "Нужен, чтобы согласовать услугу и время.",
     phoneErrorText: "Укажите телефон полностью.",
-    submitLabel: "Оставить заявку",
-    submittingLabel: "Отправляем...",
-    mobileCtaMicrocopy: "Достаточно телефона • Детали уточним позже",
-    desktopCtaPoints: [
-      "Заявка предварительная",
-      "Подберем услугу",
-      "Согласуем удобное время",
-    ],
+    submitLabel: cta.formSubmit.label,
+    submittingLabel: cta.formSubmit.submittingLabel,
+    mobileCtaMicrocopy: cta.formSubmit.helperText ?? "",
+    desktopCtaPoints: cta.formSubmit.desktopHelperPoints,
     legalPrefix:
       "Нажимая кнопку, вы соглашаетесь с обработкой персональных данных в соответствии с",
     legalLinkLabel: "политикой конфиденциальности",
@@ -189,7 +371,8 @@ const form: BrandConfig["form"] = {
     commentPlaceholder: "Если хотите, укажите модель авто, состояние кузова или салона",
     antiAnxietyCopy:
       "Если не уверены, какая услуга нужна, опишите задачу своими словами.",
-    mobileStickySubmitLabel: "Оставить заявку",
+    mobileStickySubmitLabel:
+      cta.mobileStickyPrimary.mobileLabel ?? cta.mobileStickyPrimary.label,
   },
   submission: {
     endpoint: "https://bot.shukland.xyz/webhook/aurum-detail-booking",
@@ -215,22 +398,8 @@ export const autoDetailingYakutskExampleConfig: BrandConfig = {
       `Политика конфиденциальности ${businessName} для сайта авто-детейлинга в Якутске.`,
   },
   theme: {
-    bg: "#0B0B0C",
-    surface: "rgba(20, 21, 24, 0.9)",
-    surfaceMuted: "rgba(30, 32, 37, 0.88)",
-    surfaceSubtle: "rgba(214, 168, 95, 0.1)",
-    text: "#F5F7FA",
-    textMuted: "#A7ADB7",
-    border: "rgba(245, 247, 250, 0.12)",
-    borderStrong: "rgba(245, 247, 250, 0.22)",
-    primary: "#D6A85F",
-    primarySoft: "rgba(214, 168, 95, 0.16)",
-    primaryPressed: "#BC8F45",
-    success: "#8BCF97",
-    danger: "#FF9A90",
-    warning: "#D6A85F",
-    shadowSoft: "0 24px 54px rgba(0, 0, 0, 0.36)",
-    themeColor: "#0B0B0C",
+    ...themePresets.blackGold.tokens,
+    preset: toThemePresetSelection(themePresets.blackGold),
   },
   assets: {
     logos,
@@ -239,7 +408,10 @@ export const autoDetailingYakutskExampleConfig: BrandConfig = {
     ogImagePath: null,
   },
   contact,
+  cta,
   hero,
+  services,
+  faq,
   form,
   legal,
   automation: {

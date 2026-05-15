@@ -6,17 +6,34 @@ import type { BrandConfig } from "@/content/brand-types";
 export type {
   AutomationConfig,
   AutomationPayloadKey,
+  AutoHeroTemplateId,
   BrandAssets,
   BrandConfig,
   BrandIdentity,
+  BrandTheme,
+  BrandThemeTokens,
   ContactContent,
   ContactWindow,
+  CtaActionType,
+  CtaContent,
+  CtaDefinition,
+  CtaVariant,
+  FaqContent,
+  FaqItem,
   FormContent,
+  FormSubmitCta,
+  HeroTemplate,
+  HeroTemplateSelection,
   LegalContent,
   LocaleConfig,
+  ServiceItem,
   ServiceOption,
   ServiceOptionId,
+  ServicesContent,
   ServiceKind,
+  ThemePreset,
+  ThemePresetId,
+  ThemePresetSelection,
 } from "@/content/brand-types";
 
 // Switch this fixture to adapt the white-label skeleton to another local service.
@@ -43,13 +60,17 @@ export const brandThemeStyle: CSSVariableStyle = {
 };
 
 export const brandSeo = activeBrand.seo;
+export const themePresetContent = activeBrand.theme.preset;
 export const localeContent = activeBrand.locale;
 export const brandContent = activeBrand.brand;
 export const assetsContent = activeBrand.assets;
 export const brandLogos = activeBrand.assets.logos;
 export const contactContent = activeBrand.contact;
+export const ctaContent = activeBrand.cta;
 export const dealerProfile = activeBrand.dealerProfile;
 export const heroContent = activeBrand.hero;
+export const servicesContent = activeBrand.services;
+export const faqContent = activeBrand.faq;
 export const formContent = activeBrand.form;
 export const serviceOptions = formContent.serviceOptions;
 export const contactWindowOptions = formContent.contactWindowOptions;

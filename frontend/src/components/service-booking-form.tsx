@@ -6,6 +6,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import {
   contactWindowOptions,
+  ctaContent,
   formContent,
   legalContent,
   localeContent,
@@ -37,6 +38,7 @@ type BookingSubmissionPayload = {
 
 const phoneDefaults = localeContent.phone;
 const formCopy = formContent.copy;
+const formSubmitCta = ctaContent.formSubmit;
 const submissionConfig = formContent.submission;
 const PHONE_PREFIX = phoneDefaults.prefix;
 const LOCAL_PHONE_LENGTH = phoneDefaults.localLength;
@@ -423,14 +425,16 @@ export function ServiceBookingForm() {
             disabled={submitState === "submitting" || !phoneIsValid}
             className="inline-flex min-h-[54px] w-full items-center justify-center rounded-[10px] bg-[var(--primary)] px-5 text-base font-semibold tracking-[-0.01em] text-white shadow-[0_16px_36px_rgba(112,46,18,0.22)] transition max-[430px]:min-h-[52px] hover:bg-[var(--primary-pressed)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-14"
           >
-            {submitState === "submitting" ? formCopy.submittingLabel : formCopy.submitLabel}
+            {submitState === "submitting"
+              ? formSubmitCta.submittingLabel
+              : formSubmitCta.label}
           </button>
           <div className="accent-divider border-b border-[var(--border)] pb-3 max-[430px]:pb-2.5">
             <p className="text-[10px] leading-[15px] tracking-[0.006em] text-[var(--text-2)] sm:hidden">
-              {formCopy.mobileCtaMicrocopy}
+              {formSubmitCta.helperText}
             </p>
             <div className="hidden gap-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--text-2)] sm:grid sm:grid-cols-3 sm:gap-2 sm:text-[10px]">
-              {formCopy.desktopCtaPoints.map((point) => (
+              {formSubmitCta.desktopHelperPoints.map((point) => (
                 <p key={point}>{point}</p>
               ))}
             </div>
